@@ -2,6 +2,7 @@
 
 [![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](LICENSE)
 [![Deployment](https://img.shields.io/badge/Deployed%20on-Cloudflare%20Pages-f38020.svg)](https://methyl-cpg.pages.dev)
+[![GitHub Pages](https://img.shields.io/badge/Website-GitHub%20Pages-222222.svg)](https://jingjinaccubit.github.io/Methyl-CpG/)
 
 A clinical genetics web platform for detecting CpG mutational hotspots, evolutionary depletion, ClinVar recurrence, and gnomAD de novo mutation probability across human collagen genes.
 
@@ -97,5 +98,4 @@ Any commercial use, including but not limited to:
 
 - **Licensing Contact**: Jing Jin
 - **Email**: [jingjin@accubitbio.com](mailto:jingjin@accubitbio.com)
-
 
