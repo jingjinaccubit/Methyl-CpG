@@ -11,7 +11,7 @@ import {
   computeStatisticalMetric,
   chiSquareGoodnessOfFit,
 } from './statistics';
-import { GENE_CLINVAR_MAP, COL4A5_BENCHMARK_CPG } from '../data/clinvarData';
+import { GENE_CLINVAR_MAP, COL4A5_BENCHMARK_CPG, GENE_CLINVAR_BASELINE } from '../data/clinvarData';
 import { calculateGnomadScore } from '../data/gnomadModel';
 
 export const CODON_MAP: Record<string, string> = {
@@ -190,14 +190,16 @@ export function analyzeSequence(
         else if (sigCode === 'Conflicting') sigLabel = 'Conflicting Interpretations';
         else if (sigCode === 'B/LB') sigLabel = 'Benign / Likely Benign';
 
-        // gnomAD mutability score
+        // gnomAD mutability score & empirical population frequency
         const gnomadInfo = calculateGnomadScore(
           true,
           false,
           isReported,
           isMultiSub,
           glyCodon,
-          prevCodon
+          prevCodon,
+          geneSymbol,
+          residuePos
         );
 
         cpgDyads.push({
@@ -235,6 +237,9 @@ export function analyzeSequence(
             percentile: gnomadInfo.percentile,
             alleleFrequency: gnomadInfo.typicalAlleleFrequency,
             alleleCount: gnomadInfo.alleleCount,
+            alleleNumber: gnomadInfo.alleleNumber,
+            variantId: gnomadInfo.variantId,
+            observedInGnomad: gnomadInfo.observedInGnomad,
             classification: gnomadInfo.classification
           }
         });
@@ -441,11 +446,12 @@ export function analyzeSequence(
   const cpgCandidate = cpgDyads.filter(d => !d.clinvar.reported || d.clinvar.significanceCode === 'Candidate').length;
   const cpgMulti = cpgDyads.filter(d => d.clinvar.multipleSubmitters).length;
 
-  // COL4A5 benchmark baseline from paper:
-  // 173 of 437 non-CpG glycines have reported G->A (40%), 52 multiple submitters (30%)
-  const nonCpgReported = geneSymbol === 'COL4A5' ? 173 : Math.round(collGlyCount * 0.38);
-  const nonCpgTotal = geneSymbol === 'COL4A5' ? 437 : Math.max(1, collGlyCount - cpgDyadsCount);
-  const nonCpgMulti = geneSymbol === 'COL4A5' ? 52 : Math.round(nonCpgReported * 0.30);
+  // Real ClinVar baseline statistics from whole-gene ClinVar single-nucleotide missense database
+  // COL4A5 benchmark baseline from paper: 173 of 437 non-CpG glycines reported (40%), 52 multiple submitters (30%)
+  const baseline = GENE_CLINVAR_BASELINE[geneSymbol];
+  const nonCpgReported = baseline ? baseline.nonCpgReported : (geneSymbol === 'COL4A5' ? 173 : Math.round(collGlyCount * 0.38));
+  const nonCpgTotal = baseline ? baseline.nonCpgTotal : (geneSymbol === 'COL4A5' ? 437 : Math.max(1, collGlyCount - cpgDyadsCount));
+  const nonCpgMulti = baseline ? baseline.nonCpgMulti : (geneSymbol === 'COL4A5' ? 52 : Math.round(nonCpgReported * 0.30));
 
   const orT2Reporting = computeStatisticalMetric(
     cpgPlp || cpgReported,

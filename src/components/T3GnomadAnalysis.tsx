@@ -126,6 +126,9 @@ export const T3GnomadAnalysis: React.FC<T3GnomadAnalysisProps> = ({
                 <span className="font-mono text-[11px] text-slate-500">
                   μ = {site.gnomad.mutability.toExponential(2)}
                 </span>
+                <span className="font-mono text-[10px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-600">
+                  {site.gnomad.alleleCount > 0 ? `gnomAD AC=${site.gnomad.alleleCount}` : 'gnomAD AC=0'}
+                </span>
                 <span
                   className={`px-2 py-0.5 rounded-full font-semibold text-[11px] ${
                     site.gnomad.classification === 'Prone to Recurrent De Novo'

@@ -65,6 +65,9 @@ export interface CpGSite {
     percentile: number; // e.g. 99.4%
     alleleFrequency: number;
     alleleCount: number;
+    alleleNumber?: number;
+    variantId?: string;
+    observedInGnomad?: boolean;
     classification: 'Prone to Recurrent De Novo' | 'Potential Somatic De Novo' | 'Germline / Low Mutability' | 'Candidate Hotspot (Unreported)';
   };
 }

@@ -417,17 +417,24 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
 
                     {/* gnomAD De Novo Risk */}
                     <td className="py-3 px-4 text-xs">
-                      <span
-                        className={`inline-block px-2 py-0.5 rounded font-medium text-[11px] ${
-                          site.gnomad.classification === 'Prone to Recurrent De Novo'
-                            ? 'bg-purple-100 text-purple-800'
-                            : site.gnomad.classification === 'Candidate Hotspot (Unreported)'
-                            ? 'bg-amber-100 text-amber-800'
-                            : 'bg-slate-100 text-slate-700'
-                        }`}
-                      >
-                        {site.gnomad.classification}
-                      </span>
+                      <div className="flex flex-col gap-0.5">
+                        <span
+                          className={`inline-block px-2 py-0.5 rounded font-medium text-[11px] w-fit ${
+                            site.gnomad.classification === 'Prone to Recurrent De Novo'
+                              ? 'bg-purple-100 text-purple-800'
+                              : site.gnomad.classification === 'Candidate Hotspot (Unreported)'
+                              ? 'bg-amber-100 text-amber-800'
+                              : 'bg-slate-100 text-slate-700'
+                          }`}
+                        >
+                          {site.gnomad.classification}
+                        </span>
+                        <span className="text-[10px] text-slate-500 font-mono">
+                          {site.gnomad.alleleCount > 0
+                            ? `gnomAD v4 AC=${site.gnomad.alleleCount} (AF=${site.gnomad.alleleFrequency.toExponential(1)})`
+                            : 'gnomAD v4 AC=0 (Depleted)'}
+                        </span>
+                      </div>
                     </td>
                   </tr>
                 );
