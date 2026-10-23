@@ -80,18 +80,20 @@ def load_preloaded_cds():
 
 def fetch_clinvar_records(target_genes):
     """Stream download variant_summary.txt.gz and filter for target genes."""
-    # Check if a fresh local cache exists (e.g. from scratch dir)
-    local_cache = os.path.join(REPO_ROOT, '..', '.gemini', 'antigravity-cli', 'brain', '8bdb31f8-371a-4d90-84c3-7cbfd70a2732', 'scratch', 'clinvar_collagen.json')
-    if os.path.exists(local_cache) and os.path.getsize(local_cache) > 10 * 1024 * 1024:
-        print(f"[2/4] Loading cached ClinVar records from {local_cache}...")
+    # Optional local cache path for offline development via environment variable
+    local_cache = os.environ.get('CLINVAR_LOCAL_CACHE')
+    if local_cache and os.path.exists(local_cache) and os.path.getsize(local_cache) > 10 * 1024 * 1024:
+        print(f"[2/4] Loading cached ClinVar records from CLINVAR_LOCAL_CACHE={local_cache}...")
         with open(local_cache, 'r', encoding='utf-8') as f:
             records = json.load(f)
         records_by_gene = {gene: [] for gene in target_genes}
         for r in records:
             g = r.get('gene')
             if g in records_by_gene:
-                records_by_gene[g].append(r)
-        print(f"      Loaded {len(records)} records from cache.")
+                # Strong gene validation on cached records as well
+                if f"({g})" in r.get('name', ''):
+                    records_by_gene[g].append(r)
+        print(f"      Loaded {sum(len(v) for v in records_by_gene.values())} records from cache.")
         return records_by_gene
 
     print(f"[2/4] Streaming ClinVar variant summary from {NCBI_CLINVAR_URL}...")
@@ -142,6 +144,12 @@ def fetch_clinvar_records(target_genes):
 
                     name_idx = col_map.get('Name')
                     name = parts[name_idx].decode('utf-8', errors='ignore') if name_idx is not None else ''
+
+                    # Strong gene validation: verify that the Name explicitly contains (GENE)
+                    # e.g. NM_033380.3(COL4A5):c.3508G>A (p.Gly1170Ser)
+                    # Rejects cross-gene contamination where genomic ranges overlap
+                    if f"({gene})" not in name:
+                        continue
 
                     sig_idx = col_map.get('ClinicalSignificance')
                     sig = parts[sig_idx].decode('utf-8', errors='ignore') if sig_idx is not None else ''
@@ -399,7 +407,7 @@ def write_typescript_data(gene_clinvar_map, gene_baseline):
             "reported": True,
             "multiSub": True,
             "varId": "794974",
-            "condition": "Conflicting classifications of pathogenicity",
+            "condition": "Alport syndrome, X-linked",
             "significance": "Conflicting"
         },
         {
@@ -477,7 +485,7 @@ def write_typescript_data(gene_clinvar_map, gene_baseline):
             "reported": True,
             "multiSub": True,
             "varId": "24638",
-            "condition": "Conflicting classifications of pathogenicity",
+            "condition": "Alport syndrome, X-linked",
             "significance": "Conflicting"
         },
         {

@@ -88,7 +88,7 @@ export const COL4A5_BENCHMARK_CPG = [
     "reported": true,
     "multiSub": true,
     "varId": "794974",
-    "condition": "Conflicting classifications of pathogenicity",
+    "condition": "Alport syndrome, X-linked",
     "significance": "Conflicting"
   },
   {
@@ -166,7 +166,7 @@ export const COL4A5_BENCHMARK_CPG = [
     "reported": true,
     "multiSub": true,
     "varId": "24638",
-    "condition": "Conflicting classifications of pathogenicity",
+    "condition": "Alport syndrome, X-linked",
     "significance": "Conflicting"
   },
   {

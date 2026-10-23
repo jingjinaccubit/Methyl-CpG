@@ -176,10 +176,10 @@ export function analyzeSequence(
             isReported = bench.reported;
             isMultiSub = bench.multiSub;
             varId = bench.varId || (clinvarEntry ? clinvarEntry.variationId : undefined);
-            condition = bench.condition || (clinvarEntry ? clinvarEntry.condition : undefined);
+            condition = bench.condition || (clinvarEntry ? clinvarEntry.condition : 'Alport syndrome, X-linked');
             sigCode = (bench.significance as any) || (clinvarEntry ? clinvarEntry.significance : 'Candidate');
-            rawSignificance = clinvarEntry?.rawSignificance || bench.condition || (bench.reported ? 'Pathogenic' : undefined);
-            revStatus = clinvarEntry?.reviewStatus || (bench.reported ? 'criteria provided, multiple submitters, no conflicts' : 'Not reported in ClinVar');
+            rawSignificance = clinvarEntry?.rawSignificance || (sigCode === 'Conflicting' ? 'Conflicting classifications of pathogenicity' : 'Pathogenic');
+            revStatus = clinvarEntry?.reviewStatus || (sigCode === 'Conflicting' ? 'criteria provided, conflicting classifications' : 'criteria provided, multiple submitters, no conflicts');
           }
         }
 
@@ -459,7 +459,7 @@ export function analyzeSequence(
   const cpgLp = cpgDyads.filter(d => d.clinvar.significanceCode === 'LP').length;
   const cpgBothPlp = cpgDyads.filter(d => d.clinvar.significanceCode === 'P/LP').length;
   const cpgVus = cpgDyads.filter(d => d.clinvar.significanceCode === 'VUS').length;
-  const cpgCandidate = cpgDyads.filter(d => !d.clinvar.reported || d.clinvar.significanceCode === 'Candidate').length;
+  const cpgCandidate = cpgDyads.filter(d => !d.clinvar.isPathogenicOrLikely).length;
   const cpgMulti = cpgDyads.filter(d => d.clinvar.multipleSubmitters && d.clinvar.isPathogenicOrLikely).length;
 
   // Real ClinVar baseline statistics from whole-gene ClinVar single-nucleotide missense database
