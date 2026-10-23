@@ -15,6 +15,7 @@ import { SequenceLogo } from './SequenceLogo';
 import { ForestPlot } from './ForestPlot';
 import type { ForestPlotItem } from './ForestPlot';
 import { exportReportToPdf } from '../utils/pdfExport';
+import { CLINVAR_RELEASE_DATE } from '../data/clinvarData';
 
 interface T4ReportProps {
   result: SequenceAnalysisResult;
@@ -138,9 +139,17 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
       s.gnomad.classification
     ]);
 
+    const metadata = [
+      `# Tool: Methyl-CpG Hotspot Explorer`,
+      `# Gene: ${result.geneSymbol}`,
+      `# ClinVar Snapshot: ${CLINVAR_RELEASE_DATE}`,
+      `# Methodology: Symmetrical first-base G>A SNV filtered for P/LP status (JASN comparison benchmark)`,
+      `# Date Generated: ${new Date().toISOString().split('T')[0]}`
+    ];
+
     const csvContent =
       'data:text/csv;charset=utf-8,' +
-      [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      [...metadata, headers.join(','), ...rows.map(e => e.join(','))].join('\n');
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
@@ -448,12 +457,17 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
         </div>
 
         {/* Table Footer Notes */}
-        <div className="p-4 bg-slate-50 border-t border-slate-200 text-xs text-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div>
-            * Asterisks mark candidate hot spot positions predicted by reverse-strand methyl-CpG mutagenesis but not yet registered in ClinVar.
+        <div className="p-4 bg-slate-50 border-t border-slate-200 text-xs text-slate-600 flex flex-col gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              * Asterisks mark candidate hot spot positions predicted by reverse-strand methyl-CpG mutagenesis but not yet registered as P/LP in ClinVar.
+            </div>
+            <div className="font-medium text-slate-500 shrink-0">
+              Total {result.cpgDyads.length} CpG dyad sites identified in {result.geneSymbol}
+            </div>
           </div>
-          <div className="font-medium text-slate-500">
-            Total {result.cpgDyads.length} CpG dyad sites identified in {result.geneSymbol}
+          <div className="text-[11px] text-slate-500 border-t border-slate-200 pt-2 leading-relaxed">
+            <strong>Methodology &amp; Calibration Note:</strong> Live calculations evaluate single-nucleotide first-base G→A missense variants symmetrically filtered for Pathogenic / Likely Pathogenic (P/LP) status on both CpG and non-CpG sides (COL4A5 yields OR = 7.01, non-CpG multi-submitters = 38%). In the published JASN paper, all reported first-base G→A variants were tabulated regardless of clinical classification (yielding OR = 7.6, non-CpG multi-submitters = 30%). Differences stem from stricter P/LP curation and ongoing NCBI ClinVar database updates (ClinVar snapshot: {CLINVAR_RELEASE_DATE}).
           </div>
         </div>
       </div>

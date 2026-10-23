@@ -1,6 +1,7 @@
 import React from 'react';
-import { Flame, CheckCircle, ShieldCheck, AlertCircle, FileSearch } from 'lucide-react';
+import { Flame, CheckCircle, ShieldCheck, AlertCircle, FileSearch, Info } from 'lucide-react';
 import type { T2Stats, CpGSite } from '../types';
+import { CLINVAR_RELEASE_DATE } from '../data/clinvarData';
 
 interface T2ClinVarAnalysisProps {
   t2: T2Stats;
@@ -125,6 +126,25 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
             {t2.cpgMultiSubmittersCount > 0
               ? `CpG G→A variants in ${geneSymbol} demonstrate extensive multi-laboratory independent submissions, validating biological recurrence.`
               : 'Multi-submitter recurrence evaluation applies to confirmed pathogenic variants across clinical laboratories.'}
+          </p>
+        </div>
+      </div>
+
+      {/* Methodology Calibration Note */}
+      <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 text-xs mb-6">
+        <div className="flex items-center gap-2 font-semibold text-slate-800 mb-1.5">
+          <Info className="w-4 h-4 text-slate-500 shrink-0" />
+          <span>Methodology Calibration &amp; Paper Benchmark Note</span>
+          <span className="text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono ml-auto">
+            ClinVar data as of {CLINVAR_RELEASE_DATE}
+          </span>
+        </div>
+        <div className="text-slate-600 space-y-1.5 pl-6 leading-relaxed">
+          <p className="m-0">
+            <strong>Tool Pipeline:</strong> Evaluates single-nucleotide first-base G→A missense variants filtered symmetrically for Pathogenic / Likely Pathogenic (P/LP) status across both CpG and non-CpG sites (COL4A5 yields OR = 7.01, non-CpG multi-submitters = 38% [69 of 182]).
+          </p>
+          <p className="m-0 text-slate-500">
+            <strong>Original JASN Paper Benchmark:</strong> Tabulated all reported first-base G→A variants regardless of clinical significance (yielding OR = 7.6, non-CpG multi-submitters = 30% [52 of 173]). The slight numerical variations reflect stricter P/LP curation and ongoing ClinVar database updates over time.
           </p>
         </div>
       </div>

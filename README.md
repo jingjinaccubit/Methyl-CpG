@@ -26,10 +26,11 @@ Based on the research:
   - Proline CCC codon depletion test at Yaa positions ($\chi^2$ goodness-of-fit with Lanczos gamma and Lentz continued fractions at $df=3$ against Kazusa codon database).
   - Non-proline Yaa codons capable of ending in cytosine.
 - **T2: ClinVar Mutational Hotspots**:
-  - Cross-references reported Pathogenic/Likely Pathogenic missense variants in ClinVar using real NCBI ClinVar variation IDs.
+  - Cross-references reported Pathogenic/Likely Pathogenic missense variants in ClinVar using real NCBI ClinVar variation IDs (auto-updated monthly).
   - Symmetrical first-base G>A missense comparison between CpG and non-CpG glycines.
-  - Multiple independent submitters recurrence proxy (100% at CpG vs 38% non-CpG in COL4A5).
+  - Multiple independent submitters recurrence proxy (100% at CpG vs ~30–38% at non-CpG depending on P/LP curation and ClinVar release snapshot).
   - Flags candidate hotspots (unreported or VUS in ClinVar) for targeted biobank discovery.
+  - *Methodology Note*: Calculations evaluate single-nucleotide first-base G>A missense variants symmetrically filtered for Pathogenic / Likely Pathogenic (P/LP) status on both CpG and non-CpG sides (COL4A5 OR = 7.01). In the original JASN paper, all reported first-base G>A variants were tabulated regardless of clinical classification (OR = 7.6). Differences reflect stricter P/LP curation and ongoing NCBI ClinVar database updates over time.
 - **T3: gnomAD SNV & Mutability**:
   - Evaluates context-dependent mutation probability score ($\mu \approx 1.28 \times 10^{-7}$, top 0.6% percentile, 10.7x elevation).
   - Classifies variants into:

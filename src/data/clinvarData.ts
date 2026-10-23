@@ -1,3 +1,8 @@
+// Auto-generated ClinVar dataset for collagen disorders
+// Tracks monthly NCBI ClinVar snapshots
+export const CLINVAR_RELEASE_DATE = "2026-10";
+export const CLINVAR_LAST_UPDATED = "2026-10-23";
+
 export interface ClinVarRecord {
   pos: number; // protein position (1-based)
   refAA: string;

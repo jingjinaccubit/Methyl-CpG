@@ -1,5 +1,6 @@
 import React from 'react';
-import { Dna, Table2, FileText, Sparkles } from 'lucide-react';
+import { Dna, Table2, FileText, Sparkles, Database } from 'lucide-react';
+import { CLINVAR_RELEASE_DATE } from '../data/clinvarData';
 
 interface HeaderProps {
   onOpenCollagenTable: () => void;
@@ -19,12 +20,16 @@ export const Header: React.FC<HeaderProps> = ({
             <Dna className="w-6 h-6 animate-pulse" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <h1 className="text-xl font-bold tracking-tight text-slate-900 m-0">
                 Methyl-CpG Hotspot Explorer
               </h1>
               <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
                 Collagen Disorders
+              </span>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-300 font-mono">
+                <Database className="w-3 h-3 text-emerald-600" />
+                ClinVar {CLINVAR_RELEASE_DATE}
               </span>
             </div>
             <p className="text-xs text-slate-500 m-0 flex items-center gap-1.5 mt-0.5">

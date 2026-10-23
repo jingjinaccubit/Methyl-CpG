@@ -95,9 +95,12 @@ export const PaperModal: React.FC<PaperModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 text-xs">
-            <h6 className="font-bold text-slate-800 mb-1">Translational Extension to all 28 Collagen Types</h6>
-            <p className="text-slate-600">
-              This software platform generalizes this exact analytical pipeline (T1 Depletion, T2 ClinVar Hotspots, T3 gnomAD Recurrent De Novo, T4 Odds Ratio Report) to all 44 human collagen genes encoding types I through XXVIII (e.g. COL1A1/COL1A2 in OI, COL3A1/COL5A1 in EDS, COL2A1/COL11A1 in Stickler syndrome).
+            <h6 className="font-bold text-slate-800 mb-1">Translational Extension &amp; Methodology Calibration</h6>
+            <p className="text-slate-600 mb-2 leading-relaxed">
+              This software platform generalizes this analytical pipeline (T1 Depletion, T2 ClinVar Hotspots, T3 gnomAD Recurrent De Novo, T4 Odds Ratio Report) to all 44 human collagen genes encoding types I through XXVIII (e.g. COL1A1/COL1A2 in OI, COL3A1/COL5A1 in EDS, COL2A1/COL11A1 in Stickler syndrome).
+            </p>
+            <p className="text-slate-500 m-0 leading-relaxed border-t border-slate-200/60 pt-1.5 text-[11px]">
+              <em>Calibration Note:</em> In the original paper, the historical benchmark tabulated all reported G→A variants irrespective of clinical classification (OR = 7.6, non-CpG multi-submitters = 30%). In this live platform, variants are symmetrically filtered for Pathogenic / Likely Pathogenic (P/LP) status across both CpG and non-CpG codons (COL4A5 OR = 7.01, non-CpG multi-submitters = 38%). Minor differences reflect stricter P/LP curation and ongoing ClinVar database updates over time.
             </p>
           </div>
         </div>

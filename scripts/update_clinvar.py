@@ -503,7 +503,15 @@ def write_typescript_data(gene_clinvar_map, gene_baseline):
         }
     ]
 
-    ts_content = """export interface ClinVarRecord {
+    current_month = datetime.now().strftime("%Y-%m")
+    current_date = datetime.now().strftime("%Y-%m-%d")
+
+    ts_content = f"""// Auto-generated ClinVar dataset for collagen disorders
+// Tracks monthly NCBI ClinVar snapshots
+export const CLINVAR_RELEASE_DATE = "{current_month}";
+export const CLINVAR_LAST_UPDATED = "{current_date}";
+
+export interface ClinVarRecord {{
   pos: number; // protein position (1-based)
   refAA: string;
   altAA: string;
@@ -515,9 +523,9 @@ def write_typescript_data(gene_clinvar_map, gene_baseline):
   condition?: string;
   significance: 'P' | 'LP' | 'P/LP' | 'VUS' | 'Conflicting' | 'B/LB' | 'Other' | 'Candidate' | 'Unknown';
   rawSignificance?: string;
-}
+}}
 
-export interface ClinVarBaseline {
+export interface ClinVarBaseline {{
   collGlyCount: number;
   cpgDyadTotal: number;
   cpgReported: number;
@@ -527,7 +535,7 @@ export interface ClinVarBaseline {
   nonCpgReported: number;
   nonCpgPlp: number;
   nonCpgMulti: number;
-}
+}}
 
 // Benchmark COL4A5 dataset from JASN-2026-001162_R1 updated with verified NCBI ClinVar Variation IDs
 export const COL4A5_BENCHMARK_CPG = """ + json.dumps(col4a5_benchmark, indent=2) + """;
