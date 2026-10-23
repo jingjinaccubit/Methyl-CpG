@@ -23,3 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 .~lock.*#
+
+# AI and Agent traces
+.gemini/
+.claude/
+*.md.tmp
+scratch/
