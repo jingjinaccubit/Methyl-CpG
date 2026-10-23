@@ -21,15 +21,15 @@ Based on the research:
   - Custom sequence textarea for pasting arbitrary FASTA or cDNA sequences, with reading frame selector (+0, +1, +2).
 - **T1: Evolutionary Depletion**:
   - Quantifies CpG dyad depletion at collagenous Glycines against the human coding genome (MANE Select: 14.3%).
-  - Within-gene non-collagenous domain controls.
+  - Within-gene controls comparing Yaa codons ending in C against all other codons in the gene ending in C.
   - Guanine-initial controls (Ala, Val, Asp, Glu).
-  - Proline CCC codon depletion test at Yaa positions ($\chi^2$ goodness-of-fit with $df=3$ against Kazusa codon database).
+  - Proline CCC codon depletion test at Yaa positions ($\chi^2$ goodness-of-fit with Lanczos gamma and Lentz continued fractions at $df=3$ against Kazusa codon database).
   - Non-proline Yaa codons capable of ending in cytosine.
 - **T2: ClinVar Mutational Hotspots**:
-  - Cross-references reported Pathogenic/Likely Pathogenic missense variants in ClinVar.
-  - Hotspot reporting odds ratio (CpG vs non-CpG).
-  - Multiple independent submitters recurrence proxy (100% at CpG vs 30% non-CpG).
-  - Flags candidate hotspots not yet reported in ClinVar (e.g. `p.Gly626Ser`, `p.Gly1170Ser`).
+  - Cross-references reported Pathogenic/Likely Pathogenic missense variants in ClinVar using real NCBI ClinVar variation IDs.
+  - Symmetrical first-base G>A missense comparison between CpG and non-CpG glycines.
+  - Multiple independent submitters recurrence proxy (100% at CpG vs 38% non-CpG in COL4A5).
+  - Flags candidate hotspots (unreported or VUS in ClinVar) for targeted biobank discovery.
 - **T3: gnomAD SNV & Mutability**:
   - Evaluates context-dependent mutation probability score ($\mu \approx 1.28 \times 10^{-7}$, top 0.6% percentile, 10.7x elevation).
   - Classifies variants into:

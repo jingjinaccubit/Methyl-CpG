@@ -101,18 +101,70 @@ export function computeStatisticalMetric(a: number, b: number, c: number, d: num
   };
 }
 
-// Regularized lower incomplete gamma function for Chi-Square CDF
-function gammp(a: number, x: number): number {
-  if (x <= 0) return 0;
-  // Continued fraction / series expansion approximation
-  let sum = 1.0 / a;
-  let term = 1.0 / a;
-  for (let n = 1; n < 100; n++) {
-    term *= x / (a + n);
-    sum += term;
-    if (term < sum * 1e-12) break;
+// Standard Lanczos approximation for log-gamma function ln(Gamma(z)) for any z > 0
+export function logGamma(z: number): number {
+  if (z <= 0) return 0;
+  // Coefficients for g=7, N=9 Lanczos approximation
+  const p = [
+    0.99999999999980993,
+    676.5203681218851,
+    -1259.1392167224028,
+    771.32342877765313,
+    -176.61502916214059,
+    12.507343278686905,
+    -0.13857109526572012,
+    9.9843695780195716e-6,
+    1.5056327351493116e-7
+  ];
+  const g = 7;
+  let x = p[0];
+  for (let i = 1; i < 9; i++) {
+    x += p[i] / (z + i - 1);
   }
-  return Math.min(1.0, Math.exp(-x + a * Math.log(x) - getLogFactorial(Math.round(a) - 1)) * sum);
+  const t = z + g - 0.5;
+  return 0.5 * Math.log(2 * Math.PI) + (z - 0.5) * Math.log(t) - t + Math.log(x);
+}
+
+// Upper incomplete gamma function Q(a, x) = 1 - P(a, x) = Gamma(a, x) / Gamma(a)
+// Numerically stable for all x >= 0 and a > 0 using series representation (x < a + 1)
+// or Legendre continued fraction (x >= a + 1).
+export function gammaUpperIncomplete(a: number, x: number): number {
+  if (x <= 0) return 1.0;
+  if (a <= 0) return 0.0;
+
+  if (x < a + 1) {
+    // Series expansion for lower incomplete gamma P(a, x)
+    let sum = 1.0 / a;
+    let term = 1.0 / a;
+    for (let n = 1; n < 200; n++) {
+      term *= x / (a + n);
+      sum += term;
+      if (term < sum * 1e-15) break;
+    }
+    const logP = a * Math.log(x) - x - logGamma(a) + Math.log(sum);
+    return Math.max(0.0, 1.0 - Math.exp(logP));
+  } else {
+    // Continued fraction for Q(a, x) (Lentz's method)
+    const TINY = 1e-30;
+    let b = x + 1.0 - a;
+    let c = 1.0 / TINY;
+    let d = 1.0 / b;
+    let h = d;
+    for (let i = 1; i <= 200; i++) {
+      const an = -i * (i - a);
+      b += 2.0;
+      d = an * d + b;
+      if (Math.abs(d) < TINY) d = TINY;
+      c = b + an / c;
+      if (Math.abs(c) < TINY) c = TINY;
+      d = 1.0 / d;
+      const delta = d * c;
+      h *= delta;
+      if (Math.abs(delta - 1.0) < 1e-15) break;
+    }
+    const logQ = a * Math.log(x) - x - logGamma(a) + Math.log(h);
+    return Math.min(1.0, Math.max(0.0, Math.exp(logQ)));
+  }
 }
 
 // Chi-Square Goodness-of-Fit test for Proline codons vs Kazusa genome-wide usage
@@ -132,9 +184,8 @@ export function chiSquareGoodnessOfFit(
   }
 
   const df = observed.length - 1;
-  // P-value = 1 - Chi2CDF(chi2, df)
-  // Chi2CDF(x, k) = gammp(k/2, x/2)
-  const pVal = Math.max(0, 1 - gammp(df / 2, chi2 / 2));
+  // P-value = 1 - Chi2CDF(chi2, df) = Q(df / 2, chi2 / 2)
+  const pVal = gammaUpperIncomplete(df / 2, chi2 / 2);
 
   return {
     chi2: Number(chi2.toFixed(1)),

@@ -49,10 +49,12 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
           </div>
           <div className="flex items-baseline gap-2 mb-1">
             <span className="text-2xl font-black text-slate-900 font-mono">
-              OR = {t2.reportingOddsRatio.or.toFixed(2)}
+              OR = {t2.reportingOddsRatio.formattedP === 'N/A' ? 'N/A' : t2.reportingOddsRatio.or.toFixed(2)}
             </span>
             <span className="text-xs font-mono text-slate-600">
-              [95% CI {t2.reportingOddsRatio.ciLower.toFixed(2)} - {t2.reportingOddsRatio.ciUpper.toFixed(2)}]
+              {t2.reportingOddsRatio.formattedP === 'N/A'
+                ? '[95% CI: N/A]'
+                : `[95% CI ${t2.reportingOddsRatio.ciLower.toFixed(2)} - ${t2.reportingOddsRatio.ciUpper.toFixed(2)}]`}
             </span>
             <span className="text-xs font-bold text-emerald-700 ml-auto">
               {t2.reportingOddsRatio.formattedP}
@@ -76,12 +78,14 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
                 {t2.nonCpgReportingRatePct}%
               </div>
               <div className="text-[11px] text-slate-500">
-                ({t2.nonCpgReportedCount} of {t2.nonCpgTotal} reported)
+                ({t2.nonCpgReportedCount} of {t2.nonCpgTotal} P/LP)
               </div>
             </div>
           </div>
           <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-            Glycines retaining a CpG dyad are predominantly confirmed as Pathogenic (P) or Likely Pathogenic (LP) variants in ClinVar.
+            {t2.cpgDyadPlpCount > 0
+              ? 'Glycines retaining a CpG dyad are predominantly confirmed as Pathogenic (P) or Likely Pathogenic (LP) variants in ClinVar.'
+              : 'No Pathogenic/Likely Pathogenic first-base G>A variants have been registered in ClinVar for this gene.'}
           </p>
         </div>
 
@@ -104,7 +108,7 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
             <div className="bg-white p-3 rounded-lg border border-blue-200">
               <div className="text-[11px] text-slate-500 font-medium">CpG G→A Variants</div>
               <div className="text-lg font-bold text-blue-900 font-mono">
-                {t2.cpgMultiSubmittersCount} of {t2.cpgDyadReportedCount}
+                {t2.cpgMultiSubmittersCount} of {t2.cpgDyadPlpCount}
               </div>
               <div className="text-[11px] text-slate-500">Multi-lab independent</div>
             </div>
@@ -112,13 +116,15 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
             <div className="bg-white p-3 rounded-lg border border-slate-200">
               <div className="text-[11px] text-slate-500 font-medium">Non-CpG G→A Variants</div>
               <div className="text-lg font-bold text-slate-800 font-mono">
-                {t2.nonCpgMultiSubmittersPct}%
+                {t2.nonCpgMultiSubmittersCount} of {t2.nonCpgReportedCount}
               </div>
-              <div className="text-[11px] text-slate-500">Multi-lab independent</div>
+              <div className="text-[11px] text-slate-500">Multi-lab independent ({t2.nonCpgMultiSubmittersPct}%)</div>
             </div>
           </div>
           <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-            CpG G→A variants in {geneSymbol} demonstrate extensive multi-laboratory independent submissions, validating biological recurrence.
+            {t2.cpgMultiSubmittersCount > 0
+              ? `CpG G→A variants in ${geneSymbol} demonstrate extensive multi-laboratory independent submissions, validating biological recurrence.`
+              : 'Multi-submitter recurrence evaluation applies to confirmed pathogenic variants across clinical laboratories.'}
           </p>
         </div>
       </div>

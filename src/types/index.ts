@@ -47,7 +47,7 @@ export interface CpGSite {
   aaChange: string; // e.g. 'p.Gly123Arg'
   mutCodon: string; // e.g. 'AGA'
   mutAA: string; // e.g. 'Arg'
-  substitutionClass: 'High Destabilization (Arg)' | 'Moderate Destabilization (Ser)' | 'Other';
+  substitutionClass: 'High Destabilization (Arg)' | 'Moderate Destabilization (Ser)' | 'Other' | 'Nonsense (Stop Codon)' | 'Missense (In-Codon CpG)';
   clinvar: {
     reported: boolean;
     isPathogenicOrLikely: boolean; // true if P, LP, or P/LP
@@ -64,11 +64,20 @@ export interface CpGSite {
     mutability: number; // mutation rate / probability (e.g. 1.25e-7)
     percentile: number; // e.g. 99.4%
     alleleFrequency: number;
-    alleleCount: number;
+    alleleCount?: number;
     alleleNumber?: number;
     variantId?: string;
     observedInGnomad?: boolean;
-    classification: 'Prone to Recurrent De Novo' | 'Potential Somatic De Novo' | 'Germline / Low Mutability' | 'Candidate Hotspot (Unreported)';
+    classification:
+      | 'Prone to Recurrent De Novo'
+      | 'Prone to Recurrent De Novo Hotspot'
+      | 'High Mutability Candidate Hotspot'
+      | 'Potential Somatic De Novo'
+      | 'Potential Somatic / In-Codon De Novo'
+      | 'Germline / Low Mutability'
+      | 'Candidate Hotspot (Unreported)'
+      | 'Pathogenic (In-Codon CpG Hotspot)'
+      | 'Pathogenic (Baseline Mutability)';
   };
 }
 

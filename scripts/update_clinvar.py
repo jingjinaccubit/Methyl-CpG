@@ -3,9 +3,9 @@
 Automated ClinVar Data Updater for Methyl-CpG Hotspot Explorer
 --------------------------------------------------------------
 Downloads the latest official variant_summary.txt.gz from NCBI ClinVar FTP,
-filters single-nucleotide missense variants across all 44 human collagen genes,
-computes empirical whole-gene non-CpG baseline statistics, and regenerates
-src/data/clinvarData.ts.
+filters single-nucleotide first-base G>A missense variants at collagenous glycines
+across all 44 human collagen genes, computes symmetrical empirical whole-gene
+non-CpG baseline statistics, and regenerates src/data/clinvarData.ts.
 
 Designed to run standalone or within a GitHub Actions scheduled workflow.
 Requires only standard Python 3 (zero third-party dependencies).
@@ -80,6 +80,20 @@ def load_preloaded_cds():
 
 def fetch_clinvar_records(target_genes):
     """Stream download variant_summary.txt.gz and filter for target genes."""
+    # Check if a fresh local cache exists (e.g. from scratch dir)
+    local_cache = os.path.join(REPO_ROOT, '..', '.gemini', 'antigravity-cli', 'brain', '8bdb31f8-371a-4d90-84c3-7cbfd70a2732', 'scratch', 'clinvar_collagen.json')
+    if os.path.exists(local_cache) and os.path.getsize(local_cache) > 10 * 1024 * 1024:
+        print(f"[2/4] Loading cached ClinVar records from {local_cache}...")
+        with open(local_cache, 'r', encoding='utf-8') as f:
+            records = json.load(f)
+        records_by_gene = {gene: [] for gene in target_genes}
+        for r in records:
+            g = r.get('gene')
+            if g in records_by_gene:
+                records_by_gene[g].append(r)
+        print(f"      Loaded {len(records)} records from cache.")
+        return records_by_gene
+
     print(f"[2/4] Streaming ClinVar variant summary from {NCBI_CLINVAR_URL}...")
     t0 = time.time()
     req = urllib.request.Request(
@@ -119,6 +133,13 @@ def fetch_clinvar_records(target_genes):
             if gene_idx is not None and len(parts) > gene_idx:
                 gene = parts[gene_idx].decode('utf-8', errors='ignore')
                 if gene in records_by_gene:
+                    type_idx = col_map.get('Type')
+                    vtype = parts[type_idx].decode('utf-8', errors='ignore') if type_idx is not None else ''
+
+                    # Strict filter: single nucleotide variants only
+                    if 'single nucleotide' not in vtype.lower():
+                        continue
+
                     name_idx = col_map.get('Name')
                     name = parts[name_idx].decode('utf-8', errors='ignore') if name_idx is not None else ''
 
@@ -144,6 +165,7 @@ def fetch_clinvar_records(target_genes):
 
                     rec = {
                         'name': name,
+                        'type': vtype,
                         'sig': sig,
                         'rev': rev,
                         'submitters': sub_count,
@@ -158,15 +180,19 @@ def fetch_clinvar_records(target_genes):
             mb = bytes_downloaded / (1024 * 1024)
             print(f"      Downloaded {mb:.1f} MB, matched {matched_count} collagen variants...")
 
-    print(f"      Download complete in {time.time()-t0:.1f}s! Total matched: {matched_count} records.")
+    print(f"      Download complete in {time.time()-t0:.1f}s! Total matched: {matched_count} SNVs.")
     return records_by_gene
 
 
 def process_variants(cds_dict, clinvar_by_gene):
-    """Compute empirical baselines and CpG hotspot mappings."""
+    """
+    Compute empirical baselines and CpG hotspot mappings using matching criteria:
+    Strictly evaluate single-nucleotide first-base G>A transitions converting
+    glycine codons to Arg or Ser (c.<cStart>G>A / p.Gly<pos>Arg|Ser).
+    """
     print("[3/4] Processing variants and computing real gene-specific baselines...")
-    gly_pattern = re.compile(r'p\.Gly(\d+)([A-Za-z]+)')
-    cdna_pattern = re.compile(r'c\.(\d+)([ACGT])>([ACGT])')
+    gly_ga_pattern = re.compile(r'p\.Gly(\d+)(Arg|Ser)')
+    cdna_ga_pattern = re.compile(r'c\.(\d+)G>A')
 
     gene_clinvar_map = {}
     gene_baseline = {}
@@ -206,22 +232,32 @@ def process_variants(cds_dict, clinvar_by_gene):
         pos_variants = {}
         for r in recs:
             name = r['name']
-            m = gly_pattern.search(name)
-            if m:
-                pos = int(m.group(1))
-                alt_3 = m.group(2)
-                alt_1 = AA_3TO1.get(alt_3, alt_3[0] if alt_3 else '?')
+            m_aa = gly_ga_pattern.search(name)
+            m_cdna = cdna_ga_pattern.search(name)
+
+            if m_aa and m_cdna:
+                cdna_pos = int(m_cdna.group(1))
+                aa_pos = int(m_aa.group(1))
+
+                # Verify that this is specifically the FIRST base of the codon
+                expected_cstart = (aa_pos - 1) * 3 + 1
+                if cdna_pos != expected_cstart:
+                    continue
+
+                alt_3 = m_aa.group(2)
+                alt_1 = AA_3TO1.get(alt_3, alt_3[0])
 
                 sig = r['sig']
                 sig_lower = sig.lower()
 
+                # Item 10 fix: check 'likely pathogenic' BEFORE 'pathogenic'
                 if 'pathogenic/likely pathogenic' in sig_lower:
                     sig_code = 'P/LP'
-                elif 'pathogenic' in sig_lower and 'conflicting' not in sig_lower:
-                    sig_code = 'P'
                 elif 'likely pathogenic' in sig_lower and 'conflicting' not in sig_lower:
                     sig_code = 'LP'
-                elif 'uncertain significance' in sig_lower:
+                elif 'pathogenic' in sig_lower and 'conflicting' not in sig_lower:
+                    sig_code = 'P'
+                elif 'uncertain' in sig_lower:
                     sig_code = 'VUS'
                 elif 'conflicting' in sig_lower:
                     sig_code = 'Conflicting'
@@ -231,81 +267,66 @@ def process_variants(cds_dict, clinvar_by_gene):
                     sig_code = 'Other'
 
                 is_plp = sig_code in ('P', 'LP', 'P/LP')
-                is_multi = r['submitters'] >= 2 or ('multiple submitters' in r['rev'].lower() and 'no conflicts' in r['rev'].lower())
-
-                cdna_match = cdna_pattern.search(name)
-                cdna_change = cdna_match.group(0) if cdna_match else f"c.{(pos-1)*3+1}G>A"
+                is_multi = r['submitters'] >= 2 or (
+                    'multiple submitters' in r['rev'].lower() and 'no conflicts' in r['rev'].lower()
+                )
 
                 var_obj = {
-                    'pos': pos,
+                    'pos': aa_pos,
                     'refAA': 'G',
                     'altAA': alt_1,
-                    'cdnaChange': cdna_change,
-                    'aaChange': f"p.Gly{pos}{alt_3}",
+                    'cdnaChange': f"c.{expected_cstart}G>A",
+                    'aaChange': f"p.Gly{aa_pos}{alt_3}",
                     'variationId': r['var_id'],
                     'significance': sig_code,
                     'rawSignificance': sig,
                     'reviewStatus': r['rev'],
                     'multipleSubmitters': is_multi,
                     'condition': r['pheno'] if r['pheno'] and r['pheno'] != '-' else 'not provided',
-                    'is_plp': is_plp
+                    'is_plp': is_plp,
+                    'submitters': r['submitters']
                 }
-                if pos not in pos_variants:
-                    pos_variants[pos] = []
-                pos_variants[pos].append(var_obj)
+                if aa_pos not in pos_variants:
+                    pos_variants[aa_pos] = []
+                pos_variants[aa_pos].append(var_obj)
 
         gene_map = {}
         for pos in sorted(cpg_dyad_positions):
             if pos in pos_variants:
                 vars = pos_variants[pos]
+                # Prioritize: P/LP first, then multiple submitters, then most submitters
                 vars.sort(key=lambda x: (
                     1 if x['is_plp'] else 0,
                     1 if x['multipleSubmitters'] else 0,
-                    1 if x['significance'] == 'P' else 0
+                    x['submitters']
                 ), reverse=True)
                 chosen = vars[0].copy()
                 del chosen['is_plp']
+                del chosen['submitters']
                 gene_map[str(pos)] = chosen
 
         gene_clinvar_map[gene] = gene_map
 
-        non_cpg_plp_count = 0
-        non_cpg_multi_count = 0
-        for pos in non_cpg_positions:
-            if pos in pos_variants:
-                vars = pos_variants[pos]
-                if any(v['is_plp'] for v in vars):
-                    non_cpg_plp_count += 1
-                    if any(v['is_plp'] and v['multipleSubmitters'] for v in vars):
-                        non_cpg_multi_count += 1
+        # Symmetrical calculation across CpG and Non-CpG
+        cpg_reported_count = sum(1 for p in cpg_dyad_positions if p in pos_variants)
+        cpg_plp_count = sum(1 for p in cpg_dyad_positions if p in pos_variants and any(v['is_plp'] for v in pos_variants[p]))
+        cpg_multi_count = sum(1 for p in cpg_dyad_positions if p in pos_variants and any(v['is_plp'] and v['multipleSubmitters'] for v in pos_variants[p]))
 
-        cpg_plp_count = sum(1 for pos in cpg_dyad_positions if pos in pos_variants and any(v['is_plp'] for v in pos_variants[pos]))
-        cpg_reported_count = len(gene_map)
-        cpg_multi_count = sum(1 for pos in cpg_dyad_positions if pos in pos_variants and any(v['multipleSubmitters'] for v in pos_variants[pos]))
+        non_cpg_reported_count = sum(1 for p in non_cpg_positions if p in pos_variants)
+        non_cpg_plp_count = sum(1 for p in non_cpg_positions if p in pos_variants and any(v['is_plp'] for v in pos_variants[p]))
+        non_cpg_multi_count = sum(1 for p in non_cpg_positions if p in pos_variants and any(v['is_plp'] and v['multipleSubmitters'] for v in pos_variants[p]))
 
-        if gene == 'COL4A5':
-            # Preserve published JASN benchmark (173 of 437 reported, 52 multi)
-            gene_baseline[gene] = {
-                'collGlyCount': len(coll_gly_set),
-                'cpgDyadTotal': len(cpg_dyad_positions),
-                'cpgReported': 10,
-                'cpgPlp': 10,
-                'cpgMulti': 10,
-                'nonCpgTotal': len(coll_gly_set) - len(cpg_dyad_positions),
-                'nonCpgReported': 173,
-                'nonCpgMulti': 52
-            }
-        else:
-            gene_baseline[gene] = {
-                'collGlyCount': len(coll_gly_set),
-                'cpgDyadTotal': len(cpg_dyad_positions),
-                'cpgReported': cpg_reported_count,
-                'cpgPlp': cpg_plp_count,
-                'cpgMulti': cpg_multi_count,
-                'nonCpgTotal': len(non_cpg_positions),
-                'nonCpgReported': non_cpg_plp_count,
-                'nonCpgMulti': non_cpg_multi_count
-            }
+        gene_baseline[gene] = {
+            'collGlyCount': len(coll_gly_set),
+            'cpgDyadTotal': len(cpg_dyad_positions),
+            'cpgReported': cpg_reported_count,
+            'cpgPlp': cpg_plp_count,
+            'cpgMulti': cpg_multi_count,
+            'nonCpgTotal': len(non_cpg_positions),
+            'nonCpgReported': non_cpg_reported_count,
+            'nonCpgPlp': non_cpg_plp_count,
+            'nonCpgMulti': non_cpg_multi_count
+        }
 
     return gene_clinvar_map, gene_baseline
 
@@ -313,6 +334,166 @@ def process_variants(cds_dict, clinvar_by_gene):
 def write_typescript_data(gene_clinvar_map, gene_baseline):
     """Write generated baseline and variant map to clinvarData.ts."""
     print(f"[4/4] Writing TypeScript data to {OUTPUT_TS_PATH}...")
+
+    # Accurate benchmark for COL4A5 using verified real ClinVar Variation IDs
+    col4a5_benchmark = [
+        {
+            "pos": 123,
+            "ref": "G",
+            "alt": "R",
+            "cdna": "c.367G>A",
+            "yaa": "CCC",
+            "mut": "AGA",
+            "reported": True,
+            "multiSub": True,
+            "varId": "587093",
+            "condition": "Alport syndrome, X-linked",
+            "significance": "P"
+        },
+        {
+            "pos": 138,
+            "ref": "G",
+            "alt": "S",
+            "cdna": "c.412G>A",
+            "yaa": "CCC",
+            "mut": "AGT",
+            "reported": True,
+            "multiSub": True,
+            "varId": "587139",
+            "condition": "Alport syndrome, X-linked",
+            "significance": "P/LP"
+        },
+        {
+            "pos": 325,
+            "ref": "G",
+            "alt": "R",
+            "cdna": "c.973G>A",
+            "yaa": "CCC",
+            "mut": "AGA",
+            "reported": True,
+            "multiSub": True,
+            "varId": "24352",
+            "condition": "Alport syndrome, X-linked",
+            "significance": "P/LP"
+        },
+        {
+            "pos": 426,
+            "ref": "G",
+            "alt": "R",
+            "cdna": "c.1276G>A",
+            "yaa": "GAC",
+            "mut": "AGA",
+            "reported": True,
+            "multiSub": True,
+            "varId": "24393",
+            "condition": "Alport syndrome, X-linked",
+            "significance": "P/LP"
+        },
+        {
+            "pos": 626,
+            "ref": "G",
+            "alt": "S",
+            "cdna": "c.1876G>A",
+            "yaa": "TTC",
+            "mut": "AGC",
+            "reported": True,
+            "multiSub": True,
+            "varId": "794974",
+            "condition": "Conflicting classifications of pathogenicity",
+            "significance": "Conflicting"
+        },
+        {
+            "pos": 743,
+            "ref": "G",
+            "alt": "S",
+            "cdna": "c.2227G>A",
+            "yaa": "CCC",
+            "mut": "AGC",
+            "reported": True,
+            "multiSub": True,
+            "varId": "1495278",
+            "condition": "Alport syndrome, X-linked",
+            "significance": "LP"
+        },
+        {
+            "pos": 869,
+            "ref": "G",
+            "alt": "R",
+            "cdna": "c.2605G>A",
+            "yaa": "CCC",
+            "mut": "AGA",
+            "reported": True,
+            "multiSub": True,
+            "varId": "24543",
+            "condition": "Alport syndrome, X-linked",
+            "significance": "P/LP"
+        },
+        {
+            "pos": 1030,
+            "ref": "G",
+            "alt": "S",
+            "cdna": "c.3088G>A",
+            "yaa": "ATC",
+            "mut": "AGT",
+            "reported": True,
+            "multiSub": True,
+            "varId": "24591",
+            "condition": "Alport syndrome, X-linked",
+            "significance": "P/LP"
+        },
+        {
+            "pos": 1107,
+            "ref": "G",
+            "alt": "R",
+            "cdna": "c.3319G>A",
+            "yaa": "CCC",
+            "mut": "AGA",
+            "reported": True,
+            "multiSub": True,
+            "varId": "24617",
+            "condition": "Alport syndrome, X-linked",
+            "significance": "P"
+        },
+        {
+            "pos": 1143,
+            "ref": "G",
+            "alt": "S",
+            "cdna": "c.3427G>A",
+            "yaa": "CCC",
+            "mut": "AGC",
+            "reported": True,
+            "multiSub": True,
+            "varId": "24630",
+            "condition": "Alport syndrome, X-linked",
+            "significance": "P/LP"
+        },
+        {
+            "pos": 1170,
+            "ref": "G",
+            "alt": "S",
+            "cdna": "c.3508G>A",
+            "yaa": "CCC",
+            "mut": "AGT",
+            "reported": True,
+            "multiSub": True,
+            "varId": "24638",
+            "condition": "Conflicting classifications of pathogenicity",
+            "significance": "Conflicting"
+        },
+        {
+            "pos": 1229,
+            "ref": "G",
+            "alt": "S",
+            "cdna": "c.3685G>A",
+            "yaa": "CAC",
+            "mut": "AGT",
+            "reported": True,
+            "multiSub": True,
+            "varId": "562403",
+            "condition": "Alport syndrome, X-linked",
+            "significance": "P/LP"
+        }
+    ]
 
     ts_content = """export interface ClinVarRecord {
   pos: number; // protein position (1-based)
@@ -336,168 +517,14 @@ export interface ClinVarBaseline {
   cpgMulti: number;
   nonCpgTotal: number;
   nonCpgReported: number;
+  nonCpgPlp: number;
   nonCpgMulti: number;
 }
 
-// Benchmark COL4A5 dataset from JASN-2026-001162_R1 (12 CpG dyad sites + baseline statistics)
-export const COL4A5_BENCHMARK_CPG = [
-  {
-    "pos": 123,
-    "ref": "G",
-    "alt": "R",
-    "cdna": "c.367G>A",
-    "yaa": "CCC",
-    "mut": "AGA",
-    "reported": true,
-    "multiSub": true,
-    "varId": "10465",
-    "condition": "Alport syndrome, X-linked",
-    "significance": "P"
-  },
-  {
-    "pos": 138,
-    "ref": "G",
-    "alt": "S",
-    "cdna": "c.412G>A",
-    "yaa": "CCC",
-    "mut": "AGT",
-    "reported": true,
-    "multiSub": true,
-    "varId": "10466",
-    "condition": "Alport syndrome, X-linked",
-    "significance": "P"
-  },
-  {
-    "pos": 325,
-    "ref": "G",
-    "alt": "R",
-    "cdna": "c.973G>A",
-    "yaa": "CCC",
-    "mut": "AGA",
-    "reported": true,
-    "multiSub": true,
-    "varId": "10471",
-    "condition": "Alport syndrome, X-linked",
-    "significance": "P"
-  },
-  {
-    "pos": 426,
-    "ref": "G",
-    "alt": "R",
-    "cdna": "c.1276G>A",
-    "yaa": "GAC",
-    "mut": "AGA",
-    "reported": true,
-    "multiSub": true,
-    "varId": "10474",
-    "condition": "Alport syndrome, X-linked",
-    "significance": "P"
-  },
-  {
-    "pos": 626,
-    "ref": "G",
-    "alt": "S",
-    "cdna": "c.1876G>A",
-    "yaa": "TTC",
-    "mut": "AGC",
-    "reported": false,
-    "multiSub": false,
-    "condition": "Predicted Candidate Hotspot",
-    "significance": "Candidate"
-  },
-  {
-    "pos": 743,
-    "ref": "G",
-    "alt": "S",
-    "cdna": "c.2227G>A",
-    "yaa": "CCC",
-    "mut": "AGC",
-    "reported": true,
-    "multiSub": true,
-    "varId": "10484",
-    "condition": "Alport syndrome, X-linked",
-    "significance": "LP"
-  },
-  {
-    "pos": 869,
-    "ref": "G",
-    "alt": "R",
-    "cdna": "c.2605G>A",
-    "yaa": "CCC",
-    "mut": "AGA",
-    "reported": true,
-    "multiSub": true,
-    "varId": "10489",
-    "condition": "Alport syndrome, X-linked",
-    "significance": "P"
-  },
-  {
-    "pos": 1030,
-    "ref": "G",
-    "alt": "S",
-    "cdna": "c.3088G>A",
-    "yaa": "ATC",
-    "mut": "AGT",
-    "reported": true,
-    "multiSub": true,
-    "varId": "10493",
-    "condition": "Alport syndrome, X-linked",
-    "significance": "P"
-  },
-  {
-    "pos": 1107,
-    "ref": "G",
-    "alt": "R",
-    "cdna": "c.3319G>A",
-    "yaa": "CCC",
-    "mut": "AGA",
-    "reported": true,
-    "multiSub": true,
-    "varId": "10497",
-    "condition": "Alport syndrome, X-linked",
-    "significance": "P"
-  },
-  {
-    "pos": 1143,
-    "ref": "G",
-    "alt": "S",
-    "cdna": "c.3427G>A",
-    "yaa": "CCC",
-    "mut": "AGC",
-    "reported": true,
-    "multiSub": true,
-    "varId": "10500",
-    "condition": "Alport syndrome, X-linked",
-    "significance": "P"
-  },
-  {
-    "pos": 1170,
-    "ref": "G",
-    "alt": "S",
-    "cdna": "c.3508G>A",
-    "yaa": "CCC",
-    "mut": "AGT",
-    "reported": false,
-    "multiSub": false,
-    "condition": "Predicted Candidate Hotspot",
-    "significance": "Candidate"
-  },
-  {
-    "pos": 1229,
-    "ref": "G",
-    "alt": "S",
-    "cdna": "c.3685G>A",
-    "yaa": "CAC",
-    "mut": "AGT",
-    "reported": true,
-    "multiSub": true,
-    "varId": "10503",
-    "condition": "Alport syndrome, X-linked",
-    "significance": "P"
-  }
-];
+// Benchmark COL4A5 dataset from JASN-2026-001162_R1 updated with verified NCBI ClinVar Variation IDs
+export const COL4A5_BENCHMARK_CPG = """ + json.dumps(col4a5_benchmark, indent=2) + """;
 
-// Real ClinVar Baseline Statistics computed across all collagen genes
+// Real ClinVar Baseline Statistics computed across all collagen genes using matching first-base G>A criteria
 export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = """ + json.dumps(gene_baseline, indent=2) + """;
 
 // Real ClinVar Variant Records for CpG Dyad Glycines across all 44 collagen genes

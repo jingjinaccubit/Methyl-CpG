@@ -2,6 +2,7 @@ import type {
   CodonInfo,
   CpGSite,
   SequenceAnalysisResult,
+  StatisticalMetric,
   T1Stats,
   T2Stats,
   T3Stats,
@@ -41,12 +42,13 @@ export const AA_NAME_MAP: Record<string, string> = {
   '*': 'Stop', '?': 'Unk'
 };
 
-// Kazusa human genome-wide proline codon frequencies (CCA: 28%, CCC: 32%, CCG: 11%, CCT: 29%)
+// Kazusa human genome-wide proline codon frequencies (Nakamura et al. 2000)
+// Exact frequencies per 61.1 total Pro codons: CCA: 16.9/61.1 (~27.66%), CCC: 19.8/61.1 (~32.41%), CCG: 6.9/61.1 (~11.29%), CCT: 17.5/61.1 (~28.64%)
 export const KAZUSA_PROLINE_USAGE = {
-  CCA: 0.28,
-  CCC: 0.32,
-  CCG: 0.11,
-  CCT: 0.29
+  CCA: 16.9 / 61.1,
+  CCC: 19.8 / 61.1,
+  CCG: 6.9 / 61.1,
+  CCT: 17.5 / 61.1
 };
 
 // Residues whose codons can never end in cytosine
@@ -173,11 +175,11 @@ export function analyzeSequence(
           if (bench) {
             isReported = bench.reported;
             isMultiSub = bench.multiSub;
-            varId = bench.varId;
-            condition = bench.condition;
-            revStatus = bench.reported ? 'criteria provided, multiple submitters, no conflicts' : 'Not reported in ClinVar';
-            sigCode = bench.reported ? (bench.significance as any || 'P') : 'Candidate';
-            rawSignificance = bench.reported ? 'Pathogenic' : undefined;
+            varId = bench.varId || (clinvarEntry ? clinvarEntry.variationId : undefined);
+            condition = bench.condition || (clinvarEntry ? clinvarEntry.condition : undefined);
+            sigCode = (bench.significance as any) || (clinvarEntry ? clinvarEntry.significance : 'Candidate');
+            rawSignificance = clinvarEntry?.rawSignificance || bench.condition || (bench.reported ? 'Pathogenic' : undefined);
+            revStatus = clinvarEntry?.reviewStatus || (bench.reported ? 'criteria provided, multiple submitters, no conflicts' : 'Not reported in ClinVar');
           }
         }
 
@@ -254,24 +256,30 @@ export function analyzeSequence(
     if (c.includes('CG')) {
       const residuePos = i + 1;
       const aa = protRaw[i];
-      const gnomadInfo = calculateGnomadScore(false, true, false, false, c);
+      const cgIdx = c.indexOf('CG'); // 0 or 1
+      const cDnaPos = i * 3 + cgIdx + 1;
+      const mutCodon = c.substring(0, cgIdx) + 'TG' + c.substring(cgIdx + 2);
+      const mutAA = CODON_MAP[mutCodon] || '?';
+      const isStop = mutAA === '*';
+      const mutAALabel = isStop ? '*' : (AA_NAME_MAP[mutAA] || mutAA);
+      const gnomadInfo = calculateGnomadScore(false, true, false, false, c, undefined, geneSymbol, residuePos);
 
       inCodonCpGs.push({
         id: `incodon-${residuePos}`,
         type: 'incodon',
         residueIndex: residuePos,
         residueName: `${AA_NAME_MAP[aa] || aa}${residuePos}`,
-        cStart: i * 3 + 1,
+        cStart: cDnaPos,
         prevCodon: i > 0 ? codonsRaw[i - 1] : '',
         prevAA: i > 0 ? protRaw[i - 1] : '',
         codon: c,
         aa,
         junctionDna: `[${c}]`,
-        cDnaChange: `c.${i * 3 + c.indexOf('CG') + 1}C>T`,
-        aaChange: `p.${AA_NAME_MAP[aa] || aa}${residuePos}*`,
-        mutCodon: c.replace('CG', 'TG'),
-        mutAA: CODON_MAP[c.replace('CG', 'TG')] || '?',
-        substitutionClass: 'Other',
+        cDnaChange: `c.${cDnaPos}C>T`,
+        aaChange: `p.${AA_NAME_MAP[aa] || aa}${residuePos}${mutAALabel}`,
+        mutCodon,
+        mutAA,
+        substitutionClass: isStop ? 'Nonsense (Stop Codon)' : 'Missense (In-Codon CpG)',
         clinvar: {
           reported: false,
           isPathogenicOrLikely: false,
@@ -282,7 +290,10 @@ export function analyzeSequence(
           mutability: gnomadInfo.mutabilityRate,
           percentile: gnomadInfo.percentile,
           alleleFrequency: 0,
-          alleleCount: 0,
+          alleleCount: undefined,
+          alleleNumber: undefined,
+          variantId: undefined,
+          observedInGnomad: false,
           classification: gnomadInfo.classification
         }
       });
@@ -291,7 +302,6 @@ export function analyzeSequence(
 
   // === T1 STATISTICAL CALCULATIONS ===
   const collGlyCount = collagenousGlySet.size;
-  const nonCollCodonCount = effectiveCodonCount - collGlyCount;
   const cpgDyadsCount = cpgDyads.length;
   const cpgDyadsPct = collGlyCount > 0 ? Number(((cpgDyadsCount / collGlyCount) * 100).toFixed(1)) : 0;
 
@@ -305,21 +315,27 @@ export function analyzeSequence(
     genomeDyadNonC
   );
 
-  // Non-collagenous domain comparison
-  let nonCollDyadCount = 0;
-  for (let i = 1; i < effectiveCodonCount; i++) {
-    if (!collagenousGlySet.has(i)) {
-      if (codonsRaw[i - 1].endsWith('C') && codonsRaw[i].startsWith('G')) {
-        nonCollDyadCount++;
+  // Within-gene control comparison:
+  // Paper comparison: Yaa codons ending in C (cpgDyadsCount / collGlyCount)
+  // vs Other codons in gene ending in C (otherEndingInC / otherCodonsCount).
+  // In COL4A5: 12 of 449 (2.7%) vs 230 of 1,242 other codons (18.5%), giving OR = 0.12, P < 0.001.
+  let otherEndingInC = 0;
+  let otherCodonsCount = 0;
+  for (let i = 0; i < effectiveCodonCount; i++) {
+    const isYaa = i < effectiveCodonCount - 1 && collagenousGlySet.has(i + 1);
+    if (!isYaa) {
+      otherCodonsCount++;
+      if (codonsRaw[i].endsWith('C')) {
+        otherEndingInC++;
       }
     }
   }
-  const nonCollDyadsPct = nonCollCodonCount > 0 ? Number(((nonCollDyadCount / nonCollCodonCount) * 100).toFixed(1)) : 0;
+  const otherEndingInCPct = otherCodonsCount > 0 ? Number(((otherEndingInC / otherCodonsCount) * 100).toFixed(1)) : 0;
   const orNonColl = computeStatisticalMetric(
     cpgDyadsCount,
     collGlyCount - cpgDyadsCount,
-    nonCollDyadCount,
-    Math.max(1, nonCollCodonCount - nonCollDyadCount)
+    otherEndingInC,
+    Math.max(1, otherCodonsCount - otherEndingInC)
   );
 
   // G-initial controls (Ala, Val, Asp, Glu: A, V, D, E)
@@ -404,12 +420,12 @@ export function analyzeSequence(
     totalCodons: effectiveCodonCount,
     totalGlycines: protRaw.filter(a => a === 'G').length,
     collagenousGlycines: collGlyCount,
-    noncollagenousCodons: nonCollCodonCount,
+    noncollagenousCodons: otherCodonsCount,
     cpgDyadsCount,
     cpgDyadsPct,
     genomeDyadsPct: 14.3,
-    noncollagenousDyadsCount: nonCollDyadCount,
-    noncollagenousDyadsPct: nonCollDyadsPct,
+    noncollagenousDyadsCount: otherEndingInC,
+    noncollagenousDyadsPct: otherEndingInCPct,
     oddsRatioGenome: orGenome,
     oddsRatioNoncoll: orNonColl,
     gInitialAminoAcids: {
@@ -444,28 +460,53 @@ export function analyzeSequence(
   const cpgBothPlp = cpgDyads.filter(d => d.clinvar.significanceCode === 'P/LP').length;
   const cpgVus = cpgDyads.filter(d => d.clinvar.significanceCode === 'VUS').length;
   const cpgCandidate = cpgDyads.filter(d => !d.clinvar.reported || d.clinvar.significanceCode === 'Candidate').length;
-  const cpgMulti = cpgDyads.filter(d => d.clinvar.multipleSubmitters).length;
+  const cpgMulti = cpgDyads.filter(d => d.clinvar.multipleSubmitters && d.clinvar.isPathogenicOrLikely).length;
 
   // Real ClinVar baseline statistics from whole-gene ClinVar single-nucleotide missense database
-  // COL4A5 benchmark baseline from paper: 173 of 437 non-CpG glycines reported (40%), 52 multiple submitters (30%)
+  // COL4A5 benchmark baseline from paper: 182 of 437 non-CpG glycines P/LP, 69 multiple submitters
   const baseline = GENE_CLINVAR_BASELINE[geneSymbol];
-  const nonCpgReported = baseline ? baseline.nonCpgReported : (geneSymbol === 'COL4A5' ? 173 : Math.round(collGlyCount * 0.38));
   const nonCpgTotal = baseline ? baseline.nonCpgTotal : (geneSymbol === 'COL4A5' ? 437 : Math.max(1, collGlyCount - cpgDyadsCount));
-  const nonCpgMulti = baseline ? baseline.nonCpgMulti : (geneSymbol === 'COL4A5' ? 52 : Math.round(nonCpgReported * 0.30));
+  const nonCpgPlp = baseline ? baseline.nonCpgPlp : (geneSymbol === 'COL4A5' ? 182 : Math.round(collGlyCount * 0.30));
+  const nonCpgMulti = baseline ? baseline.nonCpgMulti : (geneSymbol === 'COL4A5' ? 69 : Math.round(nonCpgPlp * 0.38));
 
-  const orT2Reporting = computeStatisticalMetric(
-    cpgPlp || cpgReported,
-    Math.max(1, cpgDyadsCount - (cpgPlp || cpgReported)),
-    nonCpgReported,
-    Math.max(1, nonCpgTotal - nonCpgReported)
-  );
+  // Symmetrical comparison for Pathogenic / Likely Pathogenic missense variants:
+  // CpG: cpgPlp of cpgDyadsCount vs Non-CpG: nonCpgPlp of nonCpgTotal
+  let orT2Reporting: StatisticalMetric;
+  if (cpgPlp === 0 && nonCpgPlp === 0) {
+    orT2Reporting = {
+      or: 1.0,
+      ciLower: 0,
+      ciUpper: 0,
+      pValue: 1.0,
+      formattedP: 'N/A'
+    };
+  } else {
+    orT2Reporting = computeStatisticalMetric(
+      cpgPlp,
+      cpgDyadsCount - cpgPlp,
+      nonCpgPlp,
+      nonCpgTotal - nonCpgPlp
+    );
+  }
 
-  const orT2Multi = computeStatisticalMetric(
-    cpgMulti,
-    Math.max(1, cpgReported - cpgMulti),
-    nonCpgMulti,
-    Math.max(1, nonCpgReported - nonCpgMulti)
-  );
+  // Symmetrical comparison for multiple submitters among P/LP sites:
+  let orT2Multi: StatisticalMetric;
+  if (cpgPlp === 0 || nonCpgPlp === 0) {
+    orT2Multi = {
+      or: 1.0,
+      ciLower: 0,
+      ciUpper: 0,
+      pValue: 1.0,
+      formattedP: 'N/A'
+    };
+  } else {
+    orT2Multi = computeStatisticalMetric(
+      cpgMulti,
+      cpgPlp - cpgMulti,
+      nonCpgMulti,
+      nonCpgPlp - nonCpgMulti
+    );
+  }
 
   const t2Stats: T2Stats = {
     cpgDyadReportedCount: cpgReported,
@@ -476,22 +517,22 @@ export function analyzeSequence(
     cpgDyadBothPlpCount: cpgBothPlp,
     cpgDyadVusCount: cpgVus,
     cpgDyadCandidateCount: cpgCandidate,
-    nonCpgReportedCount: nonCpgReported,
+    nonCpgReportedCount: nonCpgPlp,
     nonCpgTotal: nonCpgTotal,
-    cpgReportingRatePct: cpgDyadsCount > 0 ? Number((((cpgPlp || cpgReported) / cpgDyadsCount) * 100).toFixed(1)) : 0,
-    nonCpgReportingRatePct: nonCpgTotal > 0 ? Number(((nonCpgReported / nonCpgTotal) * 100).toFixed(1)) : 0,
+    cpgReportingRatePct: cpgDyadsCount > 0 ? Number(((cpgPlp / cpgDyadsCount) * 100).toFixed(1)) : 0,
+    nonCpgReportingRatePct: nonCpgTotal > 0 ? Number(((nonCpgPlp / nonCpgTotal) * 100).toFixed(1)) : 0,
     reportingOddsRatio: orT2Reporting,
     cpgMultiSubmittersCount: cpgMulti,
-    cpgMultiSubmittersPct: cpgReported > 0 ? Number(((cpgMulti / cpgReported) * 100).toFixed(1)) : 0,
+    cpgMultiSubmittersPct: cpgPlp > 0 ? Number(((cpgMulti / cpgPlp) * 100).toFixed(1)) : 0,
     nonCpgMultiSubmittersCount: nonCpgMulti,
-    nonCpgMultiSubmittersPct: nonCpgReported > 0 ? Number(((nonCpgMulti / nonCpgReported) * 100).toFixed(1)) : 0,
+    nonCpgMultiSubmittersPct: nonCpgPlp > 0 ? Number(((nonCpgMulti / nonCpgPlp) * 100).toFixed(1)) : 0,
     multiSubmitterOddsRatio: orT2Multi,
     knownVariantsCount: Object.keys(knownClinvarRecords).length || (geneSymbol === 'COL4A5' ? 707 : cpgReported)
   };
 
   // === T3 GNOMAD STATS ===
-  const deNovoCount = cpgDyads.filter(d => d.gnomad.classification === 'Prone to Recurrent De Novo').length;
-  const candCount = cpgDyads.filter(d => d.gnomad.classification === 'Candidate Hotspot (Unreported)').length;
+  const deNovoCount = cpgDyads.filter(d => d.gnomad.classification === 'Prone to Recurrent De Novo Hotspot').length;
+  const candCount = cpgDyads.filter(d => d.gnomad.classification === 'High Mutability Candidate Hotspot').length;
   const somaticCount = inCodonCpGs.length;
 
   const t3Stats: T3Stats = {

@@ -54,15 +54,17 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-200 text-[11px] text-blue-800 font-medium">
-            Significant evolutionary purge of CpG dyads (Purifying Selection).
+            {t1.oddsRatioGenome.or < 1 && t1.oddsRatioGenome.pValue < 0.05
+              ? 'Significant evolutionary purge of CpG dyads (Purifying Selection).'
+              : 'Evolutionary frequency consistent with neutral genomic baseline.'}
           </div>
         </div>
 
-        {/* Comparison 2: Within-Gene Non-collagenous Domain */}
+        {/* Comparison 2: Within-Gene Other Codons Control */}
         <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between text-xs text-slate-500 mb-2 font-semibold uppercase">
-              <span>vs Non-Collagenous Domain</span>
+              <span>vs Other Codons in Gene (Within-Gene Control)</span>
               <TrendingDown className="w-4 h-4 text-indigo-600" />
             </div>
             <div className="text-xl font-bold text-slate-900 mb-1">
@@ -72,11 +74,13 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
               95% CI: [{t1.oddsRatioNoncoll.ciLower.toFixed(2)} - {t1.oddsRatioNoncoll.ciUpper.toFixed(2)}] • {t1.oddsRatioNoncoll.formattedP}
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Non-collagenous regions (7S &amp; NC1 domains) carry <strong className="text-slate-800">{t1.noncollagenousDyadsCount} of {t1.noncollagenousCodons} ({t1.noncollagenousDyadsPct}%)</strong> CpG dyads, showing that the depletion is specifically heightened in the triple-helical repeat domain.
+              Other codons across {geneSymbol} carry <strong className="text-slate-800">{t1.noncollagenousDyadsCount} of {t1.noncollagenousCodons} ({t1.noncollagenousDyadsPct}%)</strong> ending in C, demonstrating that depletion of cytosine is specifically heightened directly before collagenous glycines.
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-200 text-[11px] text-indigo-800 font-medium">
-            Structural constraint of triple-helix assembly prevents tolerance of Gly loss.
+            {t1.oddsRatioNoncoll.or < 1 && t1.oddsRatioNoncoll.pValue < 0.05
+              ? 'Heightened within-gene purge at collagenous Gly junctions (P < 0.05).'
+              : 'Within-gene comparison does not reach statistical significance.'}
           </div>
         </div>
 

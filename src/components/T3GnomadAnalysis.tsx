@@ -56,7 +56,9 @@ export const T3GnomadAnalysis: React.FC<T3GnomadAnalysisProps> = ({
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-purple-200 text-[11px] text-purple-800 font-medium">
-            Biophysical hotspot drive confirmed by gnomAD mutability matrix.
+            {cpgSites.length > 0
+              ? 'Biophysical hotspot drive confirmed by gnomAD context mutability matrix.'
+              : 'Neutral background mutability across collagenous triplets.'}
           </div>
         </div>
 
@@ -74,11 +76,15 @@ export const T3GnomadAnalysis: React.FC<T3GnomadAnalysisProps> = ({
               Prone to Recurrent De Novo Mutation
             </div>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Because of high CpG mutability, these pathogenic variants frequently recur <em>de novo</em> in separate lineages. A negative family history should not be used to rule out diagnosis!
+              {t3.deNovoPredictedCount > 0
+                ? `Because of high CpG mutability, these ${t3.deNovoPredictedCount} pathogenic variant(s) frequently recur de novo in separate lineages. For these loci, a negative family history should not be used to rule out diagnosis!`
+                : 'No confirmed pathogenic CpG glycine hotspots currently identified in this gene. Standard family history and pedigree evaluation remain applicable.'}
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-200 text-[11px] text-slate-700 font-medium">
-            Clinical counseling: independent recurrent de novo occurrences.
+            {t3.deNovoPredictedCount > 0
+              ? 'Clinical counseling: independent recurrent de novo occurrences.'
+              : 'Standard ACGS/AMP variant evaluation recommended.'}
           </div>
         </div>
 
@@ -127,13 +133,19 @@ export const T3GnomadAnalysis: React.FC<T3GnomadAnalysisProps> = ({
                   μ = {site.gnomad.mutability.toExponential(2)}
                 </span>
                 <span className="font-mono text-[10px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-600">
-                  {site.gnomad.alleleCount > 0 ? `gnomAD AC=${site.gnomad.alleleCount}` : 'gnomAD AC=0'}
+                  {site.gnomad.alleleCount !== undefined
+                    ? (site.gnomad.alleleCount > 0
+                        ? `gnomAD AC=${site.gnomad.alleleCount}`
+                        : site.gnomad.variantId
+                        ? 'gnomAD AC=0 (Reference cohort)'
+                        : 'gnomAD AC=0 (Unobserved)')
+                    : 'gnomAD Unindexed'}
                 </span>
                 <span
                   className={`px-2 py-0.5 rounded-full font-semibold text-[11px] ${
-                    site.gnomad.classification === 'Prone to Recurrent De Novo'
+                    site.gnomad.classification.includes('Recurrent De Novo')
                       ? 'bg-purple-100 text-purple-800'
-                      : site.gnomad.classification === 'Candidate Hotspot (Unreported)'
+                      : site.gnomad.classification.includes('Candidate Hotspot')
                       ? 'bg-amber-100 text-amber-800'
                       : 'bg-blue-100 text-blue-800'
                   }`}

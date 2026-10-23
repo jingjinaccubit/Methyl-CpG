@@ -37,10 +37,10 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
     },
     {
       id: 'cpg-noncoll',
-      name: 'CpG Dyads vs Non-Collagenous Domain',
-      category: 'T1 Domain Purge',
+      name: 'CpG Dyads vs Other Codons in Gene',
+      category: 'T1 Within-Gene Control',
       metric: result.t1.oddsRatioNoncoll,
-      interpretation: `${result.t1.cpgDyadsPct}% vs ${result.t1.noncollagenousDyadsPct}% in 7S/NC1`,
+      interpretation: `${result.t1.cpgDyadsPct}% in Yaa vs ${result.t1.noncollagenousDyadsPct}% in other codons`,
       direction: 'depleted'
     },
     {
@@ -420,9 +420,9 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
                       <div className="flex flex-col gap-0.5">
                         <span
                           className={`inline-block px-2 py-0.5 rounded font-medium text-[11px] w-fit ${
-                            site.gnomad.classification === 'Prone to Recurrent De Novo'
+                            site.gnomad.classification.includes('Recurrent De Novo')
                               ? 'bg-purple-100 text-purple-800'
-                              : site.gnomad.classification === 'Candidate Hotspot (Unreported)'
+                              : site.gnomad.classification.includes('Candidate Hotspot')
                               ? 'bg-amber-100 text-amber-800'
                               : 'bg-slate-100 text-slate-700'
                           }`}
@@ -430,9 +430,13 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
                           {site.gnomad.classification}
                         </span>
                         <span className="text-[10px] text-slate-500 font-mono">
-                          {site.gnomad.alleleCount > 0
-                            ? `gnomAD v4 AC=${site.gnomad.alleleCount} (AF=${site.gnomad.alleleFrequency.toExponential(1)})`
-                            : 'gnomAD v4 AC=0 (Depleted)'}
+                          {site.gnomad.alleleCount !== undefined
+                            ? (site.gnomad.alleleCount > 0
+                                ? `gnomAD v4 AC=${site.gnomad.alleleCount} (AF=${site.gnomad.alleleFrequency.toExponential(1)})`
+                                : site.gnomad.variantId
+                                ? `gnomAD v4 AC=0 (AN=${site.gnomad.alleleNumber?.toLocaleString() || '1,100,000'})`
+                                : 'gnomAD v4 AC=0 (Unobserved)')
+                            : 'gnomAD Unindexed'}
                         </span>
                       </div>
                     </td>
