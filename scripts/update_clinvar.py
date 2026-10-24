@@ -255,6 +255,14 @@ def process_variants(cds_dict, clinvar_by_gene):
                 alt_3 = m_aa.group(2)
                 alt_1 = AA_3TO1.get(alt_3, alt_3[0])
 
+                # Verify that alt_1 matches the actual codon transition for this position
+                if 1 <= aa_pos <= len(codons):
+                    ref_codon = codons[aa_pos - 1]
+                    expected_mut_codon = 'A' + ref_codon[1:]
+                    expected_alt = CODON_MAP.get(expected_mut_codon, '')
+                    if expected_alt and alt_1 != expected_alt:
+                        continue
+
                 sig = r['sig']
                 sig_lower = sig.lower()
 

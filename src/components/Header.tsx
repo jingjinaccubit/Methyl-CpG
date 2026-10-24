@@ -39,21 +39,23 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Action Controls & External References */}
-        <div className="flex items-center gap-2.5 flex-wrap">
+        <div className="flex items-center gap-2 flex-wrap max-w-full">
           <button
             onClick={onOpenCollagenTable}
-            className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 border border-slate-300 transition-colors cursor-pointer"
+            className="px-2.5 sm:px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 border border-slate-300 transition-colors cursor-pointer shrink-0"
           >
-            <Table2 className="w-4 h-4 text-blue-600" />
-            28 Collagen Types Table (46 Genes & Pseudogenes)
+            <Table2 className="w-4 h-4 text-blue-600 shrink-0" />
+            <span className="hidden sm:inline">28 Collagen Types Table (46 Genes)</span>
+            <span className="sm:hidden">Collagen Table</span>
           </button>
 
           <button
             onClick={onOpenPaperModal}
-            className="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 border border-indigo-200 transition-colors cursor-pointer"
+            className="px-2.5 sm:px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 border border-indigo-200 transition-colors cursor-pointer shrink-0"
           >
-            <FileText className="w-4 h-4 text-indigo-600" />
-            JASN Paper Model
+            <FileText className="w-4 h-4 text-indigo-600 shrink-0" />
+            <span className="hidden sm:inline">JASN Paper Model</span>
+            <span className="sm:hidden">Paper Model</span>
           </button>
 
           <div className="hidden lg:flex items-center text-[11px] text-slate-400 pl-2 border-l border-slate-200">

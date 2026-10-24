@@ -1258,15 +1258,15 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
     "517": {
       "pos": 517,
       "refAA": "G",
-      "altAA": "R",
+      "altAA": "S",
       "cdnaChange": "c.1549G>A",
-      "aaChange": "p.Gly517Arg",
-      "variationId": "1358903",
-      "significance": "VUS",
-      "rawSignificance": "Uncertain significance",
-      "reviewStatus": "criteria provided, single submitter",
-      "multipleSubmitters": false,
-      "condition": "not provided"
+      "aaChange": "p.Gly517Ser",
+      "variationId": "340210",
+      "significance": "B/LB",
+      "rawSignificance": "Benign/Likely benign",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "Knobloch syndrome|not provided"
     },
     "919": {
       "pos": 919,
@@ -1284,15 +1284,15 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
     "977": {
       "pos": 977,
       "refAA": "G",
-      "altAA": "S",
+      "altAA": "R",
       "cdnaChange": "c.2929G>A",
-      "aaChange": "p.Gly977Ser",
-      "variationId": "1395895",
+      "aaChange": "p.Gly977Arg",
+      "variationId": "1470350",
       "significance": "VUS",
       "rawSignificance": "Uncertain significance",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided|Hereditary glaucoma, primary closed-angle;Knobloch syndrome 1|COL18A1-related disorder"
+      "condition": "Inborn genetic diseases|not provided"
     }
   },
   "COL19A1": {

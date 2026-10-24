@@ -4,7 +4,7 @@
 [![Deployment](https://img.shields.io/badge/Deployed%20on-Cloudflare%20Pages-f38020.svg)](https://methyl-cpg.pages.dev)
 [![GitHub Pages](https://img.shields.io/badge/Website-GitHub%20Pages-222222.svg)](https://jingjinaccubit.github.io/Methyl-CpG/)
 
-A clinical genetics web platform for detecting CpG mutational hotspots, evolutionary depletion, ClinVar recurrence, and gnomAD de novo mutation probability across human collagen genes.
+A bioinformatics research web platform for detecting CpG mutational hotspots, evolutionary depletion, ClinVar recurrence, and gnomAD de novo mutation probability across human collagen genes.
 
 Based on the research:
 > **Methyl-CpG Sites and Mutational Hotspots in Alport Syndrome**  
@@ -30,9 +30,9 @@ Based on the research:
   - Symmetrical first-base G>A missense comparison between CpG and non-CpG glycines.
   - Multiple independent submitters recurrence proxy (100% at CpG vs ~30–38% at non-CpG depending on P/LP curation and ClinVar release snapshot).
   - Flags candidate hotspots (unreported or VUS in ClinVar) for targeted biobank discovery.
-  - *Methodology Note*: Calculations evaluate single-nucleotide first-base G>A missense variants symmetrically filtered for Pathogenic / Likely Pathogenic (P/LP) status on both CpG and non-CpG sides (COL4A5 OR = 7.01). In the original JASN paper, all reported first-base G>A variants were tabulated regardless of clinical classification (OR = 7.6). Differences reflect stricter P/LP curation and ongoing NCBI ClinVar database updates over time.
+  - *Methodology Note*: Both the published JASN paper and this live platform strictly evaluate single-nucleotide first-base G>A missense variants symmetrically filtered for Pathogenic / Likely Pathogenic (P/LP) status on both CpG and non-CpG sides. In COL4A5, the June 2024 paper benchmark identified 173 non-CpG P/LP glycines (OR = 7.63), while the live NCBI ClinVar database snapshot contains 182 non-CpG P/LP glycines (OR = 7.01). Minor numerical differences strictly reflect ongoing ClinVar database updates over time.
 - **T3: gnomAD SNV & Mutability**:
-  - Evaluates context-dependent mutation probability score ($\mu \approx 1.28 \times 10^{-7}$, top 0.6% percentile, 10.7x elevation).
+  - Evaluates context-dependent mutation probability score ($\mu \approx 1.18–1.42 \times 10^{-7}$, top 0.3%–0.9% percentile, ~10–12x elevation) based on reverse-strand 5mC hydrolytic deamination contexts (Karczewski et al., Nature 2020 Supplementary Dataset 1; Roufayel et al., 2020).
   - Classifies variants into:
     - *Prone to Recurrent De Novo*
     - *Potential Somatic De Novo*
@@ -42,7 +42,7 @@ Based on the research:
   - **Sequence Logo**: SVG-based nucleotide frequency logo across 9 positions (Yaa-1, Yaa-2, Yaa-3, Gly-1, Gly-2, Gly-3, Xaa-1, Xaa-2, Xaa-3) with probability scale (0.0 to 1.0).
   - **Forest Plot**: Visualizes Odds Ratios and exact 95% Confidence Intervals on log scale with neutral line at $OR = 1.0$.
   - **Hotspot Prediction Table**: Matching JASN Figure 1J with codon junctions, transitions, amino acid changes, and destabilization severity (Severe Gly→Arg vs Moderate Gly→Ser).
-  - **Export**: One-click Export to PDF and CSV download.
+  - **Export**: One-click Export to PDF and CSV download (including full gnomAD population allele counts, numbers, and observed status).
 - **Collagen Table Reference**:
   - Searchable modal containing all 44 genes, OMIM numbers, chromosome loci, and syndrome descriptions.
 

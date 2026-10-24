@@ -60,6 +60,11 @@ export function fishersExactTest(a: number, b: number, c: number, d: number): nu
 
 // Odds Ratio and 95% Confidence Interval (Woolf logit with Haldane-Anscombe correction if zero present)
 export function calculateOddsRatio(a: number, b: number, c: number, d: number): { or: number; ciLower: number; ciUpper: number } {
+  // If row or column marginal totals are zero, the odds ratio is undefined / not applicable
+  if (a + b === 0 || c + d === 0 || a + c === 0 || b + d === 0) {
+    return { or: NaN, ciLower: NaN, ciUpper: NaN };
+  }
+
   let a_ = a;
   let b_ = b;
   let c_ = c;
@@ -84,6 +89,7 @@ export function calculateOddsRatio(a: number, b: number, c: number, d: number): 
 }
 
 export function formatPValue(p: number): string {
+  if (isNaN(p)) return 'N/A';
   if (p < 0.001) return 'P < 0.001';
   if (p < 0.01) return `P = ${p.toFixed(3)}`;
   return `P = ${p.toFixed(2)}`;
@@ -91,6 +97,15 @@ export function formatPValue(p: number): string {
 
 export function computeStatisticalMetric(a: number, b: number, c: number, d: number): StatisticalMetric {
   const { or, ciLower, ciUpper } = calculateOddsRatio(a, b, c, d);
+  if (isNaN(or)) {
+    return {
+      or: NaN,
+      ciLower: NaN,
+      ciUpper: NaN,
+      pValue: NaN,
+      formattedP: 'N/A'
+    };
+  }
   const pVal = fishersExactTest(a, b, c, d);
   return {
     or: Number(or.toFixed(2)),

@@ -132,7 +132,7 @@ export const ToolSummaryBanner: React.FC<ToolSummaryBannerProps> = ({
                   <h3 className="text-xs font-bold text-slate-900 m-0">T3: De Novo Mutability</h3>
                 </div>
                 <p className="text-xs text-slate-600 m-0 leading-normal">
-                  Leverages context-specific gnomAD trinucleotide mutation rates (<span className="font-mono text-[11px]">μ ≈ 1.28×10⁻⁷</span>) to model recurrent de novo mutation probability and distinguish somatic vs. germline risks.
+                  Leverages context-specific gnomAD trinucleotide mutation rates (<span className="font-mono text-[11px]">μ ≈ 1.18–1.42×10⁻⁷</span>, ~10–12× elevation) to model recurrent de novo mutation probability and distinguish somatic vs. germline risks.
                 </p>
               </div>
             </div>

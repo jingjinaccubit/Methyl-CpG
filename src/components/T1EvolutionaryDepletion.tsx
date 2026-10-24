@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrendingDown, ShieldAlert, CheckCircle2, Info } from 'lucide-react';
+import { TrendingDown, CheckCircle2, Info, AlertCircle, Minus } from 'lucide-react';
 import type { T1Stats } from '../types';
 
 interface T1EvolutionaryDepletionProps {
@@ -11,6 +11,9 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
   t1,
   geneSymbol,
 }) => {
+  const isDepleted = !isNaN(t1.oddsRatioGenome.or) && t1.oddsRatioGenome.or < 1 && t1.oddsRatioGenome.pValue < 0.05;
+  const isEnriched = !isNaN(t1.oddsRatioGenome.or) && t1.oddsRatioGenome.or > 1 && t1.oddsRatioGenome.pValue < 0.05;
+
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8">
       {/* Title */}
@@ -28,10 +31,22 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
             </p>
           </div>
         </div>
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-          <CheckCircle2 className="w-3.5 h-3.5 mr-1 text-emerald-600" />
-          Marked Depletion Confirmed
-        </span>
+        {isDepleted ? (
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <CheckCircle2 className="w-3.5 h-3.5 mr-1 text-emerald-600" />
+            Marked Depletion Confirmed
+          </span>
+        ) : isEnriched ? (
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+            <AlertCircle className="w-3.5 h-3.5 mr-1 text-amber-600" />
+            CpG Enrichment (OR &gt; 1.0)
+          </span>
+        ) : (
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-300">
+            <Minus className="w-3.5 h-3.5 mr-1 text-slate-500" />
+            No Significant Depletion (Neutral)
+          </span>
+        )}
       </div>
 
       {/* Main Grid of 3 Primary Comparisons */}

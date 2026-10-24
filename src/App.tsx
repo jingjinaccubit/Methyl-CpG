@@ -12,7 +12,7 @@ import { PaperModal } from './components/PaperModal';
 import { analyzeSequence } from './utils/bioCalculations';
 import { COLLAGEN_TABLE, PRELOADED_CDS } from './data/collagenTable';
 import type { SequenceAnalysisResult, CollagenGeneInfo } from './types';
-import { Layers } from 'lucide-react';
+import { Layers, AlertCircle } from 'lucide-react';
 
 export function App() {
   const [analysisResult, setAnalysisResult] = useState<SequenceAnalysisResult | null>(null);
@@ -72,6 +72,21 @@ export function App() {
 
         {analysisResult && (
           <div className="space-y-6">
+            {/* Out-of-Frame or Non-Collagenous Sequence Warning */}
+            {analysisResult.t1.collagenousGlycines === 0 && (
+              <div className="bg-amber-50 border-2 border-amber-300 rounded-2xl p-5 text-amber-900 shadow-sm flex items-start gap-3.5 no-print">
+                <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-bold text-sm m-0 text-amber-950">
+                    No Collagenous Glycines Detected (Reading Frame / Sequence Warning)
+                  </h4>
+                  <p className="text-xs text-amber-800 m-0 mt-1 leading-relaxed">
+                    0 collagenous Gly-X-Y repeats (runs of ≥ 5 consecutive Gly-X-Y triplets) were identified across the {analysisResult.proteinLength} translated codons. If this sequence encodes a collagen chain, the selected reading frame (+0, +1, or +2) may be out-of-frame, or the sequence may be in reverse complement orientation. Please try adjusting the Reading Frame selector above.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* Overview KPI Dashboard */}
             <OverviewDashboard result={analysisResult} />
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, Zap, Dna, Info, HelpCircle } from 'lucide-react';
+import { Activity, Zap, Dna } from 'lucide-react';
 import type { T3Stats, CpGSite } from '../types';
 
 interface T3GnomadAnalysisProps {
@@ -11,7 +11,6 @@ interface T3GnomadAnalysisProps {
 export const T3GnomadAnalysis: React.FC<T3GnomadAnalysisProps> = ({
   t3,
   cpgSites,
-  geneSymbol,
 }) => {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8">
@@ -32,7 +31,10 @@ export const T3GnomadAnalysis: React.FC<T3GnomadAnalysisProps> = ({
         </div>
         <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200">
           <Zap className="w-3.5 h-3.5 mr-1 text-purple-600" />
-          10.7x Mutability Elevation
+          {t3.minFoldElevation && t3.maxFoldElevation && t3.minFoldElevation !== t3.maxFoldElevation
+            ? `${t3.minFoldElevation}–${t3.maxFoldElevation}x`
+            : `${t3.foldElevation}x`}{' '}
+          Mutability Elevation
         </span>
       </div>
 
@@ -46,13 +48,19 @@ export const T3GnomadAnalysis: React.FC<T3GnomadAnalysisProps> = ({
               <Activity className="w-4 h-4 text-purple-600" />
             </div>
             <div className="text-2xl font-black text-purple-900 font-mono mb-1">
-              1.28 × 10⁻⁷
+              {t3.minMutabilityCpG && t3.maxMutabilityCpG && t3.minMutabilityCpG !== t3.maxMutabilityCpG
+                ? `${(t3.minMutabilityCpG * 1e7).toFixed(2)}–${(t3.maxMutabilityCpG * 1e7).toFixed(2)} × 10⁻⁷`
+                : `${(t3.avgMutabilityCpG * 1e7).toFixed(2)} × 10⁻⁷`}
             </div>
             <div className="text-xs text-purple-700 font-semibold mb-2">
-              Top 0.6% Percentile in Human Coding Genome
+              Top 0.3%–0.9% Percentile in Human Coding Genome
             </div>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Hydrolytic deamination of 5-methylcytosine on the reverse strand accelerates forward G→A transitions to ~10.7-fold higher than background point mutability (1.20 × 10⁻⁸).
+              Hydrolytic deamination of 5-methylcytosine on the reverse strand accelerates forward G→A transitions to ~
+              {t3.minFoldElevation && t3.maxFoldElevation && t3.minFoldElevation !== t3.maxFoldElevation
+                ? `${t3.minFoldElevation}–${t3.maxFoldElevation}`
+                : t3.foldElevation}
+              -fold higher than background point mutability (1.20 × 10⁻⁸). (Karczewski et al., <em>Nature</em> 2020 Supplementary Dataset 1; Roufayel et al., 2020)
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-purple-200 text-[11px] text-purple-800 font-medium">

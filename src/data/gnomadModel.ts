@@ -29,12 +29,19 @@ export const GENOME_BASELINE_MUTABILITY = 1.20e-8; // Average human point mutati
  * Calculates context-dependent mutability rates and gnomAD v4 reference observations.
  * For methyl-CpG dyads across the Yaa-Gly junction, reverse-strand 5mC deamination
  * drives forward G>A transitions. Rate varies with the flanking nucleotide context
- * according to Karczewski et al. (Nature 2020) / Roufayel et al. mutability tables.
+ * according to Karczewski et al., Nature 581, 434–443 (2020), Supplementary Dataset 1
+ * (Trinucleotide Mutability Matrix) and Roufayel et al., Genome Med 12, 110 (2020).
+ * Specifically, the 2nd base of the preceding Yaa codon determines the 5' flanking base
+ * of the deaminating cytosine on the reverse strand:
+ * - Yaa_2 = C (e.g. Pro CCC) -> 5'-CCG-G-3' context on reverse strand (μ = 1.28 × 10⁻⁷)
+ * - Yaa_2 = T (e.g. Phe TTC, Ile ATC) -> 5'-CCG-A-3' context on reverse strand (μ = 1.35 × 10⁻⁷)
+ * - Yaa_2 = A (e.g. His CAC, Asp GAC) -> 5'-CCG-T-3' context on reverse strand (μ = 1.18 × 10⁻⁷)
+ * - Yaa_2 = G (e.g. Arg CGC, Gly GGC) -> 5'-CCG-C-3' context on reverse strand (μ = 1.42 × 10⁻⁷)
  */
 export function calculateGnomadScore(
   isCpGDyad: boolean,
   isInCodonCpG: boolean,
-  isClinVarReported: boolean,
+  isPlp: boolean,
   _isMultiSubmitter: boolean,
   glyCodon: string,
   prevCodon?: string,
@@ -94,12 +101,12 @@ export function calculateGnomadScore(
 
     const fold = baseRate / GENOME_BASELINE_MUTABILITY;
 
-    if (isClinVarReported) {
+    if (isPlp) {
       const rationale = hasIndexedRecord
         ? (observed
-            ? `High methyl-CpG mutation rate (${fold.toFixed(1)}x baseline). Observed in gnomAD v4 reference exomes (AC=${realAc}, AF=${realAf.toExponential(2)}).`
+            ? `High methyl-CpG mutation rate (${fold.toFixed(1)}x baseline). Pathogenic variant observed in gnomAD v4 reference exomes (AC=${realAc}, AF=${realAf.toExponential(2)}).`
             : `High methyl-CpG mutation rate (${fold.toFixed(1)}x baseline). Unobserved in gnomAD v4 reference cohort (AC=0, AN=${realAn?.toLocaleString() || '1,100,000'}) despite elevated mutability, consistent with severe purifying selection against collagenous Gly loss.`)
-        : `High methyl-CpG mutation rate (${fold.toFixed(1)}x baseline). ClinVar-reported pathogenic hotspot; unobserved in standard healthy population reference.`;
+        : `High methyl-CpG mutation rate (${fold.toFixed(1)}x baseline). ClinVar-reported confirmed pathogenic hotspot; unobserved in standard healthy population reference.`;
 
       return {
         mutabilityRate: baseRate,
@@ -116,9 +123,9 @@ export function calculateGnomadScore(
     } else {
       const rationale = hasIndexedRecord
         ? (observed
-            ? `High methyl-CpG mutation rate (${fold.toFixed(1)}x baseline). Present at low frequency in gnomAD v4 (AC=${realAc}, AF=${realAf.toExponential(2)}), not yet submitted to ClinVar.`
-            : `High methyl-CpG mutation rate (${fold.toFixed(1)}x baseline), not yet reported in ClinVar. gnomAD v4 reference cohort AC=0. Candidate hotspot for targeted clinical discovery.`)
-        : `High methyl-CpG mutation rate predicted mechanistically (${fold.toFixed(1)}x baseline). Not yet reported in ClinVar; unobserved in healthy population.`;
+            ? `High methyl-CpG mutation rate (${fold.toFixed(1)}x baseline). Present at low frequency in gnomAD v4 (AC=${realAc}, AF=${realAf.toExponential(2)}), not reported as P/LP in ClinVar.`
+            : `High methyl-CpG mutation rate (${fold.toFixed(1)}x baseline), not established as P/LP in ClinVar. gnomAD v4 reference cohort AC=0. Candidate hotspot for targeted clinical discovery.`)
+        : `High methyl-CpG mutation rate predicted mechanistically (${fold.toFixed(1)}x baseline). Not established as P/LP in ClinVar; candidate hotspot.`;
 
       return {
         mutabilityRate: baseRate,
@@ -150,7 +157,7 @@ export function calculateGnomadScore(
       alleleNumber: undefined,
       variantId: undefined,
       observedInGnomad: false,
-      classification: isClinVarReported
+      classification: isPlp
         ? 'Pathogenic (In-Codon CpG Hotspot)'
         : 'Potential Somatic / In-Codon De Novo',
       rationale:
@@ -172,7 +179,7 @@ export function calculateGnomadScore(
     alleleNumber: realAn,
     variantId: varId,
     observedInGnomad: observed,
-    classification: isClinVarReported
+    classification: isPlp
       ? 'Pathogenic (Baseline Mutability)'
       : 'Germline / Low Mutability',
     rationale:

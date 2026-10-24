@@ -196,7 +196,7 @@ export function analyzeSequence(
         const gnomadInfo = calculateGnomadScore(
           true,
           false,
-          isReported,
+          isPlp,
           isMultiSub,
           glyCodon,
           prevCodon,
@@ -535,10 +535,25 @@ export function analyzeSequence(
   const candCount = cpgDyads.filter(d => d.gnomad.classification === 'High Mutability Candidate Hotspot').length;
   const somaticCount = inCodonCpGs.length;
 
+  const cpgMutabilities = cpgDyads.map(d => d.gnomad.mutability);
+  const avgMutabilityCpG = cpgMutabilities.length > 0
+    ? cpgMutabilities.reduce((a, b) => a + b, 0) / cpgMutabilities.length
+    : 1.28e-7;
+  const minMutabilityCpG = cpgMutabilities.length > 0 ? Math.min(...cpgMutabilities) : 1.18e-7;
+  const maxMutabilityCpG = cpgMutabilities.length > 0 ? Math.max(...cpgMutabilities) : 1.42e-7;
+  const avgBaseline = 1.20e-8;
+  const foldElevation = Number((avgMutabilityCpG / avgBaseline).toFixed(1));
+  const minFoldElevation = Number((minMutabilityCpG / avgBaseline).toFixed(1));
+  const maxFoldElevation = Number((maxMutabilityCpG / avgBaseline).toFixed(1));
+
   const t3Stats: T3Stats = {
-    avgMutabilityCpG: 1.28e-7,
-    avgMutabilityBaseline: 1.20e-8,
-    foldElevation: 10.7,
+    avgMutabilityCpG,
+    minMutabilityCpG,
+    maxMutabilityCpG,
+    avgMutabilityBaseline: avgBaseline,
+    foldElevation,
+    minFoldElevation,
+    maxFoldElevation,
     deNovoPredictedCount: deNovoCount,
     somaticDeNovoPredictedCount: somaticCount,
     candidateHotspotsCount: candCount,
@@ -559,8 +574,10 @@ export function analyzeSequence(
     'Xaa-3': { A: 0, C: 0, G: 0, T: 0 },
   };
 
+  let sampledTriplets = 0;
   Array.from(collagenousGlySet).forEach(gIdx => {
     if (gIdx > 0 && gIdx < effectiveCodonCount - 1) {
+      sampledTriplets++;
       const yaaCodon = codonsRaw[gIdx - 1];
       const glyCodon = codonsRaw[gIdx];
       const xaaCodon = codonsRaw[gIdx + 1];
@@ -577,7 +594,7 @@ export function analyzeSequence(
     }
   });
 
-  const totalColl = Math.max(1, collagenousGlySet.size - 2);
+  const totalColl = Math.max(1, sampledTriplets);
   const nucleotideYaaGlyXaa = Object.entries(ntWindowCounts).map(([key, counts]) => ({
     position: key,
     label: key,
@@ -590,15 +607,30 @@ export function analyzeSequence(
   }));
 
   // Amino Acid registers: Gly, Xaa, Yaa
+  // To ensure absolute consistency with prolineAnalysis and Figure 1E:
+  // For each collagenous glycine at gIdx, Gly is at gIdx, Yaa is immediately preceding (gIdx - 1),
+  // and Xaa is immediately succeeding (gIdx + 1).
   const regCounts: Record<string, Record<string, number>> = {
     Gly: {},
     Xaa: {},
     Yaa: {}
   };
 
-  codonInfos.forEach(info => {
-    if (info.register === 'Gly' || info.register === 'Xaa' || info.register === 'Yaa') {
-      regCounts[info.register][info.aa] = (regCounts[info.register][info.aa] || 0) + 1;
+  Array.from(collagenousGlySet).forEach(gIdx => {
+    // Glycine register
+    const glyAA = protRaw[gIdx];
+    regCounts.Gly[glyAA] = (regCounts.Gly[glyAA] || 0) + 1;
+
+    // Yaa register: residue immediately preceding Gly
+    if (gIdx > 0) {
+      const yaaAA = protRaw[gIdx - 1];
+      regCounts.Yaa[yaaAA] = (regCounts.Yaa[yaaAA] || 0) + 1;
+    }
+
+    // Xaa register: residue immediately following Gly
+    if (gIdx < effectiveCodonCount - 1) {
+      const xaaAA = protRaw[gIdx + 1];
+      regCounts.Xaa[xaaAA] = (regCounts.Xaa[xaaAA] || 0) + 1;
     }
   });
 

@@ -7,11 +7,28 @@ interface PaperModalProps {
 }
 
 export const PaperModal: React.FC<PaperModalProps> = ({ isOpen, onClose }) => {
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-      <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in duration-200">
+    <div
+      onClick={e => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs cursor-pointer"
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in duration-200 cursor-default"
+      >
         {/* Header */}
         <div className="px-6 py-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div className="flex items-center gap-3">
@@ -100,7 +117,7 @@ export const PaperModal: React.FC<PaperModalProps> = ({ isOpen, onClose }) => {
               This software platform generalizes this analytical pipeline (T1 Depletion, T2 ClinVar Hotspots, T3 gnomAD Recurrent De Novo, T4 Odds Ratio Report) to all 44 human collagen genes encoding types I through XXVIII (e.g. COL1A1/COL1A2 in OI, COL3A1/COL5A1 in EDS, COL2A1/COL11A1 in Stickler syndrome).
             </p>
             <p className="text-slate-500 m-0 leading-relaxed border-t border-slate-200/60 pt-1.5 text-[11px]">
-              <em>Calibration Note:</em> In the original paper, the historical benchmark tabulated all reported G→A variants irrespective of clinical classification (OR = 7.6, non-CpG multi-submitters = 30%). In this live platform, variants are symmetrically filtered for Pathogenic / Likely Pathogenic (P/LP) status across both CpG and non-CpG codons (COL4A5 OR = 7.01, non-CpG multi-submitters = 38%). Minor differences reflect stricter P/LP curation and ongoing ClinVar database updates over time.
+              <em>Calibration Note:</em> Both the published JASN paper and this live platform strictly evaluate single-nucleotide first-base G→A missense variants filtered symmetrically for Pathogenic / Likely Pathogenic (P/LP) status across both CpG and non-CpG codons. The minor numerical difference in COL4A5 odds ratio (7.63 in the June 2024 paper benchmark [10 of 12 vs 173 of 437] vs 7.01 in the current snapshot [10 of 12 vs 182 of 437]) strictly reflects the ongoing accumulation of newly submitted non-CpG P/LP variants in NCBI ClinVar over time.
             </p>
           </div>
         </div>

@@ -293,9 +293,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.4393G>A",
       "aaChange": "p.Gly1465Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1526931,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "6-33166206-C-T",
       "observedInGnomad": false
     },
     "1480": {
@@ -337,9 +337,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.445G>A",
       "aaChange": "p.Gly149Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1484454,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "10-69880512-G-A",
       "observedInGnomad": false
     },
     "160": {
@@ -357,9 +357,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.541G>A",
       "aaChange": "p.Gly181Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1484454,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "10-69888322-G-A",
       "observedInGnomad": false
     },
     "315": {
@@ -367,9 +367,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.943G>A",
       "aaChange": "p.Gly315Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1484454,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "10-69905814-G-A",
       "observedInGnomad": false
     },
     "336": {
@@ -377,9 +377,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1006G>A",
       "aaChange": "p.Gly336Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1484454,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "10-69918294-G-A",
       "observedInGnomad": false
     },
     "503": {
@@ -387,9 +387,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1507G>A",
       "aaChange": "p.Gly503Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1484454,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "10-69930409-G-A",
       "observedInGnomad": false
     },
     "530": {
@@ -397,9 +397,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1588G>A",
       "aaChange": "p.Gly530Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1484454,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "10-69930490-G-A",
       "observedInGnomad": false
     },
     "557": {
@@ -407,9 +407,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1669G>A",
       "aaChange": "p.Gly557Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1484454,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "10-69932578-G-A",
       "observedInGnomad": false
     },
     "577": {
@@ -437,9 +437,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1864G>A",
       "aaChange": "p.Gly622Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1484454,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "10-69941006-G-A",
       "observedInGnomad": false
     },
     "670": {
@@ -447,9 +447,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2008G>A",
       "aaChange": "p.Gly670Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1484454,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "10-69947325-G-A",
       "observedInGnomad": false
     }
   },
@@ -459,9 +459,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.4552G>A",
       "aaChange": "p.Gly1518Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1570554,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "8-120315533-G-A",
       "observedInGnomad": false
     },
     "1681": {
@@ -553,9 +553,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1258G>A",
       "aaChange": "p.Gly420Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540417,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "1-31691642-C-T",
       "observedInGnomad": false
     },
     "453": {
@@ -603,9 +603,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2284G>A",
       "aaChange": "p.Gly762Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540417,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "1-31684003-C-T",
       "observedInGnomad": false
     },
     "765": {
@@ -917,9 +917,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1699G>A",
       "aaChange": "p.Gly567Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45477903-G-A",
       "observedInGnomad": false
     },
     "579": {
@@ -927,9 +927,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1735G>A",
       "aaChange": "p.Gly579Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45477939-G-A",
       "observedInGnomad": false
     },
     "585": {
@@ -957,9 +957,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1780G>A",
       "aaChange": "p.Gly594Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45478345-G-A",
       "observedInGnomad": false
     },
     "600": {
@@ -967,9 +967,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1798G>A",
       "aaChange": "p.Gly600Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45479911-G-A",
       "observedInGnomad": false
     },
     "606": {
@@ -997,9 +997,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2029G>A",
       "aaChange": "p.Gly677Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45480736-G-A",
       "observedInGnomad": false
     },
     "683": {
@@ -1007,9 +1007,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2047G>A",
       "aaChange": "p.Gly683Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45480754-G-A",
       "observedInGnomad": false
     },
     "700": {
@@ -1017,9 +1017,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2098G>A",
       "aaChange": "p.Gly700Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45480805-G-A",
       "observedInGnomad": false
     },
     "712": {
@@ -1027,9 +1027,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2134G>A",
       "aaChange": "p.Gly712Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45480841-G-A",
       "observedInGnomad": false
     },
     "754": {
@@ -1057,9 +1057,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2305G>A",
       "aaChange": "p.Gly769Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45486924-G-A",
       "observedInGnomad": false
     },
     "816": {
@@ -1067,9 +1067,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2446G>A",
       "aaChange": "p.Gly816Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45488427-G-A",
       "observedInGnomad": false
     },
     "843": {
@@ -1097,9 +1097,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2626G>A",
       "aaChange": "p.Gly876Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45491243-G-A",
       "observedInGnomad": false
     },
     "878": {
@@ -1107,9 +1107,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2632G>A",
       "aaChange": "p.Gly878Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45491249-G-A",
       "observedInGnomad": false
     },
     "887": {
@@ -1147,9 +1147,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2983G>A",
       "aaChange": "p.Gly995Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45495367-G-A",
       "observedInGnomad": false
     },
     "998": {
@@ -1157,9 +1157,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2992G>A",
       "aaChange": "p.Gly998Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45495376-G-A",
       "observedInGnomad": false
     },
     "1020": {
@@ -1167,9 +1167,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3058G>A",
       "aaChange": "p.Gly1020Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45496509-G-A",
       "observedInGnomad": false
     },
     "1048": {
@@ -1187,9 +1187,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3214G>A",
       "aaChange": "p.Gly1072Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45497652-G-A",
       "observedInGnomad": false
     },
     "1108": {
@@ -1197,9 +1197,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3322G>A",
       "aaChange": "p.Gly1108Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45504470-G-A",
       "observedInGnomad": false
     },
     "1111": {
@@ -1207,9 +1207,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3331G>A",
       "aaChange": "p.Gly1111Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45504479-G-A",
       "observedInGnomad": false
     },
     "1114": {
@@ -1217,9 +1217,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3340G>A",
       "aaChange": "p.Gly1114Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45504488-G-A",
       "observedInGnomad": false
     },
     "1119": {
@@ -1227,9 +1227,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3355G>A",
       "aaChange": "p.Gly1119Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45504503-G-A",
       "observedInGnomad": false
     },
     "1122": {
@@ -1237,9 +1237,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3364G>A",
       "aaChange": "p.Gly1122Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45504512-G-A",
       "observedInGnomad": false
     },
     "1145": {
@@ -1247,9 +1247,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3433G>A",
       "aaChange": "p.Gly1145Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45505167-G-A",
       "observedInGnomad": false
     },
     "1154": {
@@ -1257,9 +1257,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3460G>A",
       "aaChange": "p.Gly1154Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45505194-G-A",
       "observedInGnomad": false
     },
     "1156": {
@@ -1287,9 +1287,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3559G>A",
       "aaChange": "p.Gly1187Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1442633,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45505372-G-A",
       "observedInGnomad": false
     }
   },
@@ -1421,9 +1421,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.451G>A",
       "aaChange": "p.Gly151Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50199246-C-T",
       "observedInGnomad": false
     },
     "257": {
@@ -1441,9 +1441,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.994G>A",
       "aaChange": "p.Gly332Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50196163-C-T",
       "observedInGnomad": false
     },
     "338": {
@@ -1461,9 +1461,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1273G>A",
       "aaChange": "p.Gly425Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50195258-C-T",
       "observedInGnomad": false
     },
     "434": {
@@ -1471,9 +1471,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1300G>A",
       "aaChange": "p.Gly434Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50195100-C-T",
       "observedInGnomad": false
     },
     "476": {
@@ -1501,9 +1501,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1588G>A",
       "aaChange": "p.Gly530Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50194375-C-T",
       "observedInGnomad": false
     },
     "560": {
@@ -1511,9 +1511,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1678G>A",
       "aaChange": "p.Gly560Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50194032-C-T",
       "observedInGnomad": false
     },
     "566": {
@@ -1521,9 +1521,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1696G>A",
       "aaChange": "p.Gly566Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50194014-C-T",
       "observedInGnomad": false
     },
     "593": {
@@ -1541,9 +1541,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1804G>A",
       "aaChange": "p.Gly602Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50193011-C-T",
       "observedInGnomad": false
     },
     "608": {
@@ -1551,9 +1551,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1822G>A",
       "aaChange": "p.Gly608Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50192850-C-T",
       "observedInGnomad": false
     },
     "641": {
@@ -1591,9 +1591,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2155G>A",
       "aaChange": "p.Gly719Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50191463-C-T",
       "observedInGnomad": false
     },
     "788": {
@@ -1601,9 +1601,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2362G>A",
       "aaChange": "p.Gly788Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50190578-C-T",
       "observedInGnomad": false
     },
     "800": {
@@ -1611,9 +1611,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2398G>A",
       "aaChange": "p.Gly800Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50190380-C-T",
       "observedInGnomad": false
     },
     "809": {
@@ -1621,9 +1621,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2425G>A",
       "aaChange": "p.Gly809Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50190353-C-T",
       "observedInGnomad": false
     },
     "821": {
@@ -1631,9 +1631,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2461G>A",
       "aaChange": "p.Gly821Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50190099-C-T",
       "observedInGnomad": false
     },
     "845": {
@@ -1641,9 +1641,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2533G>A",
       "aaChange": "p.Gly845Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50190027-C-T",
       "observedInGnomad": false
     },
     "866": {
@@ -1651,9 +1651,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2596G>A",
       "aaChange": "p.Gly866Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50189876-C-T",
       "observedInGnomad": false
     },
     "884": {
@@ -1661,9 +1661,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2650G>A",
       "aaChange": "p.Gly884Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50189696-C-T",
       "observedInGnomad": false
     },
     "950": {
@@ -1681,9 +1681,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2884G>A",
       "aaChange": "p.Gly962Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50189221-C-T",
       "observedInGnomad": false
     },
     "1028": {
@@ -1701,9 +1701,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3118G>A",
       "aaChange": "p.Gly1040Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50188619-C-T",
       "observedInGnomad": false
     },
     "1076": {
@@ -1711,9 +1711,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3226G>A",
       "aaChange": "p.Gly1076Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50188131-C-T",
       "observedInGnomad": false
     },
     "1079": {
@@ -1731,9 +1731,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3262G>A",
       "aaChange": "p.Gly1088Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50187983-C-T",
       "observedInGnomad": false
     },
     "1157": {
@@ -1751,9 +1751,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3505G>A",
       "aaChange": "p.Gly1169Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1457613,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "17-50187041-C-T",
       "observedInGnomad": false
     },
     "1181": {
@@ -1853,9 +1853,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.982G>A",
       "aaChange": "p.Gly328Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1510733,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-94409768-G-A",
       "observedInGnomad": false
     },
     "337": {
@@ -1883,9 +1883,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1090G>A",
       "aaChange": "p.Gly364Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1510733,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-94410420-G-A",
       "observedInGnomad": false
     },
     "391": {
@@ -1903,9 +1903,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1378G>A",
       "aaChange": "p.Gly460Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1510733,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-94412095-G-A",
       "observedInGnomad": false
     },
     "469": {
@@ -1913,9 +1913,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1405G>A",
       "aaChange": "p.Gly469Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1510733,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-94412584-G-A",
       "observedInGnomad": false
     },
     "475": {
@@ -1963,9 +1963,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2152G>A",
       "aaChange": "p.Gly718Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1510733,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-94420409-G-A",
       "observedInGnomad": false
     },
     "751": {
@@ -2023,9 +2023,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2845G>A",
       "aaChange": "p.Gly949Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1510733,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-94425759-G-A",
       "observedInGnomad": false
     },
     "1012": {
@@ -2219,9 +2219,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2755G>A",
       "aaChange": "p.Gly919Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1562035,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "8-138690874-C-T",
       "observedInGnomad": false
     },
     "922": {
@@ -2493,9 +2493,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1492G>A",
       "aaChange": "p.Gly498Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1503210,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "1-86115378-C-T",
       "observedInGnomad": false
     },
     "597": {
@@ -2545,9 +2545,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.673G>A",
       "aaChange": "p.Gly225Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1562210,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "4-108937843-C-T",
       "observedInGnomad": false
     },
     "264": {
@@ -2587,9 +2587,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.598G>A",
       "aaChange": "p.Gly200Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-101540049-G-A",
       "observedInGnomad": false
     },
     "215": {
@@ -2597,9 +2597,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.643G>A",
       "aaChange": "p.Gly215Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-101544042-G-A",
       "observedInGnomad": false
     },
     "251": {
@@ -2607,9 +2607,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.751G>A",
       "aaChange": "p.Gly251Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-101545391-G-A",
       "observedInGnomad": false
     },
     "257": {
@@ -2617,9 +2617,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.769G>A",
       "aaChange": "p.Gly257Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-101545409-G-A",
       "observedInGnomad": false
     },
     "342": {
@@ -2627,9 +2627,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1024G>A",
       "aaChange": "p.Gly342Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-101553326-G-A",
       "observedInGnomad": false
     }
   },
@@ -2931,9 +2931,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1210G>A",
       "aaChange": "p.Gly404Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-7477135-C-T",
       "observedInGnomad": false
     },
     "452": {
@@ -2941,9 +2941,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1354G>A",
       "aaChange": "p.Gly452Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-7456061-C-T",
       "observedInGnomad": false
     },
     "739": {
@@ -2951,9 +2951,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2215G>A",
       "aaChange": "p.Gly739Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "7-7380853-C-T",
       "observedInGnomad": false
     }
   },
@@ -3023,9 +3023,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1222G>A",
       "aaChange": "p.Gly408Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1473978,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "12-47987313-C-T",
       "observedInGnomad": false
     },
     "504": {
@@ -3043,9 +3043,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1537G>A",
       "aaChange": "p.Gly513Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1473978,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "12-47985956-C-T",
       "observedInGnomad": false
     },
     "516": {
@@ -3053,9 +3053,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1546G>A",
       "aaChange": "p.Gly516Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1473978,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "12-47985947-C-T",
       "observedInGnomad": false
     },
     "546": {
@@ -3063,9 +3063,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1636G>A",
       "aaChange": "p.Gly546Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1473978,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "12-47985772-C-T",
       "observedInGnomad": false
     },
     "612": {
@@ -3073,9 +3073,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1834G>A",
       "aaChange": "p.Gly612Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1473978,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "12-47984599-C-T",
       "observedInGnomad": false
     },
     "687": {
@@ -3153,9 +3153,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2887G>A",
       "aaChange": "p.Gly963Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1473978,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "12-47978605-C-T",
       "observedInGnomad": false
     },
     "984": {
@@ -3183,9 +3183,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3121G>A",
       "aaChange": "p.Gly1041Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1473978,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "12-47977644-C-T",
       "observedInGnomad": false
     },
     "1143": {
@@ -3193,9 +3193,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3427G>A",
       "aaChange": "p.Gly1143Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1473978,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "12-47976820-C-T",
       "observedInGnomad": false
     },
     "1170": {
@@ -3213,9 +3213,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3589G>A",
       "aaChange": "p.Gly1197Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1473978,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "12-47975971-C-T",
       "observedInGnomad": false
     }
   },
@@ -3225,9 +3225,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.547G>A",
       "aaChange": "p.Gly183Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1491933,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-188988099-G-A",
       "observedInGnomad": false
     },
     "237": {
@@ -3275,9 +3275,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1330G>A",
       "aaChange": "p.Gly444Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1491933,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-188994577-G-A",
       "observedInGnomad": false
     },
     "450": {
@@ -3285,9 +3285,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1348G>A",
       "aaChange": "p.Gly450Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1491933,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-188994724-G-A",
       "observedInGnomad": false
     },
     "540": {
@@ -3305,9 +3305,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1663G>A",
       "aaChange": "p.Gly555Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1491933,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-188996398-G-A",
       "observedInGnomad": false
     },
     "582": {
@@ -3315,9 +3315,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1744G>A",
       "aaChange": "p.Gly582Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1491933,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-188996479-G-A",
       "observedInGnomad": false
     },
     "666": {
@@ -3335,9 +3335,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2356G>A",
       "aaChange": "p.Gly786Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1491933,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-189001554-G-A",
       "observedInGnomad": false
     },
     "897": {
@@ -3375,9 +3375,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3229G>A",
       "aaChange": "p.Gly1077Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1491933,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-189006964-G-A",
       "observedInGnomad": false
     },
     "1131": {
@@ -3397,9 +3397,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.325G>A",
       "aaChange": "p.Gly109Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1511877,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110212479-C-T",
       "observedInGnomad": false
     },
     "115": {
@@ -3417,9 +3417,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.406G>A",
       "aaChange": "p.Gly136Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1511877,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110211904-C-T",
       "observedInGnomad": false
     },
     "148": {
@@ -3427,9 +3427,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.442G>A",
       "aaChange": "p.Gly148Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1511877,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110211673-C-T",
       "observedInGnomad": false
     },
     "179": {
@@ -3457,9 +3457,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.634G>A",
       "aaChange": "p.Gly212Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1511877,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110209409-C-T",
       "observedInGnomad": false
     },
     "275": {
@@ -3547,9 +3547,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1438G>A",
       "aaChange": "p.Gly480Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1511877,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110192857-C-T",
       "observedInGnomad": false
     },
     "553": {
@@ -3577,9 +3577,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2008G>A",
       "aaChange": "p.Gly670Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1511877,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110183080-C-T",
       "observedInGnomad": false
     },
     "696": {
@@ -3627,9 +3627,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2317G>A",
       "aaChange": "p.Gly773Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1511877,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110179298-C-T",
       "observedInGnomad": false
     },
     "832": {
@@ -3637,9 +3637,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2494G>A",
       "aaChange": "p.Gly832Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1511877,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110178196-C-T",
       "observedInGnomad": false
     },
     "888": {
@@ -3647,9 +3647,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2662G>A",
       "aaChange": "p.Gly888Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1511877,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110177896-C-T",
       "observedInGnomad": false
     },
     "930": {
@@ -3657,9 +3657,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2788G>A",
       "aaChange": "p.Gly930Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1511877,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110176966-C-T",
       "observedInGnomad": false
     },
     "981": {
@@ -3697,9 +3697,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3715G>A",
       "aaChange": "p.Gly1239Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1511877,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110170574-C-T",
       "observedInGnomad": false
     },
     "1278": {
@@ -3789,9 +3789,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.478G>A",
       "aaChange": "p.Gly160Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1543122,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110429885-G-A",
       "observedInGnomad": false
     },
     "193": {
@@ -4049,9 +4049,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2821G>A",
       "aaChange": "p.Gly941Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1543122,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110482578-G-A",
       "observedInGnomad": false
     },
     "953": {
@@ -4089,9 +4089,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3118G>A",
       "aaChange": "p.Gly1040Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1543122,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110485747-G-A",
       "observedInGnomad": false
     },
     "1043": {
@@ -4129,9 +4129,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3280G>A",
       "aaChange": "p.Gly1094Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1543122,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "13-110489719-G-A",
       "observedInGnomad": false
     },
     "1131": {
@@ -4585,9 +4585,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.367G>A",
       "aaChange": "p.Gly123Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1112538,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108568804-G-A",
       "observedInGnomad": false
     },
     "138": {
@@ -4665,9 +4665,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3319G>A",
       "aaChange": "p.Gly1107Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1112538,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108655403-G-A",
       "observedInGnomad": false
     },
     "1143": {
@@ -4707,9 +4707,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.436G>A",
       "aaChange": "p.Gly146Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108214120-C-T",
       "observedInGnomad": false
     },
     "149": {
@@ -4717,9 +4717,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.445G>A",
       "aaChange": "p.Gly149Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108211740-C-T",
       "observedInGnomad": false
     },
     "190": {
@@ -4727,9 +4727,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.568G>A",
       "aaChange": "p.Gly190Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108206562-C-T",
       "observedInGnomad": false
     },
     "495": {
@@ -4757,9 +4757,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1945G>A",
       "aaChange": "p.Gly649Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108187105-C-T",
       "observedInGnomad": false
     },
     "664": {
@@ -4767,9 +4767,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1990G>A",
       "aaChange": "p.Gly664Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108180933-C-T",
       "observedInGnomad": false
     },
     "673": {
@@ -4777,9 +4777,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2017G>A",
       "aaChange": "p.Gly673Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108180906-C-T",
       "observedInGnomad": false
     },
     "789": {
@@ -4787,9 +4787,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2365G>A",
       "aaChange": "p.Gly789Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108178837-C-T",
       "observedInGnomad": false
     },
     "954": {
@@ -4797,9 +4797,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2860G>A",
       "aaChange": "p.Gly954Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108175189-C-T",
       "observedInGnomad": false
     },
     "978": {
@@ -4807,9 +4807,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2932G>A",
       "aaChange": "p.Gly978Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108175117-C-T",
       "observedInGnomad": false
     },
     "1072": {
@@ -4817,9 +4817,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3214G>A",
       "aaChange": "p.Gly1072Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108171453-C-T",
       "observedInGnomad": false
     },
     "1079": {
@@ -4827,9 +4827,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3235G>A",
       "aaChange": "p.Gly1079Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108171432-C-T",
       "observedInGnomad": false
     },
     "1136": {
@@ -4837,9 +4837,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3406G>A",
       "aaChange": "p.Gly1136Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108170699-C-T",
       "observedInGnomad": false
     },
     "1160": {
@@ -4847,9 +4847,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3478G>A",
       "aaChange": "p.Gly1160Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108170627-C-T",
       "observedInGnomad": false
     },
     "1195": {
@@ -4877,9 +4877,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3730G>A",
       "aaChange": "p.Gly1244Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108165451-C-T",
       "observedInGnomad": false
     },
     "1262": {
@@ -4887,9 +4887,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3784G>A",
       "aaChange": "p.Gly1262Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108165397-C-T",
       "observedInGnomad": false
     },
     "1292": {
@@ -4907,9 +4907,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.4045G>A",
       "aaChange": "p.Gly1349Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108164627-C-T",
       "observedInGnomad": false
     },
     "1416": {
@@ -4917,9 +4917,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.4246G>A",
       "aaChange": "p.Gly1416Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108161709-C-T",
       "observedInGnomad": false
     },
     "1455": {
@@ -4927,9 +4927,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.4363G>A",
       "aaChange": "p.Gly1455Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1093842,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "X-108160628-C-T",
       "observedInGnomad": false
     }
   },
@@ -4939,9 +4939,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1441G>A",
       "aaChange": "p.Gly481Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134738755-G-A",
       "observedInGnomad": false
     },
     "493": {
@@ -4949,9 +4949,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1477G>A",
       "aaChange": "p.Gly493Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134738791-G-A",
       "observedInGnomad": false
     },
     "514": {
@@ -4969,9 +4969,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1810G>A",
       "aaChange": "p.Gly604Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134754309-G-A",
       "observedInGnomad": false
     },
     "607": {
@@ -4979,9 +4979,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1819G>A",
       "aaChange": "p.Gly607Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134754318-G-A",
       "observedInGnomad": false
     },
     "634": {
@@ -4999,9 +4999,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1954G>A",
       "aaChange": "p.Gly652Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134761943-G-A",
       "observedInGnomad": false
     },
     "667": {
@@ -5009,9 +5009,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1999G>A",
       "aaChange": "p.Gly667Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134763702-G-A",
       "observedInGnomad": false
     },
     "679": {
@@ -5019,9 +5019,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2035G>A",
       "aaChange": "p.Gly679Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134765681-G-A",
       "observedInGnomad": false
     },
     "694": {
@@ -5029,9 +5029,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2080G>A",
       "aaChange": "p.Gly694Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134765726-G-A",
       "observedInGnomad": false
     },
     "697": {
@@ -5039,9 +5039,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2089G>A",
       "aaChange": "p.Gly697Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134766454-G-A",
       "observedInGnomad": false
     },
     "703": {
@@ -5119,9 +5119,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2602G>A",
       "aaChange": "p.Gly868Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134786004-G-A",
       "observedInGnomad": false
     },
     "937": {
@@ -5229,9 +5229,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3565G>A",
       "aaChange": "p.Gly1189Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134811375-G-A",
       "observedInGnomad": false
     },
     "1198": {
@@ -5319,9 +5319,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.4132G>A",
       "aaChange": "p.Gly1378Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134817035-G-A",
       "observedInGnomad": false
     },
     "1414": {
@@ -5389,9 +5389,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.4465G>A",
       "aaChange": "p.Gly1489Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134820134-G-A",
       "observedInGnomad": false
     },
     "1492": {
@@ -5399,9 +5399,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.4474G>A",
       "aaChange": "p.Gly1492Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1523719,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "9-134820143-G-A",
       "observedInGnomad": false
     },
     "1513": {
@@ -5421,9 +5421,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1492G>A",
       "aaChange": "p.Gly498Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1530000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-189066461-C-T",
       "observedInGnomad": false
     },
     "612": {
@@ -5431,9 +5431,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1834G>A",
       "aaChange": "p.Gly612Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1530000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-189063207-C-T",
       "observedInGnomad": false
     },
     "702": {
@@ -5441,9 +5441,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2104G>A",
       "aaChange": "p.Gly702Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1530000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-189058875-C-T",
       "observedInGnomad": false
     },
     "849": {
@@ -5451,9 +5451,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2545G>A",
       "aaChange": "p.Gly849Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1530000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-189053432-C-T",
       "observedInGnomad": false
     },
     "855": {
@@ -5461,9 +5461,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2563G>A",
       "aaChange": "p.Gly855Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1530000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-189053009-C-T",
       "observedInGnomad": false
     },
     "936": {
@@ -5471,9 +5471,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2806G>A",
       "aaChange": "p.Gly936Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1530000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-189051445-C-T",
       "observedInGnomad": false
     },
     "990": {
@@ -5481,9 +5481,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.2968G>A",
       "aaChange": "p.Gly990Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1530000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-189050640-C-T",
       "observedInGnomad": false
     },
     "1008": {
@@ -5491,9 +5491,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3022G>A",
       "aaChange": "p.Gly1008Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1530000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-189050586-C-T",
       "observedInGnomad": false
     }
   },
@@ -5705,9 +5705,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.796G>A",
       "aaChange": "p.Gly266Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1512707,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45987646-G-A",
       "observedInGnomad": false
     },
     "284": {
@@ -5715,9 +5715,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.850G>A",
       "aaChange": "p.Gly284Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1512707,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45989129-G-A",
       "observedInGnomad": false
     },
     "290": {
@@ -5725,9 +5725,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.868G>A",
       "aaChange": "p.Gly290Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1512707,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45989617-G-A",
       "observedInGnomad": false
     },
     "293": {
@@ -5735,9 +5735,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.877G>A",
       "aaChange": "p.Gly293Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1512707,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45989626-G-A",
       "observedInGnomad": false
     },
     "329": {
@@ -5775,9 +5775,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1057G>A",
       "aaChange": "p.Gly353Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1512707,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-45990979-G-A",
       "observedInGnomad": false
     },
     "365": {
@@ -6047,9 +6047,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1573G>A",
       "aaChange": "p.Gly525Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1549576,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "21-46122496-G-A",
       "observedInGnomad": false
     },
     "531": {
@@ -6099,9 +6099,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.6130G>A",
       "aaChange": "p.Gly2044Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1550595,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-237361765-C-T",
       "observedInGnomad": false
     },
     "2047": {
@@ -6149,9 +6149,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.6238G>A",
       "aaChange": "p.Gly2080Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1550595,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "2-237360132-C-T",
       "observedInGnomad": false
     },
     "2174": {
@@ -6241,9 +6241,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.4975G>A",
       "aaChange": "p.Gly1659Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1530000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "3-130421177-G-A",
       "observedInGnomad": false
     }
   },
@@ -6395,9 +6395,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.5425G>A",
       "aaChange": "p.Gly1809Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1548035,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "3-48578515-C-T",
       "observedInGnomad": false
     },
     "1845": {
@@ -6637,9 +6637,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.736G>A",
       "aaChange": "p.Gly246Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "3-99794637-G-A",
       "observedInGnomad": false
     },
     "261": {
@@ -6647,9 +6647,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.781G>A",
       "aaChange": "p.Gly261Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "3-99794682-G-A",
       "observedInGnomad": false
     },
     "264": {
@@ -6657,9 +6657,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.790G>A",
       "aaChange": "p.Gly264Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "3-99794691-G-A",
       "observedInGnomad": false
     },
     "314": {
@@ -6667,9 +6667,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.940G>A",
       "aaChange": "p.Gly314Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "3-99794841-G-A",
       "observedInGnomad": false
     },
     "480": {
@@ -6677,9 +6677,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1438G>A",
       "aaChange": "p.Gly480Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "3-99795339-G-A",
       "observedInGnomad": false
     },
     "536": {
@@ -6687,9 +6687,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1606G>A",
       "aaChange": "p.Gly536Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1540000,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "3-99795507-G-A",
       "observedInGnomad": false
     }
   },
@@ -6781,9 +6781,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.832G>A",
       "aaChange": "p.Gly278Arg",
       "ac": 0,
-      "an": 1100000,
+      "an": 1595490,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "6-70281434-C-T",
       "observedInGnomad": false
     },
     "293": {
@@ -7255,9 +7255,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.613G>A",
       "aaChange": "p.Gly205Ser",
       "ac": 0,
-      "an": 1100000,
+      "an": 1566248,
       "af": 0.0,
-      "variantId": "",
+      "variantId": "20-62825004-G-A",
       "observedInGnomad": false
     },
     "208": {

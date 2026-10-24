@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flame, CheckCircle, ShieldCheck, AlertCircle, FileSearch, Info } from 'lucide-react';
+import { Flame, ShieldCheck, AlertCircle, FileSearch, Info } from 'lucide-react';
 import type { T2Stats, CpGSite } from '../types';
 import { CLINVAR_RELEASE_DATE } from '../data/clinvarData';
 
@@ -14,7 +14,6 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
   cpgSites,
   geneSymbol,
 }) => {
-  const reportedSites = cpgSites.filter(s => s.clinvar.isPathogenicOrLikely);
   const candidateSites = cpgSites.filter(s => !s.clinvar.isPathogenicOrLikely && s.type === 'dyad');
 
   return (
@@ -123,8 +122,10 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
             </div>
           </div>
           <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-            {t2.cpgMultiSubmittersCount > 0
-              ? `CpG G→A variants in ${geneSymbol} demonstrate extensive multi-laboratory independent submissions, validating biological recurrence.`
+            {!isNaN(t2.multiSubmitterOddsRatio.or) && t2.multiSubmitterOddsRatio.or > 1 && t2.multiSubmitterOddsRatio.pValue < 0.05
+              ? `CpG G→A variants in ${geneSymbol} show statistically significant enrichment of multi-laboratory independent submissions (OR = ${t2.multiSubmitterOddsRatio.or.toFixed(2)}, ${t2.multiSubmitterOddsRatio.formattedP}), serving as an operational proxy for recurrent independent ascertainment in disease cohorts.`
+              : t2.cpgMultiSubmittersCount > 0
+              ? `CpG G→A variants in ${geneSymbol} carry multi-laboratory submissions (${t2.cpgMultiSubmittersCount} of ${t2.cpgDyadPlpCount} P/LP), but multi-submitter enrichment vs non-CpG sites does not reach statistical significance (${t2.multiSubmitterOddsRatio.formattedP}).`
               : 'Multi-submitter recurrence evaluation applies to confirmed pathogenic variants across clinical laboratories.'}
           </p>
         </div>
@@ -140,12 +141,20 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
           </span>
         </div>
         <div className="text-slate-600 space-y-1.5 pl-6 leading-relaxed">
-          <p className="m-0">
-            <strong>Tool Pipeline:</strong> Evaluates single-nucleotide first-base G→A missense variants filtered symmetrically for Pathogenic / Likely Pathogenic (P/LP) status across both CpG and non-CpG sites (COL4A5 yields OR = 7.01, non-CpG multi-submitters = 38% [69 of 182]).
-          </p>
-          <p className="m-0 text-slate-500">
-            <strong>Original JASN Paper Benchmark:</strong> Tabulated all reported first-base G→A variants regardless of clinical significance (yielding OR = 7.6, non-CpG multi-submitters = 30% [52 of 173]). The slight numerical variations reflect stricter P/LP curation and ongoing ClinVar database updates over time.
-          </p>
+          {geneSymbol === 'COL4A5' ? (
+            <>
+              <p className="m-0">
+                <strong>P/LP Curation Alignment:</strong> Both the published JASN paper and this live platform strictly evaluate single-nucleotide first-base G→A missense variants filtered symmetrically for Pathogenic / Likely Pathogenic (P/LP) status across both CpG and non-CpG sites.
+              </p>
+              <p className="m-0 text-slate-500">
+                <strong>ClinVar Release Shift:</strong> In the June 2024 paper benchmark, 173 of 437 non-CpG glycines were P/LP (OR = 7.63, multi-submitters = 30% [52 of 173]). In the {CLINVAR_RELEASE_DATE} snapshot, non-CpG P/LP entries increased to 182 of 437 (OR = 7.01, multi-submitters = 38% [69 of 182]). The slight numerical shift strictly reflects the natural accumulation of new clinical variant submissions in NCBI ClinVar over time.
+              </p>
+            </>
+          ) : (
+            <p className="m-0">
+              <strong>Symmetrical P/LP Evaluation:</strong> Calculations evaluate single-nucleotide first-base G→A missense variants filtered symmetrically for Pathogenic / Likely Pathogenic (P/LP) status across both CpG and non-CpG glycine sites in {geneSymbol}, benchmarked against the live NCBI ClinVar database ({CLINVAR_RELEASE_DATE} snapshot).
+            </p>
+          )}
         </div>
       </div>
 

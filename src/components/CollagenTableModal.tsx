@@ -17,6 +17,15 @@ export const CollagenTableModal: React.FC<CollagenTableModalProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState('ALL');
 
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const filteredGenes = COLLAGEN_TABLE.filter(item => {
@@ -41,8 +50,16 @@ export const CollagenTableModal: React.FC<CollagenTableModalProps> = ({
   const uniqueTypes = ['ALL', ...Array.from(new Set(COLLAGEN_TABLE.map(g => g.type)))];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-      <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-5xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in duration-200">
+    <div
+      onClick={e => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs cursor-pointer"
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-5xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in duration-200 cursor-default"
+      >
         {/* Header */}
         <div className="px-6 py-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div className="flex items-center gap-3">
@@ -146,7 +163,20 @@ export const CollagenTableModal: React.FC<CollagenTableModalProps> = ({
                     )}
                   </td>
                   <td className="py-2.5 px-3 text-slate-700 text-xs max-w-xs align-top">
-                    {item.disease}
+                    <div>{item.disease}</div>
+                    {item.omim && item.omim !== '-' && (
+                      <div className="mt-1">
+                        <a
+                          href={`https://omim.org/entry/${item.omim.replace(/[^0-9]/g, '')}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-0.5 text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors"
+                        >
+                          OMIM: {item.omim}
+                          <ExternalLink className="w-2.5 h-2.5 ml-0.5" />
+                        </a>
+                      </div>
+                    )}
                   </td>
                   <td className="py-2.5 px-3 text-xs whitespace-nowrap align-top">
                     <span className={`px-1.5 py-0.5 rounded font-mono text-[11px] ${

@@ -5,12 +5,9 @@ import {
   FileSpreadsheet,
   CheckCircle,
   AlertTriangle,
-  Flame,
-  ShieldCheck,
-  Search,
-  Filter
+  Flame
 } from 'lucide-react';
-import type { SequenceAnalysisResult, CpGSite } from '../types';
+import type { SequenceAnalysisResult } from '../types';
 import { SequenceLogo } from './SequenceLogo';
 import { ForestPlot } from './ForestPlot';
 import type { ForestPlotItem } from './ForestPlot';
@@ -116,7 +113,12 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
       'ClinVar_Variation_ID',
       'ClinVar_Condition',
       'gnomAD_Mutability_Rate',
-      'gnomAD_Classification'
+      'gnomAD_Classification',
+      'gnomAD_Variant_ID',
+      'gnomAD_Allele_Count',
+      'gnomAD_Allele_Number',
+      'gnomAD_Allele_Frequency',
+      'gnomAD_Observed'
     ];
 
     const rows = result.cpgDyads.map(s => [
@@ -136,7 +138,12 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
       s.clinvar.variationId || 'N/A',
       `"${(s.clinvar.phenotype || '').replace(/"/g, '""')}"`,
       s.gnomad.mutability.toExponential(2),
-      s.gnomad.classification
+      s.gnomad.classification,
+      s.gnomad.variantId || 'N/A',
+      s.gnomad.alleleCount !== undefined ? s.gnomad.alleleCount : 'N/A',
+      s.gnomad.alleleNumber !== undefined ? s.gnomad.alleleNumber : 'N/A',
+      s.gnomad.alleleFrequency !== undefined ? s.gnomad.alleleFrequency.toExponential(3) : 'N/A',
+      s.gnomad.observedInGnomad ? 'Yes' : 'No'
     ]);
 
     const metadata = [
@@ -148,16 +155,17 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
     ];
 
     const csvContent =
-      'data:text/csv;charset=utf-8,' +
       [...metadata, headers.join(','), ...rows.map(e => e.join(','))].join('\n');
 
-    const encodedUri = encodeURI(csvContent);
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
+    link.setAttribute('href', url);
     link.setAttribute('download', `${result.geneSymbol}_CpG_Hotspots.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -467,7 +475,7 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
             </div>
           </div>
           <div className="text-[11px] text-slate-500 border-t border-slate-200 pt-2 leading-relaxed">
-            <strong>Methodology &amp; Calibration Note:</strong> Live calculations evaluate single-nucleotide first-base G→A missense variants symmetrically filtered for Pathogenic / Likely Pathogenic (P/LP) status on both CpG and non-CpG sides (COL4A5 yields OR = 7.01, non-CpG multi-submitters = 38%). In the published JASN paper, all reported first-base G→A variants were tabulated regardless of clinical classification (yielding OR = 7.6, non-CpG multi-submitters = 30%). Differences stem from stricter P/LP curation and ongoing NCBI ClinVar database updates (ClinVar snapshot: {CLINVAR_RELEASE_DATE}).
+            <strong>Methodology &amp; Calibration Note:</strong> Both the published JASN paper and this live platform strictly evaluate single-nucleotide first-base G→A missense variants symmetrically filtered for Pathogenic / Likely Pathogenic (P/LP) status on both CpG and non-CpG sides. In COL4A5, the June 2024 paper benchmark identified 173 non-CpG P/LP glycines (yielding OR = 7.63, non-CpG multi-submitters = 30% [52 of 173]), while the live NCBI ClinVar database snapshot ({CLINVAR_RELEASE_DATE}) contains 182 non-CpG P/LP glycines (yielding OR = 7.01, non-CpG multi-submitters = 38% [69 of 182]). The slight numerical shift strictly reflects the natural accumulation of new clinical variant submissions over time.
           </div>
         </div>
       </div>

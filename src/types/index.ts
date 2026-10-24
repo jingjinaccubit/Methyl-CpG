@@ -162,8 +162,12 @@ export interface T2Stats {
 
 export interface T3Stats {
   avgMutabilityCpG: number; // e.g. 1.25e-7
+  minMutabilityCpG?: number; // e.g. 1.18e-7
+  maxMutabilityCpG?: number; // e.g. 1.42e-7
   avgMutabilityBaseline: number; // e.g. 1.20e-8
   foldElevation: number; // e.g. 10.4x
+  minFoldElevation?: number; // e.g. 9.8x
+  maxFoldElevation?: number; // e.g. 11.8x
   deNovoPredictedCount: number;
   somaticDeNovoPredictedCount: number;
   candidateHotspotsCount: number;

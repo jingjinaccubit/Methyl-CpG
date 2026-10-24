@@ -4,7 +4,6 @@ import {
   Flame,
   AlertTriangle,
   FileCheck2,
-  TrendingDown,
   Layers,
   Sparkles
 } from 'lucide-react';
@@ -17,7 +16,6 @@ interface OverviewDashboardProps {
 export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({ result }) => {
   const argCount = result.cpgDyads.filter(d => d.mutAA === 'R').length;
   const serCount = result.cpgDyads.filter(d => d.mutAA === 'S').length;
-  const multiSubCount = result.cpgDyads.filter(d => d.clinvar.multipleSubmitters).length;
 
   return (
     <div className="mb-8">
@@ -83,7 +81,12 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({ result }) 
             {result.cpgDyads.length}
           </div>
           <div className="text-[11px] text-blue-600 mt-1 font-semibold">
-            {result.t1.cpgDyadsPct}% of coll-Gly (Suppressed!)
+            {result.t1.cpgDyadsPct}% of coll-Gly
+            {!isNaN(result.t1.oddsRatioGenome.or) && result.t1.oddsRatioGenome.or < 1 && result.t1.oddsRatioGenome.pValue < 0.05
+              ? ' (Suppressed)'
+              : !isNaN(result.t1.oddsRatioGenome.or) && result.t1.oddsRatioGenome.or > 1 && result.t1.oddsRatioGenome.pValue < 0.05
+              ? ' (Elevated)'
+              : ''}
           </div>
         </div>
 
