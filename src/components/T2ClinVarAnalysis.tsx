@@ -144,10 +144,10 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
           {geneSymbol === 'COL4A5' ? (
             <>
               <p className="m-0">
-                <strong>P/LP Curation Alignment:</strong> Both the published JASN paper and this live platform strictly evaluate single-nucleotide first-base G→A missense variants filtered symmetrically for Pathogenic / Likely Pathogenic (P/LP) status across both CpG and non-CpG sites.
+                <strong>Methodology &amp; Scope Alignment:</strong> The published paper evaluated &ldquo;Alport syndrome-associated G&rarr;A variants reported in ClinVar&rdquo; (10 of 12 dyad sites vs. 173 of 437 non-CpG sites, OR = 7.63 / ~7.6; 10 of 10 vs. 52 of 173 multi-submitters, based on the authors&rsquo; June 2024 analysis pipeline data freeze). This live platform evaluates first-base G&rarr;A missense variants with symmetrical Pathogenic / Likely Pathogenic (P/LP) filtering across all reported indications.
               </p>
               <p className="m-0 text-slate-500">
-                <strong>ClinVar Release Shift:</strong> In the June 2024 paper benchmark, 173 of 437 non-CpG glycines were P/LP (OR = 7.63, multi-submitters = 30% [52 of 173]). In the {CLINVAR_RELEASE_DATE} snapshot, non-CpG P/LP entries increased to 182 of 437 (OR = 7.01, multi-submitters = 38% [69 of 182]). The slight numerical shift strictly reflects the natural accumulation of new clinical variant submissions in NCBI ClinVar over time.
+                <strong>ClinVar Release &amp; Phenotypic Scope:</strong> In the current snapshot ({CLINVAR_RELEASE_DATE}), non-CpG P/LP entries stand at 182 of 437 (OR = 7.01, multi-submitters = 38% [69 of 182]). The slight numerical shift (173 vs. 182) reflects both phenotypic curation boundaries (Alport-specific vs. phenotype-agnostic P/LP) and ongoing ClinVar submission growth over time.
               </p>
             </>
           ) : (

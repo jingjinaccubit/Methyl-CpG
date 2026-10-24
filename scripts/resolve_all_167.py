@@ -1,3 +1,19 @@
+#!/usr/bin/env python3
+"""
+scripts/resolve_all_167.py
+
+Resolves exact GRCh38 genomic coordinates and empirical allele numbers (AN)
+for the 167 collagen CpG dyad sites that initially lacked direct gnomAD lookup records.
+
+Methodology:
+1. 74 sites with ClinVar Variation IDs (scripts/resolved_with_clinvar.json):
+   Directly mapped using canonical SPDI coordinates from NCBI ClinVar E-utilities (esummary).
+2. 93 sites without ClinVar IDs (scripts/without_clinvar.json):
+   Mapped from cDNA nucleotide positions (c.###) to GRCh38 genomic coordinates
+   using exon-intron boundaries from UCSC refGene tracks for canonical RefSeq transcripts.
+3. Outputs scripts/resolved_map.json containing { gene: { pos: { variantId, an } } }.
+"""
+
 import json, re, urllib.request, time
 
 # 1. Load 74 resolved by ClinVar

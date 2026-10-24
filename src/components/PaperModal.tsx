@@ -117,7 +117,7 @@ export const PaperModal: React.FC<PaperModalProps> = ({ isOpen, onClose }) => {
               This software platform generalizes this analytical pipeline (T1 Depletion, T2 ClinVar Hotspots, T3 gnomAD Recurrent De Novo, T4 Odds Ratio Report) to all 44 human collagen genes encoding types I through XXVIII (e.g. COL1A1/COL1A2 in OI, COL3A1/COL5A1 in EDS, COL2A1/COL11A1 in Stickler syndrome).
             </p>
             <p className="text-slate-500 m-0 leading-relaxed border-t border-slate-200/60 pt-1.5 text-[11px]">
-              <em>Calibration Note:</em> Both the published JASN paper and this live platform strictly evaluate single-nucleotide first-base G→A missense variants filtered symmetrically for Pathogenic / Likely Pathogenic (P/LP) status across both CpG and non-CpG codons. The minor numerical difference in COL4A5 odds ratio (7.63 in the June 2024 paper benchmark [10 of 12 vs 173 of 437] vs 7.01 in the current snapshot [10 of 12 vs 182 of 437]) strictly reflects the ongoing accumulation of newly submitted non-CpG P/LP variants in NCBI ClinVar over time.
+              <em>Calibration Note:</em> The published paper evaluated &ldquo;Alport syndrome-associated G&rarr;A variants reported in ClinVar&rdquo; in COL4A5 (10 of 12 dyad sites vs. 173 of 437 non-CpG sites, OR = 7.63 / ~7.6; authors&rsquo; June 2024 pipeline data freeze). This platform applies symmetrical Pathogenic / Likely Pathogenic (P/LP) filtering across all reported phenotypes (10 of 12 vs. 182 of 437 in the current snapshot, OR = 7.01). The minor numerical difference reflects both phenotypic categorization boundaries and ongoing ClinVar submission growth over time.
             </p>
           </div>
         </div>

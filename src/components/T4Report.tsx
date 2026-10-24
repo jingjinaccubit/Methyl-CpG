@@ -475,7 +475,7 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
             </div>
           </div>
           <div className="text-[11px] text-slate-500 border-t border-slate-200 pt-2 leading-relaxed">
-            <strong>Methodology &amp; Calibration Note:</strong> Both the published JASN paper and this live platform strictly evaluate single-nucleotide first-base G→A missense variants symmetrically filtered for Pathogenic / Likely Pathogenic (P/LP) status on both CpG and non-CpG sides. In COL4A5, the June 2024 paper benchmark identified 173 non-CpG P/LP glycines (yielding OR = 7.63, non-CpG multi-submitters = 30% [52 of 173]), while the live NCBI ClinVar database snapshot ({CLINVAR_RELEASE_DATE}) contains 182 non-CpG P/LP glycines (yielding OR = 7.01, non-CpG multi-submitters = 38% [69 of 182]). The slight numerical shift strictly reflects the natural accumulation of new clinical variant submissions over time.
+            <strong>Methodology &amp; Calibration Note:</strong> The published paper evaluated &ldquo;Alport syndrome-associated G&rarr;A variants reported in ClinVar&rdquo; in COL4A5 (10 of 12 dyad sites vs. 173 of 437 non-CpG sites, OR = 7.63 / ~7.6; 52 of 173 non-CpG multi-submitters, from the authors&rsquo; June 2024 analytical pipeline data freeze). This platform applies symmetrical Pathogenic / Likely Pathogenic (P/LP) filtering across all submitted phenotypes for each collagen gene. In the current snapshot ({CLINVAR_RELEASE_DATE}), COL4A5 non-CpG P/LP entries stand at 182 of 437 (OR = 7.01, 69 of 182 multi-submitters). The minor numerical shift reflects both phenotypic curation scope and ongoing ClinVar submission updates.
           </div>
         </div>
       </div>

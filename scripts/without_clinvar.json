@@ -1,0 +1,839 @@
+[
+  {
+    "gene": "COL11A2",
+    "pos": 1465,
+    "cdnaChange": "c.4393G>A",
+    "aaChange": "p.Gly1465Arg",
+    "transcriptId": "ENST00000376288",
+    "refseqId": "NM_080680.3",
+    "chr": "6"
+  },
+  {
+    "gene": "COL13A1",
+    "pos": 149,
+    "cdnaChange": "c.445G>A",
+    "aaChange": "p.Gly149Arg",
+    "transcriptId": "ENST00000374163",
+    "refseqId": "NM_001130103.2",
+    "chr": "10"
+  },
+  {
+    "gene": "COL13A1",
+    "pos": 181,
+    "cdnaChange": "c.541G>A",
+    "aaChange": "p.Gly181Ser",
+    "transcriptId": "ENST00000374163",
+    "refseqId": "NM_001130103.2",
+    "chr": "10"
+  },
+  {
+    "gene": "COL13A1",
+    "pos": 315,
+    "cdnaChange": "c.943G>A",
+    "aaChange": "p.Gly315Ser",
+    "transcriptId": "ENST00000374163",
+    "refseqId": "NM_001130103.2",
+    "chr": "10"
+  },
+  {
+    "gene": "COL13A1",
+    "pos": 336,
+    "cdnaChange": "c.1006G>A",
+    "aaChange": "p.Gly336Arg",
+    "transcriptId": "ENST00000374163",
+    "refseqId": "NM_001130103.2",
+    "chr": "10"
+  },
+  {
+    "gene": "COL13A1",
+    "pos": 503,
+    "cdnaChange": "c.1507G>A",
+    "aaChange": "p.Gly503Ser",
+    "transcriptId": "ENST00000374163",
+    "refseqId": "NM_001130103.2",
+    "chr": "10"
+  },
+  {
+    "gene": "COL13A1",
+    "pos": 530,
+    "cdnaChange": "c.1588G>A",
+    "aaChange": "p.Gly530Arg",
+    "transcriptId": "ENST00000374163",
+    "refseqId": "NM_001130103.2",
+    "chr": "10"
+  },
+  {
+    "gene": "COL13A1",
+    "pos": 557,
+    "cdnaChange": "c.1669G>A",
+    "aaChange": "p.Gly557Arg",
+    "transcriptId": "ENST00000374163",
+    "refseqId": "NM_001130103.2",
+    "chr": "10"
+  },
+  {
+    "gene": "COL13A1",
+    "pos": 622,
+    "cdnaChange": "c.1864G>A",
+    "aaChange": "p.Gly622Ser",
+    "transcriptId": "ENST00000374163",
+    "refseqId": "NM_001130103.2",
+    "chr": "10"
+  },
+  {
+    "gene": "COL13A1",
+    "pos": 670,
+    "cdnaChange": "c.2008G>A",
+    "aaChange": "p.Gly670Arg",
+    "transcriptId": "ENST00000374163",
+    "refseqId": "NM_001130103.2",
+    "chr": "10"
+  },
+  {
+    "gene": "COL14A1",
+    "pos": 1518,
+    "cdnaChange": "c.4552G>A",
+    "aaChange": "p.Gly1518Arg",
+    "transcriptId": "ENST00000346083",
+    "refseqId": "NM_021110.3",
+    "chr": "8"
+  },
+  {
+    "gene": "COL16A1",
+    "pos": 420,
+    "cdnaChange": "c.1258G>A",
+    "aaChange": "p.Gly420Ser",
+    "transcriptId": "ENST00000378817",
+    "refseqId": "NM_001856.4",
+    "chr": "1"
+  },
+  {
+    "gene": "COL16A1",
+    "pos": 762,
+    "cdnaChange": "c.2284G>A",
+    "aaChange": "p.Gly762Ser",
+    "transcriptId": "ENST00000378817",
+    "refseqId": "NM_001856.4",
+    "chr": "1"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 567,
+    "cdnaChange": "c.1699G>A",
+    "aaChange": "p.Gly567Arg",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 579,
+    "cdnaChange": "c.1735G>A",
+    "aaChange": "p.Gly579Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 594,
+    "cdnaChange": "c.1780G>A",
+    "aaChange": "p.Gly594Arg",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 600,
+    "cdnaChange": "c.1798G>A",
+    "aaChange": "p.Gly600Arg",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 677,
+    "cdnaChange": "c.2029G>A",
+    "aaChange": "p.Gly677Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 683,
+    "cdnaChange": "c.2047G>A",
+    "aaChange": "p.Gly683Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 700,
+    "cdnaChange": "c.2098G>A",
+    "aaChange": "p.Gly700Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 712,
+    "cdnaChange": "c.2134G>A",
+    "aaChange": "p.Gly712Arg",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 769,
+    "cdnaChange": "c.2305G>A",
+    "aaChange": "p.Gly769Arg",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 816,
+    "cdnaChange": "c.2446G>A",
+    "aaChange": "p.Gly816Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 876,
+    "cdnaChange": "c.2626G>A",
+    "aaChange": "p.Gly876Arg",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 878,
+    "cdnaChange": "c.2632G>A",
+    "aaChange": "p.Gly878Arg",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 995,
+    "cdnaChange": "c.2983G>A",
+    "aaChange": "p.Gly995Arg",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 998,
+    "cdnaChange": "c.2992G>A",
+    "aaChange": "p.Gly998Arg",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 1020,
+    "cdnaChange": "c.3058G>A",
+    "aaChange": "p.Gly1020Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 1072,
+    "cdnaChange": "c.3214G>A",
+    "aaChange": "p.Gly1072Arg",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 1108,
+    "cdnaChange": "c.3322G>A",
+    "aaChange": "p.Gly1108Arg",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 1111,
+    "cdnaChange": "c.3331G>A",
+    "aaChange": "p.Gly1111Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 1114,
+    "cdnaChange": "c.3340G>A",
+    "aaChange": "p.Gly1114Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 1119,
+    "cdnaChange": "c.3355G>A",
+    "aaChange": "p.Gly1119Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 1122,
+    "cdnaChange": "c.3364G>A",
+    "aaChange": "p.Gly1122Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 1145,
+    "cdnaChange": "c.3433G>A",
+    "aaChange": "p.Gly1145Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 1154,
+    "cdnaChange": "c.3460G>A",
+    "aaChange": "p.Gly1154Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL18A1",
+    "pos": 1187,
+    "cdnaChange": "c.3559G>A",
+    "aaChange": "p.Gly1187Ser",
+    "transcriptId": "ENST00000378619",
+    "refseqId": "NM_030582.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL1A1",
+    "pos": 608,
+    "cdnaChange": "c.1822G>A",
+    "aaChange": "p.Gly608Ser",
+    "transcriptId": "ENST00000225964",
+    "refseqId": "NM_000088.4",
+    "chr": "17"
+  },
+  {
+    "gene": "COL1A1",
+    "pos": 800,
+    "cdnaChange": "c.2398G>A",
+    "aaChange": "p.Gly800Arg",
+    "transcriptId": "ENST00000225964",
+    "refseqId": "NM_000088.4",
+    "chr": "17"
+  },
+  {
+    "gene": "COL1A1",
+    "pos": 1088,
+    "cdnaChange": "c.3262G>A",
+    "aaChange": "p.Gly1088Arg",
+    "transcriptId": "ENST00000225964",
+    "refseqId": "NM_000088.4",
+    "chr": "17"
+  },
+  {
+    "gene": "COL1A2",
+    "pos": 364,
+    "cdnaChange": "c.1090G>A",
+    "aaChange": "p.Gly364Ser",
+    "transcriptId": "ENST00000297268",
+    "refseqId": "NM_000089.4",
+    "chr": "7"
+  },
+  {
+    "gene": "COL22A1",
+    "pos": 919,
+    "cdnaChange": "c.2755G>A",
+    "aaChange": "p.Gly919Ser",
+    "transcriptId": "ENST00000378345",
+    "refseqId": "NM_152888.3",
+    "chr": "8"
+  },
+  {
+    "gene": "COL24A1",
+    "pos": 498,
+    "cdnaChange": "c.1492G>A",
+    "aaChange": "p.Gly498Ser",
+    "transcriptId": "ENST00000378210",
+    "refseqId": "NM_152890.6",
+    "chr": "1"
+  },
+  {
+    "gene": "COL25A1",
+    "pos": 225,
+    "cdnaChange": "c.673G>A",
+    "aaChange": "p.Gly225Ser",
+    "transcriptId": "ENST00000378122",
+    "refseqId": "NM_198721.3",
+    "chr": "4"
+  },
+  {
+    "gene": "COL26A1",
+    "pos": 200,
+    "cdnaChange": "c.598G>A",
+    "aaChange": "p.Gly200Arg",
+    "transcriptId": "ENST00000378033",
+    "refseqId": "NM_133457.4",
+    "chr": "7"
+  },
+  {
+    "gene": "COL26A1",
+    "pos": 215,
+    "cdnaChange": "c.643G>A",
+    "aaChange": "p.Gly215Arg",
+    "transcriptId": "ENST00000378033",
+    "refseqId": "NM_133457.4",
+    "chr": "7"
+  },
+  {
+    "gene": "COL26A1",
+    "pos": 251,
+    "cdnaChange": "c.751G>A",
+    "aaChange": "p.Gly251Ser",
+    "transcriptId": "ENST00000378033",
+    "refseqId": "NM_133457.4",
+    "chr": "7"
+  },
+  {
+    "gene": "COL26A1",
+    "pos": 257,
+    "cdnaChange": "c.769G>A",
+    "aaChange": "p.Gly257Ser",
+    "transcriptId": "ENST00000378033",
+    "refseqId": "NM_133457.4",
+    "chr": "7"
+  },
+  {
+    "gene": "COL26A1",
+    "pos": 342,
+    "cdnaChange": "c.1024G>A",
+    "aaChange": "p.Gly342Ser",
+    "transcriptId": "ENST00000378033",
+    "refseqId": "NM_133457.4",
+    "chr": "7"
+  },
+  {
+    "gene": "COL28A1",
+    "pos": 452,
+    "cdnaChange": "c.1354G>A",
+    "aaChange": "p.Gly452Arg",
+    "transcriptId": "ENST00000377890",
+    "refseqId": "NM_001037763.3",
+    "chr": "7"
+  },
+  {
+    "gene": "COL28A1",
+    "pos": 739,
+    "cdnaChange": "c.2215G>A",
+    "aaChange": "p.Gly739Arg",
+    "transcriptId": "ENST00000377890",
+    "refseqId": "NM_001037763.3",
+    "chr": "7"
+  },
+  {
+    "gene": "COL2A1",
+    "pos": 408,
+    "cdnaChange": "c.1222G>A",
+    "aaChange": "p.Gly408Ser",
+    "transcriptId": "ENST00000380518",
+    "refseqId": "NM_001844.5",
+    "chr": "12"
+  },
+  {
+    "gene": "COL2A1",
+    "pos": 612,
+    "cdnaChange": "c.1834G>A",
+    "aaChange": "p.Gly612Ser",
+    "transcriptId": "ENST00000380518",
+    "refseqId": "NM_001844.5",
+    "chr": "12"
+  },
+  {
+    "gene": "COL3A1",
+    "pos": 450,
+    "cdnaChange": "c.1348G>A",
+    "aaChange": "p.Gly450Ser",
+    "transcriptId": "ENST00000304636",
+    "refseqId": "NM_000090.4",
+    "chr": "2"
+  },
+  {
+    "gene": "COL4A1",
+    "pos": 109,
+    "cdnaChange": "c.325G>A",
+    "aaChange": "p.Gly109Arg",
+    "transcriptId": "ENST00000328284",
+    "refseqId": "NM_001845.6",
+    "chr": "13"
+  },
+  {
+    "gene": "COL4A1",
+    "pos": 136,
+    "cdnaChange": "c.406G>A",
+    "aaChange": "p.Gly136Arg",
+    "transcriptId": "ENST00000328284",
+    "refseqId": "NM_001845.6",
+    "chr": "13"
+  },
+  {
+    "gene": "COL4A1",
+    "pos": 148,
+    "cdnaChange": "c.442G>A",
+    "aaChange": "p.Gly148Arg",
+    "transcriptId": "ENST00000328284",
+    "refseqId": "NM_001845.6",
+    "chr": "13"
+  },
+  {
+    "gene": "COL4A2",
+    "pos": 160,
+    "cdnaChange": "c.478G>A",
+    "aaChange": "p.Gly160Arg",
+    "transcriptId": "ENST00000328286",
+    "refseqId": "NM_001846.4",
+    "chr": "13"
+  },
+  {
+    "gene": "COL4A2",
+    "pos": 1040,
+    "cdnaChange": "c.3118G>A",
+    "aaChange": "p.Gly1040Arg",
+    "transcriptId": "ENST00000328286",
+    "refseqId": "NM_001846.4",
+    "chr": "13"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 146,
+    "cdnaChange": "c.436G>A",
+    "aaChange": "p.Gly146Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 149,
+    "cdnaChange": "c.445G>A",
+    "aaChange": "p.Gly149Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 190,
+    "cdnaChange": "c.568G>A",
+    "aaChange": "p.Gly190Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 649,
+    "cdnaChange": "c.1945G>A",
+    "aaChange": "p.Gly649Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 664,
+    "cdnaChange": "c.1990G>A",
+    "aaChange": "p.Gly664Ser",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 673,
+    "cdnaChange": "c.2017G>A",
+    "aaChange": "p.Gly673Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 789,
+    "cdnaChange": "c.2365G>A",
+    "aaChange": "p.Gly789Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 954,
+    "cdnaChange": "c.2860G>A",
+    "aaChange": "p.Gly954Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 978,
+    "cdnaChange": "c.2932G>A",
+    "aaChange": "p.Gly978Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 1072,
+    "cdnaChange": "c.3214G>A",
+    "aaChange": "p.Gly1072Ser",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 1079,
+    "cdnaChange": "c.3235G>A",
+    "aaChange": "p.Gly1079Ser",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 1136,
+    "cdnaChange": "c.3406G>A",
+    "aaChange": "p.Gly1136Ser",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 1160,
+    "cdnaChange": "c.3478G>A",
+    "aaChange": "p.Gly1160Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 1244,
+    "cdnaChange": "c.3730G>A",
+    "aaChange": "p.Gly1244Ser",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 1262,
+    "cdnaChange": "c.3784G>A",
+    "aaChange": "p.Gly1262Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 1349,
+    "cdnaChange": "c.4045G>A",
+    "aaChange": "p.Gly1349Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 1416,
+    "cdnaChange": "c.4246G>A",
+    "aaChange": "p.Gly1416Ser",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL4A6",
+    "pos": 1455,
+    "cdnaChange": "c.4363G>A",
+    "aaChange": "p.Gly1455Arg",
+    "transcriptId": "ENST00000328292",
+    "refseqId": "NM_001847.4",
+    "chr": "X"
+  },
+  {
+    "gene": "COL5A1",
+    "pos": 652,
+    "cdnaChange": "c.1954G>A",
+    "aaChange": "p.Gly652Ser",
+    "transcriptId": "ENST00000357992",
+    "refseqId": "NM_000093.5",
+    "chr": "9"
+  },
+  {
+    "gene": "COL5A1",
+    "pos": 679,
+    "cdnaChange": "c.2035G>A",
+    "aaChange": "p.Gly679Arg",
+    "transcriptId": "ENST00000357992",
+    "refseqId": "NM_000093.5",
+    "chr": "9"
+  },
+  {
+    "gene": "COL5A1",
+    "pos": 694,
+    "cdnaChange": "c.2080G>A",
+    "aaChange": "p.Gly694Arg",
+    "transcriptId": "ENST00000357992",
+    "refseqId": "NM_000093.5",
+    "chr": "9"
+  },
+  {
+    "gene": "COL5A1",
+    "pos": 697,
+    "cdnaChange": "c.2089G>A",
+    "aaChange": "p.Gly697Ser",
+    "transcriptId": "ENST00000357992",
+    "refseqId": "NM_000093.5",
+    "chr": "9"
+  },
+  {
+    "gene": "COL5A1",
+    "pos": 1189,
+    "cdnaChange": "c.3565G>A",
+    "aaChange": "p.Gly1189Arg",
+    "transcriptId": "ENST00000357992",
+    "refseqId": "NM_000093.5",
+    "chr": "9"
+  },
+  {
+    "gene": "COL6A1",
+    "pos": 266,
+    "cdnaChange": "c.796G>A",
+    "aaChange": "p.Gly266Ser",
+    "transcriptId": "ENST00000380456",
+    "refseqId": "NM_001848.3",
+    "chr": "21"
+  },
+  {
+    "gene": "COL6A1",
+    "pos": 353,
+    "cdnaChange": "c.1057G>A",
+    "aaChange": "p.Gly353Ser",
+    "transcriptId": "ENST00000380456",
+    "refseqId": "NM_001848.3",
+    "chr": "21"
+  },
+  {
+    "gene": "COL6A2",
+    "pos": 525,
+    "cdnaChange": "c.1573G>A",
+    "aaChange": "p.Gly525Arg",
+    "transcriptId": "ENST00000300361",
+    "refseqId": "NM_001849.4",
+    "chr": "21"
+  },
+  {
+    "gene": "COL8A1",
+    "pos": 246,
+    "cdnaChange": "c.736G>A",
+    "aaChange": "p.Gly246Arg",
+    "transcriptId": "ENST00000381014",
+    "refseqId": "NM_001850.5",
+    "chr": "3"
+  },
+  {
+    "gene": "COL8A1",
+    "pos": 261,
+    "cdnaChange": "c.781G>A",
+    "aaChange": "p.Gly261Ser",
+    "transcriptId": "ENST00000381014",
+    "refseqId": "NM_001850.5",
+    "chr": "3"
+  },
+  {
+    "gene": "COL8A1",
+    "pos": 264,
+    "cdnaChange": "c.790G>A",
+    "aaChange": "p.Gly264Ser",
+    "transcriptId": "ENST00000381014",
+    "refseqId": "NM_001850.5",
+    "chr": "3"
+  },
+  {
+    "gene": "COL8A1",
+    "pos": 314,
+    "cdnaChange": "c.940G>A",
+    "aaChange": "p.Gly314Arg",
+    "transcriptId": "ENST00000381014",
+    "refseqId": "NM_001850.5",
+    "chr": "3"
+  },
+  {
+    "gene": "COL8A1",
+    "pos": 480,
+    "cdnaChange": "c.1438G>A",
+    "aaChange": "p.Gly480Arg",
+    "transcriptId": "ENST00000381014",
+    "refseqId": "NM_001850.5",
+    "chr": "3"
+  },
+  {
+    "gene": "COL8A1",
+    "pos": 536,
+    "cdnaChange": "c.1606G>A",
+    "aaChange": "p.Gly536Arg",
+    "transcriptId": "ENST00000381014",
+    "refseqId": "NM_001850.5",
+    "chr": "3"
+  },
+  {
+    "gene": "COL9A1",
+    "pos": 278,
+    "cdnaChange": "c.832G>A",
+    "aaChange": "p.Gly278Arg",
+    "transcriptId": "ENST00000378949",
+    "refseqId": "NM_001851.5",
+    "chr": "6"
+  },
+  {
+    "gene": "COL9A3",
+    "pos": 205,
+    "cdnaChange": "c.613G>A",
+    "aaChange": "p.Gly205Ser",
+    "transcriptId": "ENST00000378775",
+    "refseqId": "NM_001853.4",
+    "chr": "20"
+  }
+]
