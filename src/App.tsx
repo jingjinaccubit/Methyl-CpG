@@ -9,17 +9,30 @@ import { T3GnomadAnalysis } from './components/T3GnomadAnalysis';
 import { T4Report } from './components/T4Report';
 import { CollagenTableModal } from './components/CollagenTableModal';
 import { PaperModal } from './components/PaperModal';
+import { PasswordGate } from './components/PasswordGate';
 import { analyzeSequence } from './utils/bioCalculations';
 import { COLLAGEN_TABLE, PRELOADED_CDS } from './data/collagenTable';
 import type { SequenceAnalysisResult, CollagenGeneInfo } from './types';
 import { Layers, AlertCircle } from 'lucide-react';
 
 export function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return (
+      localStorage.getItem('methyl_cpg_auth') === 'true' ||
+      sessionStorage.getItem('methyl_cpg_auth') === 'true'
+    );
+  });
   const [analysisResult, setAnalysisResult] = useState<SequenceAnalysisResult | null>(null);
   const [activeTab, setActiveTab] = useState<'ALL' | 'T1' | 'T2' | 'T3' | 'T4'>('ALL');
   const [isCollagenModalOpen, setIsCollagenModalOpen] = useState(false);
   const [isPaperModalOpen, setIsPaperModalOpen] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+  const handleLock = () => {
+    localStorage.removeItem('methyl_cpg_auth');
+    sessionStorage.removeItem('methyl_cpg_auth');
+    setIsAuthenticated(false);
+  };
 
   // Initialize with COL4A5 benchmark immediately upon mount
   useEffect(() => {
@@ -53,11 +66,16 @@ export function App() {
     }
   };
 
+  if (!isAuthenticated) {
+    return <PasswordGate onSuccess={() => setIsAuthenticated(true)} />;
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       <Header
         onOpenCollagenTable={() => setIsCollagenModalOpen(true)}
         onOpenPaperModal={() => setIsPaperModalOpen(true)}
+        onLock={handleLock}
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
