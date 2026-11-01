@@ -1,7 +1,7 @@
 // Auto-generated ClinVar dataset for collagen disorders
 // Tracks monthly NCBI ClinVar snapshots
-export const CLINVAR_RELEASE_DATE = "2026-10";
-export const CLINVAR_LAST_UPDATED = "2026-10-23";
+export const CLINVAR_RELEASE_DATE = "2026-11";
+export const CLINVAR_LAST_UPDATED = "2026-11-01";
 
 export interface ClinVarRecord {
   pos: number; // protein position (1-based)
@@ -242,7 +242,7 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
     "cpgPlp": 0,
     "cpgMulti": 0,
     "nonCpgTotal": 152,
-    "nonCpgReported": 4,
+    "nonCpgReported": 2,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   },
@@ -293,11 +293,11 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
   "COL18A1": {
     "collGlyCount": 180,
     "cpgDyadTotal": 39,
-    "cpgReported": 3,
+    "cpgReported": 1,
     "cpgPlp": 0,
     "cpgMulti": 0,
     "nonCpgTotal": 141,
-    "nonCpgReported": 11,
+    "nonCpgReported": 4,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   },
@@ -1255,19 +1255,6 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
     }
   },
   "COL18A1": {
-    "517": {
-      "pos": 517,
-      "refAA": "G",
-      "altAA": "S",
-      "cdnaChange": "c.1549G>A",
-      "aaChange": "p.Gly517Ser",
-      "variationId": "340210",
-      "significance": "B/LB",
-      "rawSignificance": "Benign/Likely benign",
-      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
-      "multipleSubmitters": true,
-      "condition": "Knobloch syndrome|not provided"
-    },
     "919": {
       "pos": 919,
       "refAA": "G",
@@ -1280,19 +1267,6 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "reviewStatus": "criteria provided, single submitter",
       "multipleSubmitters": false,
       "condition": "not provided"
-    },
-    "977": {
-      "pos": 977,
-      "refAA": "G",
-      "altAA": "R",
-      "cdnaChange": "c.2929G>A",
-      "aaChange": "p.Gly977Arg",
-      "variationId": "1470350",
-      "significance": "VUS",
-      "rawSignificance": "Uncertain significance",
-      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
-      "multipleSubmitters": true,
-      "condition": "Inborn genetic diseases|not provided"
     }
   },
   "COL19A1": {
@@ -1478,7 +1452,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Osteogenesis imperfecta type I|not provided|Osteogenesis imperfecta|Ehlers-Danlos syndrome|COL1A1-related disorder|Osteogenesis imperfecta type I;Osteogenesis imperfecta with normal sclerae, dominant form;Osteogenesis imperfecta type III|Osteogenesis imperfecta with normal sclerae, dominant form"
+      "condition": "not provided|Osteogenesis imperfecta type I|Osteogenesis imperfecta|Ehlers-Danlos syndrome|COL1A1-related disorder|Osteogenesis imperfecta type I;Osteogenesis imperfecta with normal sclerae, dominant form;Osteogenesis imperfecta type III|Osteogenesis imperfecta with normal sclerae, dominant form"
     },
     "566": {
       "pos": 566,
@@ -2052,7 +2026,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided|Ehlers-Danlos syndrome|Osteogenesis imperfecta type I;Ehlers-Danlos syndrome, classic type, 1|Ehlers-Danlos syndrome, arthrochalasia type, 2|COL1A2-related osteogenesis imperfecta|COL1A2-related disorder|7 conditions"
+      "condition": "not provided|Ehlers-Danlos syndrome|Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I|Ehlers-Danlos syndrome, arthrochalasia type, 2|COL1A2-related osteogenesis imperfecta|COL1A2-related disorder|7 conditions"
     },
     "919": {
       "pos": 919,
@@ -2065,7 +2039,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Osteogenesis imperfecta type I;Ehlers-Danlos syndrome, classic type, 1|not provided|Cardiovascular phenotype|Osteogenesis imperfecta;Ehlers-Danlos syndrome, cardiac valvular type;Ehlers-Danlos syndrome, arthrochalasia type|COL1A2-related disorder|Ehlers-Danlos syndrome, arthrochalasia type, 2|Combined osteogenesis imperfecta and Ehlers-Danlos syndrome 2|7 conditions"
+      "condition": "Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I|not provided|Cardiovascular phenotype|Osteogenesis imperfecta;Ehlers-Danlos syndrome, cardiac valvular type;Ehlers-Danlos syndrome, arthrochalasia type|COL1A2-related disorder|Ehlers-Danlos syndrome, arthrochalasia type, 2|Combined osteogenesis imperfecta and Ehlers-Danlos syndrome 2|7 conditions"
     },
     "943": {
       "pos": 943,
@@ -2720,7 +2694,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided|Spondylometaphyseal dysplasia - Sutcliffe type|not specified|Type 2 collagenopathy|Autosomal dominant COL2A1-related disorders|COL2A1-related disorder|8 conditions|16 conditions"
+      "condition": "not provided|Spondylometaphyseal dysplasia - Sutcliffe type|not specified|Type 2 collagenopathy|8 conditions|Autosomal dominant COL2A1-related disorders|COL2A1-related disorder|16 conditions"
     },
     "963": {
       "pos": 963,
@@ -4106,7 +4080,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Autosomal dominant Alport syndrome|Autosomal recessive Alport syndrome|not provided|Alport syndrome|Alport syndrome 3b, autosomal recessive;Hematuria, benign familial, 2;Autosomal dominant Alport syndrome|Alport syndrome 3b, autosomal recessive|Hematuria, benign familial, 1|COL4A3-related disorder"
+      "condition": "Autosomal dominant Alport syndrome|Autosomal recessive Alport syndrome|not provided|Alport syndrome|Autosomal dominant Alport syndrome;Alport syndrome 3b, autosomal recessive;Hematuria, benign familial, 2|Alport syndrome 3b, autosomal recessive|Hematuria, benign familial, 1|COL4A3-related disorder"
     },
     "1231": {
       "pos": 1231,
@@ -4173,7 +4147,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "Autosomal recessive Alport syndrome|Benign familial hematuria|not provided|Hematuria, benign familial, 1;Autosomal recessive Alport syndrome|COL4A4-related disorder|Hematuria, benign familial, 1|Alport syndrome|Inborn genetic diseases"
+      "condition": "Autosomal recessive Alport syndrome|Benign familial hematuria|not provided|COL4A4-related disorder|Inborn genetic diseases|Autosomal recessive Alport syndrome;Hematuria, benign familial, 1|Hematuria, benign familial, 1|Alport syndrome"
     },
     "864": {
       "pos": 864,
@@ -5198,7 +5172,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Bethlem myopathy 1A|not provided|Collagen 6-related myopathy|Bethlem myopathy 1A;Ullrich congenital muscular dystrophy 1A|collagen VI-related myopathy|COL6A1-related disorder"
+      "condition": "Bethlem myopathy 1A|not provided|Collagen 6-related myopathy|Bethlem myopathy 1A;Ullrich congenital muscular dystrophy 1A|COL6A1-related disorder|collagen VI-related myopathy"
     },
     "329": {
       "pos": 329,
@@ -6647,7 +6621,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "not provided|Epiphyseal dysplasia, multiple, 3;Intervertebral disc disorder|Retinal detachment;Lattice retinal degeneration|Connective tissue disorder|COL9A3-related disorder|Epiphyseal dysplasia, multiple, 3|not specified"
+      "condition": "not provided|Intervertebral disc disorder;Epiphyseal dysplasia, multiple, 3|Retinal detachment;Lattice retinal degeneration|COL9A3-related disorder|Connective tissue disorder|Epiphyseal dysplasia, multiple, 3|not specified"
     },
     "136": {
       "pos": 136,
