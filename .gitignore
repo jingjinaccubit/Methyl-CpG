@@ -29,3 +29,7 @@ dist-ssr
 .claude/
 *.md.tmp
 scratch/
+
+# Python
+__pycache__/
+*.py[cod]
