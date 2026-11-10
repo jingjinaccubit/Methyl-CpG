@@ -65,7 +65,10 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
               95% CI: [{t1.oddsRatioGenome.ciLower.toFixed(2)} - {t1.oddsRatioGenome.ciUpper.toFixed(2)}] • {t1.oddsRatioGenome.formattedP}
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
-              In {geneSymbol}, only <strong className="text-slate-800">{t1.cpgDyadsCount} of {t1.collagenousGlycines} ({t1.cpgDyadsPct}%)</strong> collagenous glycines retain a preceding cytosine, compared to <strong className="text-slate-800">14.3%</strong> across human coding genes (MANE Select).
+              In {geneSymbol}, <strong className="text-slate-800">{t1.cpgDyadsCount} of {t1.collagenousGlycines} ({t1.cpgDyadsPct}%)</strong> collagenous glycines have a preceding cytosine in mRNA
+              {t1.splitSitesCount && t1.splitSitesCount > 0 ? (
+                <> (<strong>{t1.trueGenomicDyadsCount}</strong> true genomic CpG dyads, <strong>{t1.splitSitesCount}</strong> split at intron-exon boundaries)</>
+              ) : null}, compared to <strong className="text-slate-800">14.3%</strong> across human coding genes (MANE Select).
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-200 text-[11px] text-blue-800 font-medium">

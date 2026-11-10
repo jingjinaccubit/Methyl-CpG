@@ -77,6 +77,8 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
 
     if (!matchesSearch) return false;
 
+    if (filterMode === 'TRUE_DYADS') return !site.isSplitSite;
+    if (filterMode === 'SPLIT') return Boolean(site.isSplitSite);
     if (filterMode === 'ARG') return site.mutAA === 'R';
     if (filterMode === 'SER') return site.mutAA === 'S';
     if (filterMode === 'PLP') return site.clinvar.isPathogenicOrLikely;
@@ -98,6 +100,7 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
   const handleExportCsv = () => {
     const headers = [
       'Residue',
+      'Genomic_Status',
       'cDNA_Change',
       'Protein_Change',
       'Yaa_Codon',
@@ -123,6 +126,7 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
 
     const rows = result.cpgDyads.map(s => [
       s.residueName,
+      s.isSplitSite ? 'Split Codon (Intron-Exon Boundary)' : 'True Genomic Dyad',
       s.cDnaChange,
       s.aaChange,
       s.prevCodon,
@@ -248,6 +252,10 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
           <div className="flex items-center gap-1.5 flex-wrap no-print">
             {[
               { id: 'ALL', label: `All (${result.cpgDyads.length})` },
+              { id: 'TRUE_DYADS', label: `True Dyads (${result.t1.trueGenomicDyadsCount ?? result.cpgDyads.length})` },
+              ...(result.t1.splitSitesCount && result.t1.splitSitesCount > 0
+                ? [{ id: 'SPLIT', label: `⚠️ Split Sites (${result.t1.splitSitesCount})` }]
+                : []),
               { id: 'PLP', label: `P / LP Hotspots (${result.t2.cpgDyadPlpCount})` },
               { id: 'ARG', label: 'Gly→Arg (Severe)' },
               { id: 'SER', label: 'Gly→Ser (Moderate)' },
@@ -297,10 +305,20 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
                   >
                     {/* Residue */}
                     <td className="py-3 px-4 font-mono font-bold text-slate-900">
-                      {site.residueName}
-                      {isCandidate && (
-                        <span className="ml-1 text-amber-600 font-bold" title="Candidate Hotspot">*</span>
-                      )}
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span>{site.residueName}</span>
+                        {isCandidate && (
+                          <span className="text-amber-600 font-bold" title="Candidate Hotspot">*</span>
+                        )}
+                        {site.isSplitSite && (
+                          <span
+                            className="px-1.5 py-0.5 rounded text-[10px] font-sans font-semibold bg-amber-100 text-amber-800 border border-amber-300"
+                            title="Exon-initial codon split by intron: lacks contiguous genomic CpG dyad"
+                          >
+                            Split
+                          </span>
+                        )}
+                      </div>
                     </td>
 
                     {/* Junction DNA */}

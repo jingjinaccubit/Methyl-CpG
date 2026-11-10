@@ -48,6 +48,7 @@ export interface CpGSite {
   mutCodon: string; // e.g. 'AGA'
   mutAA: string; // e.g. 'Arg'
   substitutionClass: 'High Destabilization (Arg)' | 'Moderate Destabilization (Ser)' | 'Other' | 'Nonsense (Stop Codon)' | 'Missense (In-Codon CpG)';
+  isSplitSite?: boolean; // True if junction spans an intron-exon boundary (lacks contiguous genomic CpG dyad)
   clinvar: {
     reported: boolean;
     isPathogenicOrLikely: boolean; // true if P, LP, or P/LP
@@ -98,6 +99,8 @@ export interface T1Stats {
   // CpG Dyads
   cpgDyadsCount: number;
   cpgDyadsPct: number;
+  trueGenomicDyadsCount?: number;
+  splitSitesCount?: number;
   genomeDyadsPct: number; // 14.3% from paper (104,875 of 732,543)
   noncollagenousDyadsCount: number;
   noncollagenousDyadsPct: number;

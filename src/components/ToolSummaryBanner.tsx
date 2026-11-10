@@ -117,7 +117,7 @@ export const ToolSummaryBanner: React.FC<ToolSummaryBannerProps> = ({
                   <h3 className="text-xs font-bold text-slate-900 m-0">T2: ClinVar Recurrence</h3>
                 </div>
                 <p className="text-xs text-slate-600 m-0 leading-normal">
-                  Cross-references 749 CpG dyads against ACMG Pathogenic/Likely Pathogenic variants, computes hotspot odds ratios, and flags unreported high-risk candidate hotspots.
+                  Cross-references 701 true genomic CpG dyads (48 intron-exon split sites flagged) against ACMG Pathogenic/Likely Pathogenic variants, computes hotspot odds ratios, and flags unreported high-risk candidate hotspots.
                 </p>
               </div>
             </div>

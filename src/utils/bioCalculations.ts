@@ -14,6 +14,7 @@ import {
 } from './statistics';
 import { GENE_CLINVAR_MAP, COL4A5_BENCHMARK_CPG, GENE_CLINVAR_BASELINE } from '../data/clinvarData';
 import { calculateGnomadScore } from '../data/gnomadModel';
+import { COLLAGEN_SPLIT_SITES } from '../data/collagenTable';
 
 export const CODON_MAP: Record<string, string> = {
   ATA: 'I', ATC: 'I', ATT: 'I', ATG: 'M',
@@ -204,9 +205,12 @@ export function analyzeSequence(
           residuePos
         );
 
+        const isSplit = Boolean(geneSymbol && COLLAGEN_SPLIT_SITES[geneSymbol]?.includes(residuePos));
+
         cpgDyads.push({
           id: `dyad-${residuePos}`,
           type: 'dyad',
+          isSplitSite: isSplit,
           residueIndex: residuePos,
           residueName: `Gly${residuePos}`,
           cStart,
@@ -423,6 +427,8 @@ export function analyzeSequence(
     noncollagenousCodons: otherCodonsCount,
     cpgDyadsCount,
     cpgDyadsPct,
+    trueGenomicDyadsCount: cpgDyads.filter(d => !d.isSplitSite).length,
+    splitSitesCount: cpgDyads.filter(d => d.isSplitSite).length,
     genomeDyadsPct: 14.3,
     noncollagenousDyadsCount: otherEndingInC,
     noncollagenousDyadsPct: otherEndingInCPct,

@@ -74,19 +74,16 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({ result }) 
         {/* CpG Dyads */}
         <div className="bg-white rounded-xl p-4 border border-blue-200 bg-blue-50/20 shadow-2xs">
           <div className="flex items-center justify-between text-blue-700 mb-1.5">
-            <span className="text-xs font-bold uppercase">CpG Dyads</span>
+            <span className="text-xs font-bold uppercase">Genomic CpG Dyads</span>
             <Dna className="w-4 h-4 text-blue-600" />
           </div>
           <div className="text-2xl font-black text-blue-900 font-mono">
-            {result.cpgDyads.length}
+            {result.t1.trueGenomicDyadsCount ?? result.cpgDyads.length}
           </div>
           <div className="text-[11px] text-blue-600 mt-1 font-semibold">
-            {result.t1.cpgDyadsPct}% of coll-Gly
-            {!isNaN(result.t1.oddsRatioGenome.or) && result.t1.oddsRatioGenome.or < 1 && result.t1.oddsRatioGenome.pValue < 0.05
-              ? ' (Suppressed)'
-              : !isNaN(result.t1.oddsRatioGenome.or) && result.t1.oddsRatioGenome.or > 1 && result.t1.oddsRatioGenome.pValue < 0.05
-              ? ' (Elevated)'
-              : ''}
+            {result.t1.splitSitesCount && result.t1.splitSitesCount > 0
+              ? `${result.t1.trueGenomicDyadsCount} true dyads (${result.t1.splitSitesCount} split flagged)`
+              : `${result.t1.cpgDyadsPct}% of coll-Gly`}
           </div>
         </div>
 
