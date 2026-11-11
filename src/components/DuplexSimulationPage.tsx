@@ -243,25 +243,25 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col font-sans selection:bg-cyan-500 selection:text-slate-950">
       {/* Top Navigation Bar */}
-      <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3.5">
+      <header className="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-2.5 flex flex-wrap lg:flex-nowrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={onBackToMain}
-              className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               Back to Explorer
             </button>
             <div className="h-4 w-px bg-slate-700" />
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-linear-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/20">
+              <div className="w-8 h-8 rounded-lg bg-linear-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/20 shrink-0">
                 <Dna className="w-4 h-4" />
               </div>
               <div>
                 <h1 className="text-sm font-bold text-white tracking-tight flex items-center gap-2 m-0">
                   Ultra-Deep Duplex Sequencing Simulation
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                  <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
                     10,000× ~ 100,000× UMI Benchmark
                   </span>
                 </h1>
@@ -269,46 +269,41 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
             </div>
           </div>
 
-          <div className="flex flex-col items-end gap-1">
-            <div className="flex items-center gap-1.5 flex-wrap justify-end">
-              <button
-                onClick={downloadSample1Fasta}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
-                title="Download Sample 1 (Alport Patient Collagen Sequences, PRJNA1502590)"
-              >
-                <Download className="w-3.5 h-3.5 text-cyan-400" />
-                Sample 1 FASTA
-              </button>
-              <button
-                onClick={downloadSample2Fasta}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
-                title="Download Sample 2 (Human Sperm De Novo Mosaic Sequences, PRJNA588332 / Nature Medicine 2020)"
-              >
-                <Download className="w-3.5 h-3.5 text-blue-400" />
-                Sample 2 (Sperm)
-              </button>
-              <button
-                onClick={downloadSample3Fasta}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
-                title="Download Sample 3 (NAR Paper Human Sperm WGBS GSE30340 & Negative Controls)"
-              >
-                <Download className="w-3.5 h-3.5 text-amber-400" />
-                Sample 3 (NAR Paper)
-              </button>
-              <label className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white cursor-pointer transition shadow-sm">
-                <Upload className="w-3.5 h-3.5" />
-                Upload FASTA
-                <input
-                  type="file"
-                  accept=".fa,.fasta,.txt,.csv"
-                  onChange={handleFileUpload}
-                  className="hidden"
-                />
-              </label>
-            </div>
-            <span className="text-[10px] text-slate-500 hidden sm:inline">
-              Sources: Sample 1 (Alport PRJNA1502590) &bull; Sample 2 (Sperm PRJNA588332) &bull; Sample 3 (NAR Paper GSE30340)
-            </span>
+          <div className="flex items-center gap-1.5 flex-nowrap overflow-x-auto max-w-full pb-1 sm:pb-0 shrink-0">
+            <button
+              onClick={downloadSample1Fasta}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition whitespace-nowrap cursor-pointer shadow-sm"
+              title="Download Sample 1 (Alport Patient Collagen Sequences, PRJNA1502590)"
+            >
+              <Download className="w-3.5 h-3.5 text-cyan-400" />
+              Sample 1 FASTA
+            </button>
+            <button
+              onClick={downloadSample2Fasta}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition whitespace-nowrap cursor-pointer shadow-sm"
+              title="Download Sample 2 (Human Sperm De Novo Mosaic Sequences, PRJNA588332 / Nature Medicine 2020)"
+            >
+              <Download className="w-3.5 h-3.5 text-blue-400" />
+              Sample 2 (Sperm)
+            </button>
+            <button
+              onClick={downloadSample3Fasta}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition whitespace-nowrap cursor-pointer shadow-sm"
+              title="Download Sample 3 (NAR Paper Human Sperm WGBS GSE30340 & Negative Controls)"
+            >
+              <Download className="w-3.5 h-3.5 text-amber-400" />
+              Sample 3 (NAR Paper)
+            </button>
+            <label className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white cursor-pointer transition shadow-sm whitespace-nowrap">
+              <Upload className="w-3.5 h-3.5" />
+              Upload FASTA
+              <input
+                type="file"
+                accept=".fa,.fasta,.txt,.csv"
+                onChange={handleFileUpload}
+                className="hidden"
+              />
+            </label>
           </div>
         </div>
       </header>
