@@ -1,6 +1,9 @@
 /**
  * Preset Hotspots and Sample Sequences for Ultra-Deep Duplex Sequencing Simulation.
- * Includes Sample 1 (Alport Patient Targeted Deep-Seq) & Sample 2 (Human Sperm De Novo Mosaic Deep-Seq).
+ * Includes:
+ * - Sample 1: Alport Patient Targeted Amplicon Deep-Seq (SRR39847752 / PRJNA1502590)
+ * - Sample 2: Human Sperm De Novo Mosaic Deep-Seq (SRR10479998 / PRJNA588332, Breuss et al. Nature Med 2020)
+ * - Sample 3: NAR Paper Sperm WGBS & Built-in Negative Controls (Molaro et al. 2011 GSE30340, 89% 5mC vs 48 Split Controls)
  */
 
 export interface HotspotPreset {
@@ -13,9 +16,11 @@ export interface HotspotPreset {
   strand: string;
   flankingSequence201bp: string;
   hotspotIndex: number; // 100 for 201bp
-  sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO';
+  sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO' | 'SAMPLE3_NAR_PAPER_METHYLATION';
   empiricalErrorRate: number; // baseline error rate
   empiricalDepth: number; // typical benchmark depth
+  isSplitControl?: boolean; // true for 48 exon-initial split pseudo-dyad negative controls
+  spermMethylationPct?: number; // e.g. 89% for true dyads, 0% for split controls
 }
 
 export const HOTSPOT_PRESETS: HotspotPreset[] = [
@@ -157,6 +162,103 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
     sourceCohort: 'SAMPLE2_SPERM_DE_NOVO',
     empiricalErrorRate: 0.0015,
     empiricalDepth: 50000
+  },
+
+  // --- Sample 3: NAR Paper Sperm WGBS & Built-in Negative Controls (Molaro et al. 2011 GSE30340) ---
+  {
+    id: 'COL4A5_Gly624_NAR_TrueDyad',
+    gene: 'COL4A5',
+    aminoAcidChange: 'Gly624Asp',
+    cdnaChange: 'c.1871G>A (True Genomic CpG Dyad)',
+    syndrome: 'X-linked Alport Syndrome (High-Methylation Germline Mutational Hotspot)',
+    clinicalSignificance: 'True Genomic Dyad: 89% Sperm 5mC (GSE30340), gnomAD G>A Present (87% cohort rate)',
+    strand: '+',
+    flankingSequence201bp:
+      'TCCACCAGGCCTTCCTGGATTTCCAGGTCTTCCTGGCCCTAAAGGTGAAATCGGAGTTCCAGGAATTCCTGGCTCCCCTGGTCTTAAAGGACTGCCAG' +
+      'G' +
+      'ATGTGCCTGGTTTGCCAATTGCTGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAG',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE3_NAR_PAPER_METHYLATION',
+    empiricalErrorRate: 0.0003,
+    empiricalDepth: 50000,
+    isSplitControl: false,
+    spermMethylationPct: 89
+  },
+  {
+    id: 'COL1A1_Gly244_NAR_TrueDyad',
+    gene: 'COL1A1',
+    aminoAcidChange: 'Gly244Ser',
+    cdnaChange: 'c.730G>A (True Genomic CpG Dyad)',
+    syndrome: 'Osteogenesis Imperfecta (NAR Fig 3 & GSE30340 Hotspot)',
+    clinicalSignificance: 'True Genomic Dyad: 89% Sperm 5mC, Recurrent Germline Deamination in Male Gamete',
+    strand: '+',
+    flankingSequence201bp:
+      'CCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTCCCTGGTGCCCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTC' +
+      'G' +
+      'GCATACCCGGTCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTGGTTCCCCCGGTCCCTCTGGCCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTG',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE3_NAR_PAPER_METHYLATION',
+    empiricalErrorRate: 0.0003,
+    empiricalDepth: 50000,
+    isSplitControl: false,
+    spermMethylationPct: 89
+  },
+  {
+    id: 'COL4A5_ExonInitial_Split_Ctrl',
+    gene: 'COL4A5',
+    aminoAcidChange: 'Exon-Initial Gly (Split Pseudo-Dyad)',
+    cdnaChange: 'Junction C|GGA (Interrupted by Intron in DNA)',
+    syndrome: 'NAR Negative Control (mRNA looks like dyad; DNA has no CpG)',
+    clinicalSignificance: 'Negative Control: 0% Genomic CpG; gnomAD G>A rate drops from 87% to 31%',
+    strand: '+',
+    flankingSequence201bp:
+      'TTCTTCTTTCCCTTTTCTTGTAGCTTTGCTTCATATTCTCCTCATTTCACATTCCCACCTTCTTTCCATTCTTTCTGCCTCCTTCCTTCCCTTTCCCAG' +
+      'G' +
+      'GACCTCCAGGACCACCGGGCCCTCCTGGCCCCCCAGGCCCTCCTGGCCCCCCAGGTCCACCTGGACCTCCTGGAGAGAAAGGTTCTCCTGGTATTCCTG',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE3_NAR_PAPER_METHYLATION',
+    empiricalErrorRate: 0.0003,
+    empiricalDepth: 50000,
+    isSplitControl: true,
+    spermMethylationPct: 0
+  },
+  {
+    id: 'COL1A1_ExonInitial_Split_Ctrl',
+    gene: 'COL1A1',
+    aminoAcidChange: 'Exon-Initial Gly (Split Pseudo-Dyad)',
+    cdnaChange: 'Junction C|GGA (Interrupted by Intron in DNA)',
+    syndrome: 'NAR Negative Control (mRNA looks like dyad; DNA has no CpG)',
+    clinicalSignificance: 'Negative Control: 0% Genomic CpG; lack of 5mC deamination abrogates hypermutation',
+    strand: '+',
+    flankingSequence201bp:
+      'TCTGGTTTCTTTTTCCCTTCAGGGTTTCCCTTTTCCCTGTCTTTTGTTTTTCTCCTTCCCCCTCTCTCTTTTCTGTTCCTTCCTGTCTTTTTTTTCCAG' +
+      'G' +
+      'GACCTCCAGGTCCCCAAGGTTTCCAAGGTCCCCCTGGTCTTCCTGGCATCTCTGGTCCCCTTGGTCCCCCTGGCATCCCTGGTTTCCCTGGTGCCCGTG',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE3_NAR_PAPER_METHYLATION',
+    empiricalErrorRate: 0.0003,
+    empiricalDepth: 50000,
+    isSplitControl: true,
+    spermMethylationPct: 0
+  },
+  {
+    id: 'COL4A3_ExonInitial_Split_Ctrl',
+    gene: 'COL4A3',
+    aminoAcidChange: 'Exon-Initial Gly (Split Pseudo-Dyad)',
+    cdnaChange: 'Junction C|GGT (Interrupted by Intron in DNA)',
+    syndrome: 'NAR Negative Control (mRNA looks like dyad; DNA has no CpG)',
+    clinicalSignificance: 'Negative Control: gnomAD Population Frequency Matches Background (~30%)',
+    strand: '+',
+    flankingSequence201bp:
+      'TTACTTCTCTCTTTTCTTTTTAGCATTTTCTTTCTTCTTCATTCTTTTTCTTTTTTCCCTTTCTTTCTCTCTCCTTCCTGTCCCTTTTCTTTTTTCCAG' +
+      'G' +
+      'GAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAGCCCCTGGACCTCCTGGTCCTCAAG',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE3_NAR_PAPER_METHYLATION',
+    empiricalErrorRate: 0.0003,
+    empiricalDepth: 50000,
+    isSplitControl: true,
+    spermMethylationPct: 0
   }
 ];
 
@@ -178,6 +280,18 @@ TCCACCAGGCCTTCCTGGATTTCCAGGTCTTCCTGGCCCTAAAGGTGAAATCGGAGTTCCAGGAATTCCTGGCTCCCCTG
 CTTGAGCGTCCCTGTGGACCAAGGACCCCGGGAGCCCTGGCTCCCCGGCATCTCCACCGGGGCCGGCATCATGGCCCACAGGGCACAGGCGGCTCTAGGAGGTTCTTGTTGCTGCCCGGCATCATGGCCCACAGGGCACAGGCGGCTCTAGGAGGTTCTTGTTGCTGCCAGGCAGTGCTGCCAGCAGCAGCGTCAGTC
 >SPERM_COL1A1_c.730G>A_Paternal_Gonadal_Mosaicism_201bp
 CCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTCCCTGGTGCCCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTCGGCATACCCGGTCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTGGTTCCCCCGGTCCCTCTGGCCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTG
+`;
+
+export const SAMPLE3_NAR_FASTA_CONTENT = `>COL4A5_c.1871G>A_NAR_TrueGenomicDyad_89pct_Sperm_5mC_201bp
+TCCACCAGGCCTTCCTGGATTTCCAGGTCTTCCTGGCCCTAAAGGTGAAATCGGAGTTCCAGGAATTCCTGGCTCCCCTGGTCTTAAAGGACTGCCAGGATGTGCCTGGTTTGCCAATTGCTGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAG
+>COL1A1_c.730G>A_NAR_TrueGenomicDyad_89pct_Sperm_5mC_201bp
+CCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTCCCTGGTGCCCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTCGGCATACCCGGTCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTGGTTCCCCCGGTCCCTCTGGCCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTG
+>COL4A5_ExonInitial_Split_PseudoDyad_Control_0pct_Genomic_CpG_201bp
+TTCTTCTTTCCCTTTTCTTGTAGCTTTGCTTCATATTCTCCTCATTTCACATTCCCACCTTCTTTCCATTCTTTCTGCCTCCTTCCTTCCCTTTCCCAGGGACCTCCAGGACCACCGGGCCCTCCTGGCCCCCCAGGCCCTCCTGGCCCCCCAGGTCCACCTGGACCTCCTGGAGAGAAAGGTTCTCCTGGTATTCCTG
+>COL1A1_ExonInitial_Split_PseudoDyad_Control_0pct_Genomic_CpG_201bp
+TCTGGTTTCTTTTTCCCTTCAGGGTTTCCCTTTTCCCTGTCTTTTGTTTTTCTCCTTCCCCCTCTCTCTTTTCTGTTCCTTCCTGTCTTTTTTTTCCAGGGACCTCCAGGTCCCCAAGGTTTCCAAGGTCCCCCTGGTCTTCCTGGCATCTCTGGTCCCCTTGGTCCCCCTGGCATCCCTGGTTTCCCTGGTGCCCGTG
+>COL4A3_ExonInitial_Split_PseudoDyad_Control_0pct_Genomic_CpG_201bp
+TTACTTCTCTCTTTTCTTTTTAGCATTTTCTTTCTTCTTCATTCTTTTTCTTTTTTCCCTTTCTTTCTCTCTCCTTCCTGTCCCTTTTCTTTTTTCCAGGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAGCCCCTGGACCTCCTGGTCCTCAAG
 `;
 
 // Legacy alias for backward compatibility

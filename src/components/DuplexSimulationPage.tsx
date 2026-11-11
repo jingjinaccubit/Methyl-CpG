@@ -22,6 +22,7 @@ import {
   HOTSPOT_PRESETS,
   SAMPLE1_FASTA_CONTENT,
   SAMPLE2_SPERM_FASTA_CONTENT,
+  SAMPLE3_NAR_FASTA_CONTENT,
   type HotspotPreset
 } from '../data/simulationPresets';
 import {
@@ -37,7 +38,9 @@ interface DuplexSimulationPageProps {
 export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBackToMain }) => {
   // Selection & Input mode
   const [inputMode, setInputMode] = useState<'PRESET' | 'UPLOAD' | 'CUSTOM'>('PRESET');
-  const [selectedCohort, setSelectedCohort] = useState<'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO'>('SAMPLE1_COLLAGEN_ALPORT');
+  const [selectedCohort, setSelectedCohort] = useState<
+    'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO' | 'SAMPLE3_NAR_PAPER_METHYLATION'
+  >('SAMPLE1_COLLAGEN_ALPORT');
   const [selectedPresetId, setSelectedPresetId] = useState<string>('COL4A5_Gly624');
   const [customSeq, setCustomSeq] = useState<string>(HOTSPOT_PRESETS[0].flankingSequence201bp);
   const [customGene, setCustomGene] = useState<string>('COL4A5');
@@ -64,7 +67,9 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
   }, [selectedPresetId, filteredPresets]);
 
   // Handle Cohort Switch
-  const handleSwitchCohort = (cohort: 'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO') => {
+  const handleSwitchCohort = (
+    cohort: 'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO' | 'SAMPLE3_NAR_PAPER_METHYLATION'
+  ) => {
     setSelectedCohort(cohort);
     const targetPresets = HOTSPOT_PRESETS.filter(p => p.sourceCohort === cohort);
     if (targetPresets.length > 0) {
@@ -179,6 +184,16 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
     URL.revokeObjectURL(url);
   };
 
+  const downloadSample3Fasta = () => {
+    const blob = new Blob([SAMPLE3_NAR_FASTA_CONTENT], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sample3_nar_sperm_methylation_targets.fa';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const downloadFastqSample = () => {
     if (!result) return;
     // Generate ~50 synthetic paired UMI FASTQ reads representing the simulation
@@ -255,7 +270,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
           </div>
 
           <div className="flex flex-col items-end gap-1">
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 flex-wrap justify-end">
               <button
                 onClick={downloadSample1Fasta}
                 className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
@@ -272,6 +287,14 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                 <Download className="w-3.5 h-3.5 text-blue-400" />
                 Sample 2 (Sperm)
               </button>
+              <button
+                onClick={downloadSample3Fasta}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
+                title="Download Sample 3 (NAR Paper Human Sperm WGBS GSE30340 & Negative Controls)"
+              >
+                <Download className="w-3.5 h-3.5 text-amber-400" />
+                Sample 3 (NAR Paper)
+              </button>
               <label className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white cursor-pointer transition shadow-sm">
                 <Upload className="w-3.5 h-3.5" />
                 Upload FASTA
@@ -284,7 +307,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
               </label>
             </div>
             <span className="text-[10px] text-slate-500 hidden sm:inline">
-              Sources: Sample 1 (Alport PRJNA1502590) &bull; Sample 2 (Sperm PRJNA588332 / Nature Med 2020)
+              Sources: Sample 1 (Alport PRJNA1502590) &bull; Sample 2 (Sperm PRJNA588332) &bull; Sample 3 (NAR Paper GSE30340)
             </span>
           </div>
         </div>
@@ -379,12 +402,16 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                   <div className="flex items-center justify-between">
                     <label className="text-xs text-slate-400 block font-medium">Select Cohort &amp; Benchmark Hotspot:</label>
                     <span className="text-[10px] text-cyan-400 font-mono">
-                      {selectedCohort === 'SAMPLE1_COLLAGEN_ALPORT' ? 'Sample 1: Patient Amplicon' : 'Sample 2: Sperm Mosaic'}
+                      {selectedCohort === 'SAMPLE1_COLLAGEN_ALPORT'
+                        ? 'Sample 1: Patient Amplicon'
+                        : selectedCohort === 'SAMPLE2_SPERM_DE_NOVO'
+                        ? 'Sample 2: Sperm Mosaic'
+                        : 'Sample 3: NAR Paper Sperm WGBS & Controls'}
                     </span>
                   </div>
 
-                  {/* Sample 1 vs Sample 2 Cohort Switch Tabs */}
-                  <div className="grid grid-cols-2 gap-1.5 p-1 bg-slate-900 rounded-xl border border-slate-800">
+                  {/* Cohort Switch Tabs: Sample 1 vs Sample 2 vs Sample 3 */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 p-1 bg-slate-900 rounded-xl border border-slate-800">
                     <button
                       type="button"
                       onClick={() => handleSwitchCohort('SAMPLE1_COLLAGEN_ALPORT')}
@@ -395,9 +422,9 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                       }`}
                     >
                       <span className="font-bold flex items-center gap-1">
-                        Sample 1: Alport Patient
+                        Sample 1: Alport
                       </span>
-                      <span className="text-[10px] text-slate-400 truncate">PRJNA1502590 • MiSeq (3,820×)</span>
+                      <span className="text-[10px] text-slate-400 truncate">PRJNA1502590 • 3,820×</span>
                     </button>
                     <button
                       type="button"
@@ -409,9 +436,23 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                       }`}
                     >
                       <span className="font-bold flex items-center gap-1">
-                        Sample 2: Sperm Mosaic
+                        Sample 2: Sperm
                       </span>
-                      <span className="text-[10px] text-slate-400 truncate">PRJNA588332 • Breuss 2020</span>
+                      <span className="text-[10px] text-slate-400 truncate">PRJNA588332 • Breuss</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSwitchCohort('SAMPLE3_NAR_PAPER_METHYLATION')}
+                      className={`py-1.5 px-2 text-xs rounded-lg transition text-left flex flex-col ${
+                        selectedCohort === 'SAMPLE3_NAR_PAPER_METHYLATION'
+                          ? 'bg-amber-500/20 text-amber-200 border border-amber-500/40 shadow-sm'
+                          : 'text-slate-400 hover:text-slate-200 border border-transparent'
+                      }`}
+                    >
+                      <span className="font-bold flex items-center gap-1">
+                        Sample 3: NAR Paper
+                      </span>
+                      <span className="text-[10px] text-slate-400 truncate">GSE30340 • 89% 5mC / Ctrls</span>
                     </button>
                   </div>
 
@@ -423,7 +464,9 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                         onClick={() => handleSelectPreset(p)}
                         className={`w-full text-left p-2.5 rounded-xl text-xs transition border flex flex-col gap-0.5 ${
                           selectedPresetId === p.id
-                            ? 'bg-cyan-950/40 border-cyan-500/40 text-cyan-200'
+                            ? p.isSplitControl
+                              ? 'bg-amber-950/40 border-amber-500/50 text-amber-200'
+                              : 'bg-cyan-950/40 border-cyan-500/40 text-cyan-200'
                             : 'bg-slate-900/60 border-slate-800 text-slate-300 hover:bg-slate-900 hover:border-slate-700'
                         }`}
                       >
@@ -431,9 +474,20 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                           <span>
                             {p.gene} • {p.aminoAcidChange} ({p.cdnaChange})
                           </span>
-                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">
-                            {p.strand} strand
-                          </span>
+                          <div className="flex items-center gap-1">
+                            {p.isSplitControl ? (
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                Negative Control
+                              </span>
+                            ) : p.spermMethylationPct !== undefined ? (
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                {p.spermMethylationPct}% 5mC
+                              </span>
+                            ) : null}
+                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">
+                              {p.strand} strand
+                            </span>
+                          </div>
                         </div>
                         <span className="text-[11px] text-slate-400 truncate">{p.syndrome}</span>
                       </button>
@@ -460,17 +514,39 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
               {/* Target Sequence Visualizer Highlight */}
               <div className="bg-slate-900/90 rounded-xl p-3 border border-slate-800 space-y-1.5">
                 <div className="flex items-center justify-between text-[11px] text-slate-400">
-                  <span>CpG Dyad Center (Position {hotspotIndex + 1}):</span>
-                  <span className="text-cyan-400 font-mono font-semibold">
-                    Top: G → Bottom: C
+                  <span>
+                    {activePreset.isSplitControl
+                      ? `Exon-Initial Junction Center (Pos ${hotspotIndex + 1}):`
+                      : `CpG Dyad Center (Position ${hotspotIndex + 1}):`}
+                  </span>
+                  <span
+                    className={`font-mono font-semibold ${
+                      activePreset.isSplitControl ? 'text-amber-400' : 'text-cyan-400'
+                    }`}
+                  >
+                    {activePreset.isSplitControl
+                      ? 'Genomic DNA: Splice Acceptor AG (No CpG)'
+                      : 'Top: G → Bottom: C'}
                   </span>
                 </div>
                 <div className="font-mono text-[11px] break-all leading-relaxed text-slate-400 bg-slate-950 p-2.5 rounded-lg border border-slate-800/80 max-h-20 overflow-y-auto">
                   <span>{customSeq.substring(0, hotspotIndex - 1)}</span>
-                  <span className="bg-amber-500/20 text-amber-300 px-0.5 font-bold rounded">
+                  <span
+                    className={`${
+                      activePreset.isSplitControl
+                        ? 'bg-amber-500/30 text-amber-200 border-b border-amber-400'
+                        : 'bg-amber-500/20 text-amber-300'
+                    } px-0.5 font-bold rounded`}
+                  >
                     {customSeq.charAt(hotspotIndex - 1) || 'C'}
                   </span>
-                  <span className="bg-cyan-500 text-slate-950 px-1 font-black rounded mx-0.5 shadow-sm">
+                  <span
+                    className={`${
+                      activePreset.isSplitControl
+                        ? 'bg-amber-500 text-slate-950'
+                        : 'bg-cyan-500 text-slate-950'
+                    } px-1 font-black rounded mx-0.5 shadow-sm`}
+                  >
                     {customSeq.charAt(hotspotIndex) || 'G'}
                   </span>
                   <span>{customSeq.substring(hotspotIndex + 1)}</span>
@@ -486,6 +562,8 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                   &bull; <strong className="text-cyan-300">Sample 1 (Collagen Clinical Amplicon):</strong> Reference sequences are anchored on canonical <strong>MANE Select v1.5</strong> transcripts (RefSeq NM_000495.5 for <em>COL4A5</em>) and published mutational hotspots in <em>JASN</em> (DOI: <a href="https://doi.org/10.1681/ASN.0000001308" target="_blank" rel="noreferrer" className="text-cyan-400 underline hover:text-cyan-300">10.1681/ASN.0000001308</a>); baseline error profile is empirically derived from deep targeted sequencing in <strong>PRJNA1502590</strong> (SRR39847752, Alport type IV collagen sequencing, 3,820× depth).
                   <br />
                   &bull; <strong className="text-blue-300">Sample 2 (Human Sperm De Novo Mosaicism):</strong> Sourced from <strong>Breuss et al.</strong>, <em>Nature Medicine</em> (2020), human sperm deep sequencing study <strong>PRJNA588332</strong> (SRR10479998, TAS-ALL-Sperm), benchmarking male germline ultra-low-frequency <em>de novo</em> mutation transmission risks.
+                  <br />
+                  &bull; <strong className="text-amber-300">Sample 3 (NAR Paper Sperm WGBS &amp; Controls):</strong> Sourced from <strong>Molaro et al.</strong>, <em>Cell</em> (2011), GEO <strong>GSE30340</strong> human sperm whole-genome bisulfite sequencing (median 89% 5mC across 701 collagen CpG dyads). Includes the <strong>48 exon-initial split pseudo-dyad controls</strong> (intron-interrupted codon junctions lacking genomic CpG, dropping population G&gt;A deamination from 87% to 31%, <em>P</em> = 2.1 &times; 10<sup>-16</sup>).
                   <br />
                   &bull; <strong className="text-slate-300">Duplex UMI Architecture:</strong> Follows single-molecule digital sequencing standards from <strong>PRJNA844028</strong> (SRR32282580) and the TwinStrand dual-index duplex consensus validation framework.
                 </span>
