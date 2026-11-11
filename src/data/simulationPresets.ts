@@ -1,0 +1,184 @@
+/**
+ * Preset Hotspots and Sample Sequences for Ultra-Deep Duplex Sequencing Simulation.
+ * Includes Sample 1 (Alport Patient Targeted Deep-Seq) & Sample 2 (Human Sperm De Novo Mosaic Deep-Seq).
+ */
+
+export interface HotspotPreset {
+  id: string;
+  gene: string;
+  aminoAcidChange: string;
+  cdnaChange: string;
+  syndrome: string;
+  clinicalSignificance: string;
+  strand: string;
+  flankingSequence201bp: string;
+  hotspotIndex: number; // 100 for 201bp
+  sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO';
+  empiricalErrorRate: number; // baseline error rate
+  empiricalDepth: number; // typical benchmark depth
+}
+
+export const HOTSPOT_PRESETS: HotspotPreset[] = [
+  // --- Sample 1: Alport Patient Targeted Amplicon Deep Sequencing (SRR39847752) ---
+  {
+    id: 'COL4A5_Gly624',
+    gene: 'COL4A5',
+    aminoAcidChange: 'Gly624Asp',
+    cdnaChange: 'c.1871G>A',
+    syndrome: 'Alport Syndrome (X-linked Benchmark)',
+    clinicalSignificance: 'Pathogenic (JASN Mutational Hotspot)',
+    strand: '+',
+    flankingSequence201bp:
+      'TCCACCAGGCCTTCCTGGATTTCCAGGTCTTCCTGGCCCTAAAGGTGAAATCGGAGTTCCAGGAATTCCTGGCTCCCCTGGTCTTAAAGGACTGCCAG' +
+      'G' + // pos 100 (0-based) / pos 101 (1-based)
+      'ATGTGCCTGGTTTGCCAATTGCTGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAG',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT',
+    empiricalErrorRate: 0.0003, // 0.03%
+    empiricalDepth: 3820
+  },
+  {
+    id: 'COL4A6_Gly1291',
+    gene: 'COL4A6',
+    aminoAcidChange: 'Gly1291Arg',
+    cdnaChange: 'c.3871G>A',
+    syndrome: 'Alport Syndrome with Diffuse Leiomyomatosis',
+    clinicalSignificance: 'Pathogenic (Confirmed in Real SRA SRR39847752 at 3,820x depth)',
+    strand: '-',
+    flankingSequence201bp:
+      'ACAGAGGTAGTTACTTCATTTTCTTGAGCTCTGAAATAATGTTTGTTTATTTTTGTTTGTTTCTTAATTCCAGGGTTTCCAAGGTTCTGCAGGAAAGAC' +
+      'G' +
+      'GGTCCCCCTGGACCAGCTGGACCACGAGGACTGCCTGGTCCACCAGGGCCACCAGGACCTCTGGGTTCTCCTGGCCCACAGGGAGCTTCAGGATTACCT',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT',
+    empiricalErrorRate: 0.00013, // 0.013%
+    empiricalDepth: 3820
+  },
+  {
+    id: 'COL4A4_Gly873',
+    gene: 'COL4A4',
+    aminoAcidChange: 'Gly873Arg',
+    cdnaChange: 'c.2617G>A',
+    syndrome: 'Autosomal Recessive / Dominant Alport Syndrome',
+    clinicalSignificance: 'Pathogenic (Confirmed in Real SRA SRR39847752 at 525x depth)',
+    strand: '-',
+    flankingSequence201bp:
+      'CTGTTGTACAGCCATTCTCTTTCAGAAACTGAAGTTTGCCTTTCATTTATTTCCTTTACCCATCTCTCTCCAGGGTTACCAGGAAAACCAGGACCCATC' +
+      'G' +
+      'GGCTCCCCGGGCCTTCAAGACCTCCTGGTTTGCCTGGACCCATCGGATCTCCTGGACCTCCTGGTCCAGCAGGTGACATCGGACATCCTGGTCCTCGTG',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT',
+    empiricalErrorRate: 0.0003,
+    empiricalDepth: 525
+  },
+  {
+    id: 'COL1A1_Gly244',
+    gene: 'COL1A1',
+    aminoAcidChange: 'Gly244Ser',
+    cdnaChange: 'c.730G>A',
+    syndrome: 'Osteogenesis Imperfecta / EDS',
+    clinicalSignificance: 'Pathogenic (ClinVar Recurrent Hotspot)',
+    strand: '+',
+    flankingSequence201bp:
+      'CCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTCCCTGGTGCCCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTC' +
+      'G' +
+      'GCATACCCGGTCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTGGTTCCCCCGGTCCCTCTGGCCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTG',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT',
+    empiricalErrorRate: 0.0003,
+    empiricalDepth: 4000
+  },
+  {
+    id: 'COL3A1_Gly499',
+    gene: 'COL3A1',
+    aminoAcidChange: 'Gly499Arg',
+    cdnaChange: 'c.1495G>A',
+    syndrome: 'Vascular Ehlers-Danlos Syndrome (vEDS)',
+    clinicalSignificance: 'Pathogenic (Fatal Arterial Fragility Hotspot)',
+    strand: '+',
+    flankingSequence201bp:
+      'GGCATTCCTGGTCAGCCCGGTGCCAAAGGAGAACCTGGTCCTCCCGGCCTTCCTGGCAACCCAGGTCCACCAGGCCTTCCAGGACAAACCGGCCCTCCA' +
+      'G' +
+      'GCCCTCCAGGTCCACCTGGTGTCAAAGGTGAAACTGGCAAACCCGGTCCTCCAGGTCTCAGTGGTCCCCCTGGTCCTCCTGGTCCTCAAGGCCTACCAG',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT',
+    empiricalErrorRate: 0.0003,
+    empiricalDepth: 4000
+  },
+
+  // --- Sample 2: Human Sperm De Novo Mosaic Deep Sequencing (Breuss et al. Nature Medicine 2020 / PRJNA588332) ---
+  {
+    id: 'SPERM_COL4A5_Germline',
+    gene: 'COL4A5',
+    aminoAcidChange: 'Gly624Asp',
+    cdnaChange: 'c.1871G>A (Male Germline Mosaic)',
+    syndrome: 'Paternal Germline Mosaicism in X-linked Alport Syndrome',
+    clinicalSignificance: 'De Novo Hotspot (Sperm Transmission Risk ~0.05%–1%)',
+    strand: '+',
+    flankingSequence201bp:
+      'TCCACCAGGCCTTCCTGGATTTCCAGGTCTTCCTGGCCCTAAAGGTGAAATCGGAGTTCCAGGAATTCCTGGCTCCCCTGGTCTTAAAGGACTGCCAG' +
+      'G' +
+      'ATGTGCCTGGTTTGCCAATTGCTGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAG',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE2_SPERM_DE_NOVO',
+    empiricalErrorRate: 0.0015, // ~0.15% - 1.0% in HiSeq sperm amplicon
+    empiricalDepth: 50000
+  },
+  {
+    id: 'SPERM_FGFR3_c1138',
+    gene: 'FGFR3',
+    aminoAcidChange: 'Gly380Arg',
+    cdnaChange: 'c.1138G>A',
+    syndrome: 'Achondroplasia (Canonical Male Germline CpG Hotspot)',
+    clinicalSignificance: 'Pathogenic (Gold Standard Paternal Age Effect Hotspot)',
+    strand: '+',
+    flankingSequence201bp:
+      'CTTGAGCGTCCCTGTGGACCAAGGACCCCGGGAGCCCTGGCTCCCCGGCATCTCCACCGGGGCCGGCATCATGGCCCACAGGGCACAGGCGGCTCTAG' +
+      'G' +
+      'AGGTTCTTGTTGCTGCCCGGCATCATGGCCCACAGGGCACAGGCGGCTCTAGGAGGTTCTTGTTGCTGCCAGGCAGTGCTGCCAGCAGCAGCGTCAGTC',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE2_SPERM_DE_NOVO',
+    empiricalErrorRate: 0.0015,
+    empiricalDepth: 50000
+  },
+  {
+    id: 'SPERM_COL1A1_Paternal',
+    gene: 'COL1A1',
+    aminoAcidChange: 'Gly244Ser',
+    cdnaChange: 'c.730G>A (Paternal Sperm Mosaic)',
+    syndrome: 'Recurrent Lethal Osteogenesis Imperfecta (Gonadal Mosaicism)',
+    clinicalSignificance: 'De Novo Hotspot (Paternal Recurrence Risk ~1.4%)',
+    strand: '+',
+    flankingSequence201bp:
+      'CCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTCCCTGGTGCCCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTC' +
+      'G' +
+      'GCATACCCGGTCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTGGTTCCCCCGGTCCCTCTGGCCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTG',
+    hotspotIndex: 100,
+    sourceCohort: 'SAMPLE2_SPERM_DE_NOVO',
+    empiricalErrorRate: 0.0015,
+    empiricalDepth: 50000
+  }
+];
+
+export const SAMPLE1_FASTA_CONTENT = `>COL4A5_c.1871G>A_Alport_Syndrome_Benchmark_201bp
+TCCACCAGGCCTTCCTGGATTTCCAGGTCTTCCTGGCCCTAAAGGTGAAATCGGAGTTCCAGGAATTCCTGGCTCCCCTGGTCTTAAAGGACTGCCAGGATGTGCCTGGTTTGCCAATTGCTGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAG
+>COL4A6_c.3871G>A_Alport_Leiomyomatosis_201bp
+ACAGAGGTAGTTACTTCATTTTCTTGAGCTCTGAAATAATGTTTGTTTATTTTTGTTTGTTTCTTAATTCCAGGGTTTCCAAGGTTCTGCAGGAAAGACGGGTCCCCCTGGACCAGCTGGACCACGAGGACTGCCTGGTCCACCAGGGCCACCAGGACCTCTGGGTTCTCCTGGCCCACAGGGAGCTTCAGGATTACCT
+>COL4A4_c.2617G>A_Alport_Syndrome_Autosomal_201bp
+CTGTTGTACAGCCATTCTCTTTCAGAAACTGAAGTTTGCCTTTCATTTATTTCCTTTACCCATCTCTCTCCAGGGTTACCAGGAAAACCAGGACCCATCGGGCTCCCCGGGCCTTCAAGACCTCCTGGTTTGCCTGGACCCATCGGATCTCCTGGACCTCCTGGTCCAGCAGGTGACATCGGACATCCTGGTCCTCGTG
+>COL1A1_c.730G>A_Osteogenesis_Imperfecta_201bp
+CCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTCCCTGGTGCCCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTCGGCATACCCGGTCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTGGTTCCCCCGGTCCCTCTGGCCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTG
+>COL3A1_c.1495G>A_Vascular_EDS_Hotspot_201bp
+GGCATTCCTGGTCAGCCCGGTGCCAAAGGAGAACCTGGTCCTCCCGGCCTTCCTGGCAACCCAGGTCCACCAGGCCTTCCAGGACAAACCGGCCCTCCAGGCCCTCCAGGTCCACCTGGTGTCAAAGGTGAAACTGGCAAACCCGGTCCTCCAGGTCTCAGTGGTCCCCCTGGTCCTCCTGGTCCTCAAGGCCTACCAG
+`;
+
+export const SAMPLE2_SPERM_FASTA_CONTENT = `>SPERM_COL4A5_c.1871G>A_Paternal_Transmission_Mosaic_201bp
+TCCACCAGGCCTTCCTGGATTTCCAGGTCTTCCTGGCCCTAAAGGTGAAATCGGAGTTCCAGGAATTCCTGGCTCCCCTGGTCTTAAAGGACTGCCAGGATGTGCCTGGTTTGCCAATTGCTGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAG
+>SPERM_FGFR3_c.1138G>A_Male_Germline_DeNovo_Hotspot_201bp
+CTTGAGCGTCCCTGTGGACCAAGGACCCCGGGAGCCCTGGCTCCCCGGCATCTCCACCGGGGCCGGCATCATGGCCCACAGGGCACAGGCGGCTCTAGGAGGTTCTTGTTGCTGCCCGGCATCATGGCCCACAGGGCACAGGCGGCTCTAGGAGGTTCTTGTTGCTGCCAGGCAGTGCTGCCAGCAGCAGCGTCAGTC
+>SPERM_COL1A1_c.730G>A_Paternal_Gonadal_Mosaicism_201bp
+CCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTCCCTGGTGCCCCTGGCCCCAAGGGTGAGACAGGACCCCCTGGTCCTGCTGGTTTCGGCATACCCGGTCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTGGTTCCCCCGGTCCCTCTGGCCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTG
+`;
+
+// Legacy alias for backward compatibility
+export const SAMPLE_FASTA_CONTENT = SAMPLE1_FASTA_CONTENT;

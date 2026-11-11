@@ -10,6 +10,7 @@ import { T4Report } from './components/T4Report';
 import { CollagenTableModal } from './components/CollagenTableModal';
 import { PaperModal } from './components/PaperModal';
 import { PasswordGate } from './components/PasswordGate';
+import { DuplexSimulationPage } from './components/DuplexSimulationPage';
 import { analyzeSequence } from './utils/bioCalculations';
 import { COLLAGEN_TABLE, PRELOADED_CDS } from './data/collagenTable';
 import type { SequenceAnalysisResult, CollagenGeneInfo } from './types';
@@ -22,6 +23,33 @@ export function App() {
       sessionStorage.getItem('methyl_cpg_auth') === 'true'
     );
   });
+  const [currentRoute, setCurrentRoute] = useState<'MAIN' | 'SIMULATION'>(() => {
+    const hash = window.location.hash.toLowerCase();
+    const search = window.location.search.toLowerCase();
+    if (hash.includes('simulation') || search.includes('page=simulation')) {
+      return 'SIMULATION';
+    }
+    return 'MAIN';
+  });
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const hash = window.location.hash.toLowerCase();
+      const search = window.location.search.toLowerCase();
+      if (hash.includes('simulation') || search.includes('page=simulation')) {
+        setCurrentRoute('SIMULATION');
+      } else {
+        setCurrentRoute('MAIN');
+      }
+    };
+    window.addEventListener('hashchange', handleLocationChange);
+    window.addEventListener('popstate', handleLocationChange);
+    return () => {
+      window.removeEventListener('hashchange', handleLocationChange);
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, []);
+
   const [analysisResult, setAnalysisResult] = useState<SequenceAnalysisResult | null>(null);
   const [activeTab, setActiveTab] = useState<'ALL' | 'T1' | 'T2' | 'T3' | 'T4'>('ALL');
   const [isCollagenModalOpen, setIsCollagenModalOpen] = useState(false);
@@ -68,6 +96,20 @@ export function App() {
 
   if (!isAuthenticated) {
     return <PasswordGate onSuccess={() => setIsAuthenticated(true)} />;
+  }
+
+  if (currentRoute === 'SIMULATION') {
+    return (
+      <DuplexSimulationPage
+        onBackToMain={() => {
+          window.location.hash = '';
+          const url = new URL(window.location.href);
+          url.searchParams.delete('page');
+          window.history.pushState({}, '', url.pathname + url.search + url.hash);
+          setCurrentRoute('MAIN');
+        }}
+      />
+    );
   }
 
   return (

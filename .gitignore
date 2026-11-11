@@ -33,3 +33,13 @@ scratch/
 # Python
 __pycache__/
 *.py[cod]
+
+# Genomic Data & Sequencing Files
+/data/
+*.fastq
+*.fastq.gz
+*.bam
+*.bai
+*.cram
+*.sam
+
