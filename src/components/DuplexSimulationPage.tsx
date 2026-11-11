@@ -244,7 +244,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
     <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col font-sans selection:bg-cyan-500 selection:text-slate-950">
       {/* Top Navigation Bar */}
       <header className="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-2.5 flex flex-wrap lg:flex-nowrap items-center justify-between gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-2.5 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={onBackToMain}
@@ -258,18 +258,18 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
               <div className="w-8 h-8 rounded-lg bg-linear-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/20 shrink-0">
                 <Dna className="w-4 h-4" />
               </div>
-              <div>
-                <h1 className="text-sm font-bold text-white tracking-tight flex items-center gap-2 m-0">
+              <div className="flex flex-col">
+                <h1 className="text-sm font-bold text-white tracking-tight leading-snug m-0">
                   Ultra-Deep Duplex Sequencing Simulation
-                  <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                    10,000× ~ 100,000× UMI Benchmark
-                  </span>
                 </h1>
+                <span className="text-[10px] uppercase font-bold tracking-wider text-cyan-400">
+                  10,000× ~ 100,000× UMI Benchmark
+                </span>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 flex-nowrap overflow-x-auto max-w-full pb-1 sm:pb-0 shrink-0">
+          <div className="flex items-center gap-1.5 flex-nowrap shrink-0">
             <button
               onClick={downloadSample1Fasta}
               className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition whitespace-nowrap cursor-pointer shadow-sm"
