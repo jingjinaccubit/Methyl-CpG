@@ -481,13 +481,13 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
               <div className="text-[11px] text-slate-400/90 border-t border-slate-800/80 pt-2.5 flex items-start gap-1.5 leading-normal">
                 <Info className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
                 <span>
-                  <strong className="text-slate-300">样本与模型来源说明 (Sample Provenance):</strong>
+                  <strong className="text-slate-300">Sample &amp; Model Provenance:</strong>
                   <br />
-                  &bull; <strong className="text-cyan-300">Sample 1 (胶原病临床扩增子):</strong> 预设序列来自官方 <strong>MANE Select v1.5</strong> 规范转录本（RefSeq NM_000495.5 for <em>COL4A5</em>）及 <em>JASN</em> 研究（DOI: <a href="https://doi.org/10.1681/ASN.0000001308" target="_blank" rel="noreferrer" className="text-cyan-400 underline hover:text-cyan-300">10.1681/ASN.0000001308</a>）；基线测序噪声源自真实深度测序 <strong>PRJNA1502590</strong>（SRR39847752，Alport IV 型胶原测序，实测深度 3,820×）。
+                  &bull; <strong className="text-cyan-300">Sample 1 (Collagen Clinical Amplicon):</strong> Reference sequences are anchored on canonical <strong>MANE Select v1.5</strong> transcripts (RefSeq NM_000495.5 for <em>COL4A5</em>) and published mutational hotspots in <em>JASN</em> (DOI: <a href="https://doi.org/10.1681/ASN.0000001308" target="_blank" rel="noreferrer" className="text-cyan-400 underline hover:text-cyan-300">10.1681/ASN.0000001308</a>); baseline error profile is empirically derived from deep targeted sequencing in <strong>PRJNA1502590</strong> (SRR39847752, Alport type IV collagen sequencing, 3,820× depth).
                   <br />
-                  &bull; <strong className="text-blue-300">Sample 2 (人类精子超深嵌合):</strong> 来源于 <strong>Breuss et al.</strong> <em>Nature Medicine</em> (2020) 人类精子深度测序项目 <strong>PRJNA588332</strong>（SRR10479998，TAS-ALL-Sperm），用于基准测试男性配子发生中超低频 <em>de novo</em> 突变传播风险。
+                  &bull; <strong className="text-blue-300">Sample 2 (Human Sperm De Novo Mosaicism):</strong> Sourced from <strong>Breuss et al.</strong>, <em>Nature Medicine</em> (2020), human sperm deep sequencing study <strong>PRJNA588332</strong> (SRR10479998, TAS-ALL-Sperm), benchmarking male germline ultra-low-frequency <em>de novo</em> mutation transmission risks.
                   <br />
-                  &bull; <strong className="text-slate-300">双链 UMI 纠错架构:</strong> 参照数字单分子测序标准 <strong>PRJNA844028</strong>（SRR32282580）与 TwinStrand 双端双链 UMI 校验模型。
+                  &bull; <strong className="text-slate-300">Duplex UMI Architecture:</strong> Follows single-molecule digital sequencing standards from <strong>PRJNA844028</strong> (SRR32282580) and the TwinStrand dual-index duplex consensus validation framework.
                 </span>
               </div>
             </div>
@@ -914,7 +914,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                       Export high-depth duplex benchmark datasets for external pipelines (fgbio / Duplex-Seq-Pipeline):
                     </span>
                     <span className="text-[10px] text-slate-500 block">
-                      * 导出的 FASTQ 样本携带基于 NCBI SRA PRJNA844028 真实标准生成的双端 UMI 分子标签与 Illumina Q30 测序质量值。
+                      * Exported FASTQ reads carry structured dual-index UMI molecular tags and authentic Illumina Q30 quality scores modeled after NCBI SRA PRJNA844028.
                     </span>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
