@@ -59,6 +59,24 @@ export interface DuplexSimResult {
   pvalue: number;
 
   sampleFamilies: DuplexFamilySample[];
+
+  // Wet-Lab Production Pipeline Metadata
+  isRealLabData?: boolean;
+  labMetadata?: {
+    sampleId: string;
+    operatorOrLab?: string;
+    instrumentModel: string;
+    flowCellOrRunId: string;
+    sequencingDate?: string;
+    rawFastqFileR1?: string;
+    rawFastqFileR2?: string;
+    totalRawFastqReads?: number;
+    pipelineVersion: string;
+    onTargetRatePct?: number;
+    meanFamilySize?: number;
+    duplexRecoveryRatePct?: number;
+    biologicalContext?: string;
+  };
 }
 
 function randomUmi(len = 8): string {

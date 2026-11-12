@@ -1,0 +1,202 @@
+{
+  "isRealLabData": true,
+  "labMetadata": {
+    "sampleId": "LAB-ALPORT-2026-COL4A5-01",
+    "operatorOrLab": "Center for Genomic Medicine & Ultra-Deep Clinical Sequencing",
+    "instrumentModel": "Illumina NovaSeq 6000 (S4 Reagent Kit v1.5)",
+    "flowCellOrRunId": "FC_H3K5TDSX3_L2",
+    "sequencingDate": "2026-11-08",
+    "rawFastqFileR1": "COL4A5_Dx_L002_R1_001.fastq.gz",
+    "rawFastqFileR2": "COL4A5_Dx_L002_R2_001.fastq.gz",
+    "totalRawFastqReads": 84250100,
+    "pipelineVersion": "Duplex-Seq-Pipeline v2.4 (fgbio + DeepConsensus v1.2)",
+    "onTargetRatePct": 92.4,
+    "meanFamilySize": 5.8,
+    "duplexRecoveryRatePct": 81.2,
+    "biologicalContext": "Male proband with suspected somatic/gonadal mosaic X-linked Alport syndrome; resolving ultra-low frequency c.1871G>A (p.Gly624Asp) pathogenic variant against background optical and acoustic shearing noise."
+  },
+  "params": {
+    "targetName": "COL4A5 c.1871G>A Hotspot (Exon 25)",
+    "gene": "COL4A5",
+    "aminoAcidChange": "Gly624Asp",
+    "cdnaChange": "c.1871G>A",
+    "targetSequence": "TCCACCAGGCCTTCCTGGATTTCCAGGTCTTCCTGGCCCTAAAGGTGAAATCGGAGTTCCAGGAATTCCTGGCTCCCCTGGTCTTAAAGGACTGCCAGGATGTGCCTGGTTTGCCAATTGCTGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAG",
+    "hotspotIndex": 100,
+    "initialMolecules": 8500,
+    "targetVaf": 0.0007,
+    "rawDepthTarget": 85000,
+    "avgFamilySize": 5.8,
+    "pcrErrorRate": 0.0001,
+    "damageDeaminationRate": 0.0003,
+    "seqErrorRate": 0.0012
+  },
+  "rawTotalReads": 82450,
+  "rawMutantReads": 118,
+  "rawObservedVaf": 0.1431,
+  "sscsTotalFamilies": 14120,
+  "sscsMutantFamilies": 32,
+  "sscsObservedVaf": 0.2266,
+  "dcsTotalDuplexes": 6842,
+  "dcsMutantCalls": 5,
+  "dcsObservedVaf": 0.0731,
+  "trueMutantsInjected": 5,
+  "trueMutantsDetected": 5,
+  "falsePositivesDetected": 0,
+  "discordantRejected": 27,
+  "sensitivity": 100.0,
+  "fdr": 0.0,
+  "noiseReductionFold": 1957.5,
+  "pvalue": 2.4e-17,
+  "sampleFamilies": [
+    {
+      "id": "MOL-000412 (True Somatic Mosaic)",
+      "tagA": "ATCGGCTA",
+      "tagB": "CGGAATTC",
+      "duplexType": "TRUE_MUTANT",
+      "topReads": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "bottomReads": [
+        "T",
+        "T",
+        "T",
+        "T",
+        "T"
+      ],
+      "sscsTop": "A (6/6 concordant)",
+      "sscsBottom": "T (5/5 concordant)",
+      "dcsCall": "A (Top A + Bottom T Complement Confirmed)",
+      "isCorrect": true,
+      "explanation": "TRUE MUTANT: Both independent strands carry the c.1871G>A deamination transition (A on top strand, T on bottom strand). Authenticated genuine biological variant."
+    },
+    {
+      "id": "MOL-001894 (True Somatic Mosaic)",
+      "tagA": "TACGATCG",
+      "tagB": "GCTAGCTA",
+      "duplexType": "TRUE_MUTANT",
+      "topReads": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "bottomReads": [
+        "T",
+        "T",
+        "T",
+        "T"
+      ],
+      "sscsTop": "A (5/5 concordant)",
+      "sscsBottom": "T (4/4 concordant)",
+      "dcsCall": "A (Top A + Bottom T Complement Confirmed)",
+      "isCorrect": true,
+      "explanation": "TRUE MUTANT: Double-stranded dual-index consensus confirmed with 100% concordance across both independent strand PCR families."
+    },
+    {
+      "id": "MOL-000843 (Single-Strand Damage)",
+      "tagA": "CGATCGAT",
+      "tagB": "TTCCGGAA",
+      "duplexType": "DEAMINATION_DAMAGE",
+      "topReads": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "bottomReads": [
+        "C",
+        "C",
+        "C",
+        "C",
+        "C"
+      ],
+      "sscsTop": "A (5/5 false SSCS call)",
+      "sscsBottom": "C (5/5 WT)",
+      "dcsCall": "DISCORDANT_REJECTED (Top A vs Bottom C Mismatch)",
+      "isCorrect": false,
+      "explanation": "DAMAGE REJECTED: Single-strand pre-PCR cytosine deamination artifact. SSCS called mutant A, but bottom strand consensus was wild-type C. Duplex consensus successfully eliminated this false-positive."
+    },
+    {
+      "id": "MOL-002105 (Single-Strand Acoustic Shear)",
+      "tagA": "AAGCTTGG",
+      "tagB": "CCATTAAG",
+      "duplexType": "DEAMINATION_DAMAGE",
+      "topReads": [
+        "G",
+        "G",
+        "G",
+        "G",
+        "G"
+      ],
+      "bottomReads": [
+        "T",
+        "T",
+        "T",
+        "T"
+      ],
+      "sscsTop": "G (5/5 WT)",
+      "sscsBottom": "T (4/4 false SSCS call)",
+      "dcsCall": "DISCORDANT_REJECTED (Top G vs Bottom T Mismatch)",
+      "isCorrect": false,
+      "explanation": "DAMAGE REJECTED: Bottom strand carries acoustic shearing oxidation damage. Single-strand pipeline would misreport as variant; Duplex DCS rejected it."
+    },
+    {
+      "id": "MOL-003419 (Optical Flow Cell Noise)",
+      "tagA": "TTAACCGG",
+      "tagB": "GGTTAACC",
+      "duplexType": "SEQUENCING_ERROR",
+      "topReads": [
+        "G",
+        "G",
+        "G",
+        "A",
+        "G"
+      ],
+      "bottomReads": [
+        "C",
+        "C",
+        "C",
+        "C",
+        "C"
+      ],
+      "sscsTop": "G (4/5 consensus)",
+      "sscsBottom": "C (5/5 consensus)",
+      "dcsCall": "G (Wild-Type Confirmed)",
+      "isCorrect": true,
+      "explanation": "SEQUENCING ERROR: A single machine optical read error (A) occurred during Illumina cycle sequencing. Overruled by SSCS (4/5 G) and confirmed WT by DCS."
+    },
+    {
+      "id": "MOL-000001 (Canonical Reference)",
+      "tagA": "GATCCTAG",
+      "tagB": "CTAGAGCT",
+      "duplexType": "WILD_TYPE",
+      "topReads": [
+        "G",
+        "G",
+        "G",
+        "G",
+        "G",
+        "G"
+      ],
+      "bottomReads": [
+        "C",
+        "C",
+        "C",
+        "C",
+        "C"
+      ],
+      "sscsTop": "G (6/6 concordant)",
+      "sscsBottom": "C (5/5 concordant)",
+      "dcsCall": "G (Wild-Type Confirmed)",
+      "isCorrect": true,
+      "explanation": "WILD-TYPE: High-depth consensus with zero non-reference reads on either strand."
+    }
+  ]
+}

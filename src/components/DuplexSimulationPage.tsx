@@ -25,6 +25,7 @@ import {
   SAMPLE3_NAR_FASTA_CONTENT,
   type HotspotPreset
 } from '../data/simulationPresets';
+import { SAMPLE_LAB_DUPLEX_REPORT } from '../data/sampleLabDuplexReport';
 import {
   runDuplexSimulation,
   type DuplexSimParams,
@@ -37,7 +38,7 @@ interface DuplexSimulationPageProps {
 
 export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBackToMain }) => {
   // Selection & Input mode
-  const [inputMode, setInputMode] = useState<'PRESET' | 'UPLOAD' | 'CUSTOM'>('PRESET');
+  const [inputMode, setInputMode] = useState<'PRESET' | 'CUSTOM' | 'LAB_DATA'>('PRESET');
   const [selectedCohort, setSelectedCohort] = useState<
     'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO' | 'SAMPLE3_NAR_PAPER_METHYLATION'
   >('SAMPLE1_COLLAGEN_ALPORT');
@@ -127,7 +128,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
     handleRunSimulation();
   }, []);
 
-  // File Upload Handler
+  // File Upload Handler (Supports both FASTA reference sequences & Laboratory Output JSON)
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -137,6 +138,32 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
       const content = ev.target?.result as string;
       if (!content) return;
 
+      // 1. Try parsing as JSON (Lab Pipeline Output Report)
+      if (file.name.endsWith('.json') || content.trim().startsWith('{')) {
+        try {
+          const parsed = JSON.parse(content) as DuplexSimResult;
+          if (parsed.dcsTotalDuplexes !== undefined || parsed.labMetadata) {
+            setResult({
+              ...parsed,
+              isRealLabData: true
+            });
+            if (parsed.params?.targetSequence) {
+              setCustomSeq(parsed.params.targetSequence);
+              setCustomGene(parsed.params.gene || 'LabSample');
+              setCustomCdna(parsed.params.cdnaChange || 'c.TargetG>A');
+              setHotspotIndex(
+                parsed.params.hotspotIndex ?? Math.floor(parsed.params.targetSequence.length / 2)
+              );
+            }
+            setInputMode('LAB_DATA');
+            return;
+          }
+        } catch (err) {
+          console.warn('JSON parse fallback to FASTA sequence:', err);
+        }
+      }
+
+      // 2. Parse as FASTA reference sequence
       const lines = content.split('\n');
       let seq = '';
       let header = 'Uploaded_Sequence';
@@ -154,13 +181,33 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
         setCustomSeq(seq);
         setCustomGene(header.split('_')[0] || 'CustomGene');
         setCustomCdna('c.TargetG>A');
-        // Find central G or pos 100
         const mid = Math.floor(seq.length / 2);
         setHotspotIndex(mid);
-        setInputMode('UPLOAD');
+        setInputMode('CUSTOM');
       }
     };
     reader.readAsText(file);
+  };
+
+  const handleLoadSampleLabReport = () => {
+    setResult(SAMPLE_LAB_DUPLEX_REPORT);
+    setCustomSeq(SAMPLE_LAB_DUPLEX_REPORT.params.targetSequence);
+    setCustomGene(SAMPLE_LAB_DUPLEX_REPORT.params.gene);
+    setCustomCdna(SAMPLE_LAB_DUPLEX_REPORT.params.cdnaChange);
+    setHotspotIndex(SAMPLE_LAB_DUPLEX_REPORT.params.hotspotIndex);
+    setInputMode('LAB_DATA');
+  };
+
+  const downloadLabReportJsonTemplate = () => {
+    const blob = new Blob([JSON.stringify(SAMPLE_LAB_DUPLEX_REPORT, null, 2)], {
+      type: 'application/json;charset=utf-8'
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sample_lab_duplex_report.json';
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   // Sample Downloads
@@ -294,12 +341,15 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
               <Download className="w-3.5 h-3.5 text-amber-400" />
               Sample 3 (NAR Paper)
             </button>
-            <label className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white cursor-pointer transition shadow-sm whitespace-nowrap">
+            <label
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white cursor-pointer transition shadow-sm whitespace-nowrap"
+              title="Upload reference FASTA sequence (.fa) or wet-lab pipeline output report (.json)"
+            >
               <Upload className="w-3.5 h-3.5" />
-              Upload FASTA
+              Upload (FASTA / JSON)
               <input
                 type="file"
-                accept=".fa,.fasta,.txt,.csv"
+                accept=".fa,.fasta,.txt,.csv,.json"
                 onChange={handleFileUpload}
                 className="hidden"
               />
@@ -366,12 +416,12 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                 </span>
               </div>
 
-              {/* Mode switch */}
+              {/* Mode switch: 3 tabs */}
               <div className="flex rounded-lg bg-slate-900 p-1 border border-slate-800">
                 <button
                   type="button"
                   onClick={() => setInputMode('PRESET')}
-                  className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition ${
+                  className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition cursor-pointer ${
                     inputMode === 'PRESET'
                       ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
                       : 'text-slate-400 hover:text-slate-200'
@@ -382,17 +432,78 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                 <button
                   type="button"
                   onClick={() => setInputMode('CUSTOM')}
-                  className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition ${
+                  className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition cursor-pointer ${
                     inputMode === 'CUSTOM'
                       ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
                       : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
-                  Custom Sequence
+                  Custom FASTA
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setInputMode('LAB_DATA')}
+                  className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition cursor-pointer ${
+                    inputMode === 'LAB_DATA'
+                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  Wet-Lab JSON
                 </button>
               </div>
 
-              {inputMode === 'PRESET' ? (
+              {inputMode === 'LAB_DATA' ? (
+                <div className="space-y-3 p-3.5 bg-slate-900/90 rounded-xl border border-emerald-500/30">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
+                      <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                      Wet-Lab Pipeline JSON Loader
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-mono">
+                      fgbio / DeepConsensus
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-400 leading-relaxed m-0">
+                    Upload structured JSON reports exported by your laboratory server pipeline (such as <code className="text-cyan-300">scripts/export_lab_duplex_report.py</code>). This avoids browser memory limits while rendering full interactive single-molecule duplex consensus dashboards.
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                    <button
+                      type="button"
+                      onClick={handleLoadSampleLabReport}
+                      className="py-2 px-2.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-200 text-xs font-semibold transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                      Load Demo Lab Run (NovaSeq)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={downloadLabReportJsonTemplate}
+                      className="py-2 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-medium transition text-center cursor-pointer flex items-center justify-center gap-1.5 shadow-sm"
+                    >
+                      <Download className="w-3.5 h-3.5 text-cyan-400" />
+                      Download JSON Template
+                    </button>
+                  </div>
+
+                  <label className="block w-full border-2 border-dashed border-emerald-500/30 hover:border-emerald-500/60 rounded-xl p-3.5 text-center cursor-pointer transition bg-slate-950/40">
+                    <Upload className="w-4 h-4 text-emerald-400 mx-auto mb-1" />
+                    <span className="text-xs font-semibold text-slate-300 block">
+                      Click or Drag-and-Drop Lab Report (.json)
+                    </span>
+                    <span className="text-[10px] text-slate-500 block">
+                      Directly parses DCS consensus, depth, FDR, and molecular families
+                    </span>
+                    <input
+                      type="file"
+                      accept=".json"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+              ) : inputMode === 'PRESET' ? (
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
                     <label className="text-xs text-slate-400 block font-medium">Select Cohort &amp; Benchmark Hotspot:</label>
@@ -701,6 +812,58 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
           <div className="lg:col-span-7 space-y-6">
             {result ? (
               <>
+                {/* Wet-Lab Pipeline Dataset Status Banner (When loading real lab report) */}
+                {result.isRealLabData && result.labMetadata && (
+                  <div className="bg-emerald-950/30 border border-emerald-500/40 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5">
+                        <ShieldCheck className="w-5 h-5" />
+                      </div>
+                      <div className="space-y-0.5">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-bold text-white text-sm">
+                            {result.labMetadata.sampleId}
+                          </span>
+                          <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-[10px] border border-emerald-500/30">
+                            Verified Wet-Lab High-Depth Pipeline Report
+                          </span>
+                        </div>
+                        <p className="text-slate-400 text-xs m-0">
+                          Instrument: <strong className="text-slate-200">{result.labMetadata.instrumentModel}</strong> &bull; Run ID:{' '}
+                          <span className="font-mono text-cyan-300">{result.labMetadata.flowCellOrRunId}</span> &bull; Pipeline:{' '}
+                          <span className="text-slate-300">{result.labMetadata.pipelineVersion}</span>
+                        </p>
+                        {result.labMetadata.biologicalContext && (
+                          <p className="text-[11px] text-slate-400/90 italic m-0 pt-0.5">
+                            {result.labMetadata.biologicalContext}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3 shrink-0 self-end sm:self-center">
+                      <div className="text-right text-[11px] text-slate-400 font-mono hidden md:block">
+                        <div>
+                          On-target: <span className="text-emerald-400 font-bold">{result.labMetadata.onTargetRatePct}%</span>
+                        </div>
+                        <div>
+                          Duplex recovery:{' '}
+                          <span className="text-cyan-400 font-bold">{result.labMetadata.duplexRecoveryRatePct}%</span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => {
+                          setInputMode('PRESET');
+                          handleRunSimulation();
+                        }}
+                        className="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition border border-slate-700 cursor-pointer whitespace-nowrap"
+                      >
+                        Reset to Sim
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 {/* 4 Summary KPI Cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
                   <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between">
