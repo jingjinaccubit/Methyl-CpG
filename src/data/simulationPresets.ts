@@ -21,6 +21,9 @@ export interface HotspotPreset {
   empiricalDepth: number; // typical benchmark depth
   isSplitControl?: boolean; // true for 48 exon-initial split pseudo-dyad negative controls
   spermMethylationPct?: number; // e.g. 89% for true dyads, 0% for split controls
+  recommendedMolecules?: number;
+  recommendedVaf?: number;
+  recommendedDamageRate?: number;
 }
 
 export const HOTSPOT_PRESETS: HotspotPreset[] = [
@@ -40,7 +43,10 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT',
     empiricalErrorRate: 0.0003, // 0.03%
-    empiricalDepth: 3820
+    empiricalDepth: 3820,
+    recommendedMolecules: 4000,
+    recommendedVaf: 0.001, // 0.10% clinical mosaic
+    recommendedDamageRate: 0.0003
   },
   {
     id: 'COL4A6_Gly1291',
@@ -57,7 +63,10 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT',
     empiricalErrorRate: 0.00013, // 0.013%
-    empiricalDepth: 3820
+    empiricalDepth: 3820,
+    recommendedMolecules: 3820,
+    recommendedVaf: 0.0008, // 0.08%
+    recommendedDamageRate: 0.0003
   },
   {
     id: 'COL4A4_Gly873',
@@ -74,7 +83,10 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT',
     empiricalErrorRate: 0.0003,
-    empiricalDepth: 525
+    empiricalDepth: 525,
+    recommendedMolecules: 1000, // low depth benchmark
+    recommendedVaf: 0.002, // 0.20%
+    recommendedDamageRate: 0.0003
   },
   {
     id: 'COL1A1_Gly244',
@@ -91,7 +103,10 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT',
     empiricalErrorRate: 0.0003,
-    empiricalDepth: 4000
+    empiricalDepth: 4000,
+    recommendedMolecules: 5000,
+    recommendedVaf: 0.001,
+    recommendedDamageRate: 0.0003
   },
   {
     id: 'COL3A1_Gly499',
@@ -108,7 +123,10 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE1_COLLAGEN_ALPORT',
     empiricalErrorRate: 0.0003,
-    empiricalDepth: 4000
+    empiricalDepth: 4000,
+    recommendedMolecules: 5000,
+    recommendedVaf: 0.001,
+    recommendedDamageRate: 0.0003
   },
 
   // --- Sample 2: Human Sperm De Novo Mosaic Deep Sequencing (Breuss et al. Nature Medicine 2020 / PRJNA588332) ---
@@ -126,8 +144,11 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
       'ATGTGCCTGGTTTGCCAATTGCTGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAG',
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE2_SPERM_DE_NOVO',
-    empiricalErrorRate: 0.0015, // ~0.15% - 1.0% in HiSeq sperm amplicon
-    empiricalDepth: 50000
+    empiricalErrorRate: 0.0015, // ~0.15% in HiSeq sperm amplicon
+    empiricalDepth: 50000,
+    recommendedMolecules: 16000, // Raw depth ~160,000x; DCS ~10,200x
+    recommendedVaf: 0.0003, // 0.03% ultra-low mosaicism
+    recommendedDamageRate: 0.0003
   },
   {
     id: 'SPERM_FGFR3_c1138',
@@ -144,7 +165,10 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE2_SPERM_DE_NOVO',
     empiricalErrorRate: 0.0015,
-    empiricalDepth: 50000
+    empiricalDepth: 50000,
+    recommendedMolecules: 20000, // Raw depth ~200,000x; DCS ~12,800x
+    recommendedVaf: 0.00025, // 0.025% transmission risk
+    recommendedDamageRate: 0.0003
   },
   {
     id: 'SPERM_COL1A1_Paternal',
@@ -161,7 +185,10 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE2_SPERM_DE_NOVO',
     empiricalErrorRate: 0.0015,
-    empiricalDepth: 50000
+    empiricalDepth: 50000,
+    recommendedMolecules: 16000,
+    recommendedVaf: 0.0003,
+    recommendedDamageRate: 0.0003
   },
 
   // --- Sample 3: NAR Paper Sperm WGBS & Built-in Negative Controls (Molaro et al. 2011 GSE30340) ---
@@ -179,10 +206,13 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
       'ATGTGCCTGGTTTGCCAATTGCTGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAG',
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE3_NAR_PAPER_METHYLATION',
-    empiricalErrorRate: 0.0003,
+    empiricalErrorRate: 0.0005,
     empiricalDepth: 50000,
     isSplitControl: false,
-    spermMethylationPct: 89
+    spermMethylationPct: 89,
+    recommendedMolecules: 8000, // DCS ~5,100x
+    recommendedVaf: 0.0005, // 0.05%
+    recommendedDamageRate: 0.0006 // 0.06% elevated single-strand 5mC deamination
   },
   {
     id: 'COL1A1_Gly244_NAR_TrueDyad',
@@ -198,10 +228,13 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
       'GCATACCCGGTCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTGGTTCCCCCGGTCCCTCTGGCCCCAAGGGTCCTCCTGGTCCTCCTGGTCCTCCTG',
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE3_NAR_PAPER_METHYLATION',
-    empiricalErrorRate: 0.0003,
+    empiricalErrorRate: 0.0005,
     empiricalDepth: 50000,
     isSplitControl: false,
-    spermMethylationPct: 89
+    spermMethylationPct: 89,
+    recommendedMolecules: 8000,
+    recommendedVaf: 0.0005,
+    recommendedDamageRate: 0.0006
   },
   {
     id: 'COL4A5_ExonInitial_Split_Ctrl',
@@ -217,10 +250,13 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
       'GACCTCCAGGACCACCGGGCCCTCCTGGCCCCCCAGGCCCTCCTGGCCCCCCAGGTCCACCTGGACCTCCTGGAGAGAAAGGTTCTCCTGGTATTCCTG',
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE3_NAR_PAPER_METHYLATION',
-    empiricalErrorRate: 0.0003,
+    empiricalErrorRate: 0.0005,
     empiricalDepth: 50000,
     isSplitControl: true,
-    spermMethylationPct: 0
+    spermMethylationPct: 0,
+    recommendedMolecules: 6000,
+    recommendedVaf: 0.0, // 0.00% TRUE NEGATIVE CONTROL
+    recommendedDamageRate: 0.0001 // baseline damage
   },
   {
     id: 'COL1A1_ExonInitial_Split_Ctrl',
@@ -236,10 +272,13 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
       'GACCTCCAGGTCCCCAAGGTTTCCAAGGTCCCCCTGGTCTTCCTGGCATCTCTGGTCCCCTTGGTCCCCCTGGCATCCCTGGTTTCCCTGGTGCCCGTG',
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE3_NAR_PAPER_METHYLATION',
-    empiricalErrorRate: 0.0003,
+    empiricalErrorRate: 0.0005,
     empiricalDepth: 50000,
     isSplitControl: true,
-    spermMethylationPct: 0
+    spermMethylationPct: 0,
+    recommendedMolecules: 6000,
+    recommendedVaf: 0.0,
+    recommendedDamageRate: 0.0001
   },
   {
     id: 'COL4A3_ExonInitial_Split_Ctrl',
@@ -255,10 +294,13 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
       'GAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAGCCCCTGGACCTCCTGGTCCTCAAG',
     hotspotIndex: 100,
     sourceCohort: 'SAMPLE3_NAR_PAPER_METHYLATION',
-    empiricalErrorRate: 0.0003,
+    empiricalErrorRate: 0.0005,
     empiricalDepth: 50000,
     isSplitControl: true,
-    spermMethylationPct: 0
+    spermMethylationPct: 0,
+    recommendedMolecules: 6000,
+    recommendedVaf: 0.0,
+    recommendedDamageRate: 0.0001
   }
 ];
 

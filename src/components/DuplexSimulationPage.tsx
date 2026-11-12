@@ -49,11 +49,11 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
   const [hotspotIndex, setHotspotIndex] = useState<number>(100);
 
   // Simulation Parameters
-  const [initialMolecules, setInitialMolecules] = useState<number>(6000);
-  const [targetVaf, setTargetVaf] = useState<number>(0.0005); // 0.05%
+  const [initialMolecules, setInitialMolecules] = useState<number>(4000);
+  const [targetVaf, setTargetVaf] = useState<number>(0.001); // 0.10%
   const [avgFamilySize, setAvgFamilySize] = useState<number>(5);
   const [damageRate, setDamageRate] = useState<number>(0.0003); // 0.03%
-  const [seqErrorRate, setSeqErrorRate] = useState<number>(0.001); // 0.1%
+  const [seqErrorRate, setSeqErrorRate] = useState<number>(0.0003); // 0.03%
 
   // Simulation State
   const [isSimulating, setIsSimulating] = useState<boolean>(false);
@@ -109,30 +109,24 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
 
   const runSimulationForPreset = (
     p: HotspotPreset,
-    cohortOverride?: 'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO' | 'SAMPLE3_NAR_PAPER_METHYLATION'
+    _cohortOverride?: 'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO' | 'SAMPLE3_NAR_PAPER_METHYLATION'
   ) => {
     setSelectedPresetId(p.id);
     setCustomSeq(p.flankingSequence201bp);
     setCustomGene(p.gene);
     setCustomCdna(p.cdnaChange);
     setHotspotIndex(p.hotspotIndex);
-    setSeqErrorRate(p.empiricalErrorRate);
 
-    let molCount = initialMolecules;
-    const cohort = cohortOverride || p.sourceCohort;
-    if (cohort === 'SAMPLE2_SPERM_DE_NOVO' && molCount < 5000) {
-      molCount = 5000;
-      setInitialMolecules(5000);
-    }
+    // Apply authentic preset depth, VAF, machine noise and damage profile
+    const molCount = p.recommendedMolecules ?? p.empiricalDepth ?? 4000;
+    const vaf = p.isSplitControl ? 0.0 : (p.recommendedVaf ?? 0.0005);
+    const dmgRate = p.recommendedDamageRate ?? 0.0003;
+    const sErrorRate = p.empiricalErrorRate ?? 0.0005;
 
-    let vaf = targetVaf;
-    if (p.isSplitControl) {
-      vaf = 0.0;
-      setTargetVaf(0.0);
-    } else if (targetVaf === 0.0) {
-      vaf = 0.0005;
-      setTargetVaf(0.0005);
-    }
+    setInitialMolecules(molCount);
+    setTargetVaf(vaf);
+    setDamageRate(dmgRate);
+    setSeqErrorRate(sErrorRate);
 
     handleRunSimulation({
       gene: p.gene,
@@ -142,7 +136,8 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
       hotspotIndex: p.hotspotIndex,
       initialMolecules: molCount,
       targetVaf: vaf,
-      seqErrorRate: p.empiricalErrorRate
+      damageDeaminationRate: dmgRate,
+      seqErrorRate: sErrorRate
     });
   };
 
@@ -164,7 +159,8 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
 
   // Run initial simulation upon mount
   useEffect(() => {
-    handleRunSimulation();
+    const defaultPreset = HOTSPOT_PRESETS[0];
+    runSimulationForPreset(defaultPreset, 'SAMPLE1_COLLAGEN_ALPORT');
   }, []);
 
   // File Upload Handler (Supports both FASTA reference sequences & Laboratory Output JSON)
@@ -727,11 +723,24 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                 <div className="flex justify-between text-xs">
                   <span className="text-slate-300 font-medium">True Spiked VAF:</span>
                   <span className="text-cyan-400 font-mono font-bold">
-                    {(targetVaf * 100).toFixed(3)}% ({Math.round(initialMolecules * targetVaf)} / {initialMolecules.toLocaleString()} molecules)
+                    {targetVaf === 0 ? (
+                      <span className="text-amber-400">0.000% (Negative Control / True Neg)</span>
+                    ) : (
+                      `${(targetVaf * 100).toFixed(3)}% (${Math.round(initialMolecules * targetVaf)} / ${initialMolecules.toLocaleString()} molecules)`
+                    )}
                   </span>
                 </div>
                 <div className="grid grid-cols-4 gap-1.5">
-                  {[0.0001, 0.0005, 0.001, 0.002, 0.005, 0.01].map(v => (
+                  {[
+                    { v: 0.0, label: '0% (Ctrl)' },
+                    { v: 0.00025, label: '0.025%' },
+                    { v: 0.0003, label: '0.03% (Sperm)' },
+                    { v: 0.0005, label: '0.05%' },
+                    { v: 0.0008, label: '0.08%' },
+                    { v: 0.001, label: '0.10% (Alport)' },
+                    { v: 0.002, label: '0.20%' },
+                    { v: 0.005, label: '0.50%' }
+                  ].map(({ v, label }) => (
                     <button
                       key={v}
                       type="button"
@@ -745,7 +754,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                           : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
                       }`}
                     >
-                      {(v * 100).toFixed(2)}%
+                      {label}
                     </button>
                   ))}
                 </div>
@@ -762,7 +771,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                 <input
                   type="range"
                   min={1000}
-                  max={20000}
+                  max={25000}
                   step={1000}
                   value={initialMolecules}
                   onChange={e => {
@@ -780,7 +789,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                   <span className="text-slate-400">
                     Est. Raw Depth: ~{calculatedRawDepth.toLocaleString()}×
                   </span>
-                  <span>20,000</span>
+                  <span>25,000</span>
                 </div>
               </div>
 
@@ -818,8 +827,13 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     {(damageRate * 100).toFixed(3)}% (Heat/acoustic artifact)
                   </span>
                 </div>
-                <div className="grid grid-cols-3 gap-1.5">
-                  {[0.0001, 0.0003, 0.0006].map(v => (
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                  {[
+                    { v: 0.0001, label: '0.01% (Unmeth)' },
+                    { v: 0.0003, label: '0.03% (Std)' },
+                    { v: 0.0006, label: '0.06% (5mC Hotspot)' },
+                    { v: 0.001, label: '0.10% (High)' }
+                  ].map(({ v, label }) => (
                     <button
                       key={v}
                       type="button"
@@ -833,7 +847,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                           : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
                       }`}
                     >
-                      {(v * 100).toFixed(2)}%
+                      {label}
                     </button>
                   ))}
                 </div>
@@ -844,11 +858,18 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                 <div className="flex justify-between text-xs">
                   <span className="text-slate-300 font-medium">Illumina Machine Error Rate:</span>
                   <span className="text-slate-400 font-mono font-bold">
-                    {(seqErrorRate * 100).toFixed(2)}% (Q30 nominal)
+                    {(seqErrorRate * 100).toFixed(3)}% (Nominal sequencer noise)
                   </span>
                 </div>
                 <div className="grid grid-cols-3 gap-1.5">
-                  {[0.0005, 0.001, 0.002].map(v => (
+                  {[
+                    { v: 0.00013, label: '0.013% (MiSeq Q38)' },
+                    { v: 0.0003, label: '0.030% (MiSeq)' },
+                    { v: 0.0005, label: '0.050% (WGBS)' },
+                    { v: 0.001, label: '0.100% (Q30)' },
+                    { v: 0.0015, label: '0.150% (HiSeq Sperm)' },
+                    { v: 0.002, label: '0.200% (HiSeq)' }
+                  ].map(({ v, label }) => (
                     <button
                       key={v}
                       type="button"
@@ -862,7 +883,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                           : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
                       }`}
                     >
-                      {(v * 100).toFixed(2)}%
+                      {label}
                     </button>
                   ))}
                 </div>
