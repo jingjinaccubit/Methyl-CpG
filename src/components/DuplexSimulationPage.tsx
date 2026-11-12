@@ -67,60 +67,99 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
     return HOTSPOT_PRESETS.find(p => p.id === selectedPresetId) || filteredPresets[0] || HOTSPOT_PRESETS[0];
   }, [selectedPresetId, filteredPresets]);
 
-  // Handle Cohort Switch
-  const handleSwitchCohort = (
-    cohort: 'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO' | 'SAMPLE3_NAR_PAPER_METHYLATION'
-  ) => {
-    setSelectedCohort(cohort);
-    const targetPresets = HOTSPOT_PRESETS.filter(p => p.sourceCohort === cohort);
-    if (targetPresets.length > 0) {
-      const p = targetPresets[0];
-      setSelectedPresetId(p.id);
-      setCustomSeq(p.flankingSequence201bp);
-      setCustomGene(p.gene);
-      setCustomCdna(p.cdnaChange);
-      setHotspotIndex(p.hotspotIndex);
-      setSeqErrorRate(p.empiricalErrorRate);
-    }
-  };
-
-  // Handle Preset Selection
-  const handleSelectPreset = (preset: HotspotPreset) => {
-    setSelectedPresetId(preset.id);
-    setCustomSeq(preset.flankingSequence201bp);
-    setCustomGene(preset.gene);
-    setCustomCdna(preset.cdnaChange);
-    setHotspotIndex(preset.hotspotIndex);
-    setSeqErrorRate(preset.empiricalErrorRate);
-  };
-
-  // Run simulation
-  const handleRunSimulation = () => {
+  // Run simulation with optional parameter overrides
+  const handleRunSimulation = (overrides?: Partial<DuplexSimParams>) => {
     setIsSimulating(true);
     setTimeout(() => {
       try {
-        const rawTargetDepth = initialMolecules * avgFamilySize * 2;
+        const targetGene = overrides?.gene ?? customGene;
+        const targetCdna = overrides?.cdnaChange ?? customCdna;
+        const targetSeq = overrides?.targetSequence ?? customSeq;
+        const hIndex = overrides?.hotspotIndex ?? hotspotIndex;
+        const molCount = overrides?.initialMolecules ?? initialMolecules;
+        const vaf = overrides?.targetVaf ?? targetVaf;
+        const famSize = overrides?.avgFamilySize ?? avgFamilySize;
+        const dmgRate = overrides?.damageDeaminationRate ?? damageRate;
+        const sErrorRate = overrides?.seqErrorRate ?? seqErrorRate;
+        const aaChange = overrides?.aminoAcidChange ?? activePreset.aminoAcidChange;
+
+        const rawTargetDepth = molCount * famSize * 2;
         const params: DuplexSimParams = {
-          targetName: `${customGene} ${customCdna} Hotspot`,
-          gene: customGene,
-          aminoAcidChange: activePreset.aminoAcidChange,
-          cdnaChange: customCdna,
-          targetSequence: customSeq,
-          hotspotIndex,
-          initialMolecules,
-          targetVaf,
+          targetName: `${targetGene} ${targetCdna} Hotspot`,
+          gene: targetGene,
+          aminoAcidChange: aaChange,
+          cdnaChange: targetCdna,
+          targetSequence: targetSeq,
+          hotspotIndex: hIndex,
+          initialMolecules: molCount,
+          targetVaf: vaf,
           rawDepthTarget: rawTargetDepth,
-          avgFamilySize,
+          avgFamilySize: famSize,
           pcrErrorRate: 0.0001,
-          damageDeaminationRate: damageRate,
-          seqErrorRate: seqErrorRate
+          damageDeaminationRate: dmgRate,
+          seqErrorRate: sErrorRate
         };
         const simResult = runDuplexSimulation(params);
         setResult(simResult);
       } finally {
         setIsSimulating(false);
       }
-    }, 250);
+    }, 150);
+  };
+
+  const runSimulationForPreset = (
+    p: HotspotPreset,
+    cohortOverride?: 'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO' | 'SAMPLE3_NAR_PAPER_METHYLATION'
+  ) => {
+    setSelectedPresetId(p.id);
+    setCustomSeq(p.flankingSequence201bp);
+    setCustomGene(p.gene);
+    setCustomCdna(p.cdnaChange);
+    setHotspotIndex(p.hotspotIndex);
+    setSeqErrorRate(p.empiricalErrorRate);
+
+    let molCount = initialMolecules;
+    const cohort = cohortOverride || p.sourceCohort;
+    if (cohort === 'SAMPLE2_SPERM_DE_NOVO' && molCount < 5000) {
+      molCount = 5000;
+      setInitialMolecules(5000);
+    }
+
+    let vaf = targetVaf;
+    if (p.isSplitControl) {
+      vaf = 0.0;
+      setTargetVaf(0.0);
+    } else if (targetVaf === 0.0) {
+      vaf = 0.0005;
+      setTargetVaf(0.0005);
+    }
+
+    handleRunSimulation({
+      gene: p.gene,
+      cdnaChange: p.cdnaChange,
+      aminoAcidChange: p.aminoAcidChange,
+      targetSequence: p.flankingSequence201bp,
+      hotspotIndex: p.hotspotIndex,
+      initialMolecules: molCount,
+      targetVaf: vaf,
+      seqErrorRate: p.empiricalErrorRate
+    });
+  };
+
+  // Handle Cohort Switch: instantly runs simulation for the first preset of the chosen cohort
+  const handleSwitchCohort = (
+    cohort: 'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO' | 'SAMPLE3_NAR_PAPER_METHYLATION'
+  ) => {
+    setSelectedCohort(cohort);
+    const targetPresets = HOTSPOT_PRESETS.filter(p => p.sourceCohort === cohort);
+    if (targetPresets.length > 0) {
+      runSimulationForPreset(targetPresets[0], cohort);
+    }
+  };
+
+  // Handle Preset Selection: instantly runs simulation for the clicked preset
+  const handleSelectPreset = (preset: HotspotPreset) => {
+    runSimulationForPreset(preset, selectedCohort);
   };
 
   // Run initial simulation upon mount
@@ -380,7 +419,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
 
             <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
               <button
-                onClick={handleRunSimulation}
+                onClick={() => handleRunSimulation()}
                 disabled={isSimulating}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-linear-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/20 transition disabled:opacity-50 cursor-pointer"
               >
@@ -696,8 +735,11 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     <button
                       key={v}
                       type="button"
-                      onClick={() => setTargetVaf(v)}
-                      className={`py-1 text-xs rounded-lg font-mono font-medium border transition ${
+                      onClick={() => {
+                        setTargetVaf(v);
+                        handleRunSimulation({ targetVaf: v });
+                      }}
+                      className={`py-1 text-xs rounded-lg font-mono font-medium border transition cursor-pointer ${
                         Math.abs(targetVaf - v) < 1e-6
                           ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50'
                           : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
@@ -723,8 +765,15 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                   max={20000}
                   step={1000}
                   value={initialMolecules}
-                  onChange={e => setInitialMolecules(Number(e.target.value))}
-                  className="w-full accent-cyan-500 bg-slate-800"
+                  onChange={e => {
+                    const val = Number(e.target.value);
+                    setInitialMolecules(val);
+                  }}
+                  onPointerUp={e => {
+                    const val = Number((e.target as HTMLInputElement).value);
+                    handleRunSimulation({ initialMolecules: val });
+                  }}
+                  className="w-full accent-cyan-500 bg-slate-800 cursor-pointer"
                 />
                 <div className="flex justify-between text-[11px] text-slate-500 font-mono">
                   <span>1,000</span>
@@ -749,8 +798,15 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                   max={10}
                   step={1}
                   value={avgFamilySize}
-                  onChange={e => setAvgFamilySize(Number(e.target.value))}
-                  className="w-full accent-cyan-500 bg-slate-800"
+                  onChange={e => {
+                    const val = Number(e.target.value);
+                    setAvgFamilySize(val);
+                  }}
+                  onPointerUp={e => {
+                    const val = Number((e.target as HTMLInputElement).value);
+                    handleRunSimulation({ avgFamilySize: val });
+                  }}
+                  className="w-full accent-cyan-500 bg-slate-800 cursor-pointer"
                 />
               </div>
 
@@ -767,8 +823,11 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     <button
                       key={v}
                       type="button"
-                      onClick={() => setDamageRate(v)}
-                      className={`py-1 text-xs rounded-lg font-mono border transition ${
+                      onClick={() => {
+                        setDamageRate(v);
+                        handleRunSimulation({ damageDeaminationRate: v });
+                      }}
+                      className={`py-1 text-xs rounded-lg font-mono border transition cursor-pointer ${
                         Math.abs(damageRate - v) < 1e-6
                           ? 'bg-amber-500/20 text-amber-300 border-amber-500/50'
                           : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
@@ -793,8 +852,11 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     <button
                       key={v}
                       type="button"
-                      onClick={() => setSeqErrorRate(v)}
-                      className={`py-1 text-xs rounded-lg font-mono border transition ${
+                      onClick={() => {
+                        setSeqErrorRate(v);
+                        handleRunSimulation({ seqErrorRate: v });
+                      }}
+                      className={`py-1 text-xs rounded-lg font-mono border transition cursor-pointer ${
                         Math.abs(seqErrorRate - v) < 1e-6
                           ? 'bg-slate-700 text-white border-slate-500'
                           : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
