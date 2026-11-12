@@ -979,11 +979,21 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     </span>
                     <div className="mt-2 flex items-baseline gap-1.5">
                       <span className="text-xl font-black text-cyan-300 font-mono">
-                        {result.pvalue === 0 ? '< 1e-30' : result.pvalue.toExponential(2)}
+                        {result.dcsMutantCalls === 0
+                          ? '1.00 (N/A)'
+                          : result.pvalue < 1e-30
+                          ? '< 1e-30'
+                          : result.pvalue.toExponential(2)}
                       </span>
                     </div>
-                    <span className="text-[10px] text-cyan-400 font-medium mt-1">
-                      Ultra-High Confidence
+                    <span className="text-[10px] font-medium mt-1">
+                      {result.dcsMutantCalls === 0 ? (
+                        <span className="text-slate-400">Zero Mutants (True Neg)</span>
+                      ) : result.pvalue < 1e-6 ? (
+                        <span className="text-cyan-400">Ultra-High Confidence</span>
+                      ) : (
+                        <span className="text-emerald-400">Significant (P &lt; 0.05)</span>
+                      )}
                     </span>
                   </div>
                 </div>

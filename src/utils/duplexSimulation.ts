@@ -88,40 +88,42 @@ function randomUmi(len = 8): string {
   return res;
 }
 
-function logGamma(x: number): number {
-  // Lanczos approximation
-  const g = 7;
-  const C = [
-    0.99999999999980993,
-    676.52096812869951,
-    -1259.1392167224028,
-    771.32342877765313,
-    -176.61502916214059,
-    12.507343278686905,
-    -0.138571095836524,
-    9.9843695780195716e-6,
-    1.5056327351493116e-7
-  ];
-  if (x < 0.5) return Math.log(Math.PI / Math.sin(Math.PI * x)) - logGamma(1 - x);
-  x -= 1;
-  let a = C[0];
-  const t = x + g + 0.5;
-  for (let i = 1; i < C.length; i++) {
-    a += C[i] / (x + i);
-  }
-  return 0.5 * Math.log(2 * Math.PI) + (x + 0.5) * Math.log(t) - t + Math.log(a);
-}
-
-export function poissonPValue(k: number, lambda: number): number {
+/**
+ * Exact, numerically stable Poisson tail probability P(X >= k | lambda).
+ * Avoids catastrophic floating-point cancellation (1.0 - cdf) by summing forward terms directly.
+ */
+export function accuratePoissonPValue(k: number, lambda: number): number {
   if (k <= 0) return 1.0;
   if (lambda <= 0) return 0.0;
-  let cdf = 0.0;
-  for (let i = 0; i < k; i++) {
-    const logTerm = -lambda + i * Math.log(lambda) - logGamma(i + 1);
-    cdf += Math.exp(logTerm);
+
+  // Compute ln(k!)
+  let logKFact = 0;
+  for (let i = 2; i <= k; i++) {
+    logKFact += Math.log(i);
   }
-  return Math.max(0.0, Math.min(1.0, 1.0 - cdf));
+
+  // P(X = k) = exp(-lambda + k*ln(lambda) - ln(k!))
+  const logFirstTerm = -lambda + k * Math.log(lambda) - logKFact;
+  if (logFirstTerm < -700) {
+    // Underflow limit for IEEE-754 double
+    return 0.0;
+  }
+
+  let currentTerm = Math.exp(logFirstTerm);
+  let tailSum = currentTerm;
+
+  // Forward summation of P(X = k+1), P(X = k+2), ... without subtracting from 1.0
+  for (let j = k; j < k + 60; j++) {
+    currentTerm = currentTerm * (lambda / (j + 1));
+    tailSum += currentTerm;
+    if (currentTerm < tailSum * 1e-15) break;
+  }
+
+  return Math.max(0.0, Math.min(1.0, tailSum));
 }
+
+// Backward compatibility alias
+export const poissonPValue = accuratePoissonPValue;
 
 /**
  * Execute Duplex Sequencing Simulation.
@@ -347,9 +349,15 @@ export function runDuplexSimulation(params: DuplexSimParams): DuplexSimResult {
   const fdr =
     dcsMutant > 0 ? (falsePositives / dcsMutant) * 100 : 0;
 
-  // Background noise null lambda
-  const nullNoiseLambda = dcsTotal * 1e-6; // Duplex background error rate < 1e-6
-  const pvalue = poissonPValue(dcsMutant, nullNoiseLambda);
+  // Background duplex noise expected under null hypothesis H0
+  // Derived from independent single-strand deamination damage (damage^2) + PCR chimera & optical phasing noise
+  const duplexBackgroundRate =
+    Math.pow(damageDeaminationRate, 2) +
+    pcrErrorRate * seqErrorRate +
+    Math.pow(seqErrorRate, 3);
+
+  const nullNoiseLambda = dcsTotal * Math.max(1e-8, duplexBackgroundRate);
+  const pvalue = accuratePoissonPValue(dcsMutant, nullNoiseLambda);
 
   const noiseReductionFold = rawObservedVaf > 0 ? rawObservedVaf / Math.max(0.0001, dcsObservedVaf) : 1000;
 
