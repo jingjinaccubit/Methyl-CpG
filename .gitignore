@@ -42,4 +42,6 @@ __pycache__/
 *.bai
 *.cram
 *.sam
+*.tsv
+collagen_701_sequences*.tsv
 
