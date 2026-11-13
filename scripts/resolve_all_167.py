@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 """
+@deprecated: This script is preserved for historical reference and coordinate
+auditing only. Canonical gnomAD v4 scores and allele metrics for all 701 CpG dyads
+and 48 splice junctions are generated directly by scripts/generate_gnomad_data.py
+using MANE Select v1.5 coordinates (collagen_701_genomic_cpg_dyads_pm100bp.csv).
+Do NOT run this script to overwrite src/data/gnomadData.ts.
+
 scripts/resolve_all_167.py
 
 Resolves exact GRCh38 genomic coordinates and empirical allele numbers (AN)
@@ -46,10 +52,10 @@ print(f"Resolving remaining {len(without_clinvar)} targets across {len(genes_to_
 # Known gene coordinates for UCSC refGene query:
 gene_chrom_ranges = {
     'COL11A2': ('chr6', 33160000, 33185000, 'NM_080680'),
-    'COL13A1': ('chr10', 69860000, 69950000, 'NM_001130103'),
+    'COL13A1': ('chr10', 69860000, 69950000, 'NM_001368882'),  # MANE Select v1.5 (supersedes NM_001130103)
     'COL14A1': ('chr8', 120300000, 120400000, 'NM_021110'),
     'COL16A1': ('chr1', 31640000, 31710000, 'NM_001856'),
-    'COL18A1': ('chr21', 45470000, 45520000, 'NM_030582'),
+    'COL18A1': ('chr21', 45470000, 45520000, 'NM_001379500'),  # MANE Select v1.5 (supersedes NM_030582)
     'COL1A1':  ('chr17', 50180000, 50210000, 'NM_000088'),
     'COL1A2':  ('chr7', 94390000, 94440000, 'NM_000089'),
     'COL22A1': ('chr8', 138550000, 138800000, 'NM_152888'),
@@ -61,11 +67,11 @@ gene_chrom_ranges = {
     'COL3A1':  ('chr2', 188980000, 189020000, 'NM_000090'),
     'COL4A1':  ('chr13', 110150000, 110220000, 'NM_001845'),
     'COL4A2':  ('chr13', 110420000, 110510000, 'NM_001846'),
-    'COL4A6':  ('chrX', 108150000, 108200000, 'NM_001847'),
+    'COL4A6':  ('chrX', 108150000, 108200000, 'NM_033641'),    # MANE Select v1.5 (supersedes NM_001847)
     'COL5A1':  ('chr9', 134740000, 134830000, 'NM_000093'),
     'COL6A1':  ('chr21', 45980000, 46010000, 'NM_001848'),
     'COL6A2':  ('chr21', 46110000, 46130000, 'NM_001849'),
-    'COL8A1':  ('chr3', 99630000, 99800000, 'NM_001850'),
+    'COL8A1':  ('chr3', 99630000, 99800000, 'NM_020351'),      # MANE Select v1.5 (supersedes NM_001850)
     'COL9A1':  ('chr6', 70210000, 70290000, 'NM_001851'),
     'COL9A3':  ('chr20', 62810000, 62850000, 'NM_001853')
 }

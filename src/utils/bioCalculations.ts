@@ -16,7 +16,7 @@ import {
 } from './statistics';
 import { GENE_CLINVAR_MAP, COL4A5_BENCHMARK_CPG, GENE_CLINVAR_BASELINE } from '../data/clinvarData';
 import { calculateGnomadScore } from '../data/gnomadModel';
-import { COLLAGEN_SPLIT_SITES } from '../data/collagenTable';
+import { COLLAGEN_SPLIT_SITES, PRELOADED_CDS } from '../data/collagenTable';
 import { predictTripleHelixDestabilization } from '../data/brodskyModel';
 
 export const CODON_MAP: Record<string, string> = {
@@ -75,6 +75,17 @@ export function analyzeSequence(
 ): SequenceAnalysisResult {
   const cleaned = cleanSequence(rawInput);
   const geneSymbol = geneInfo?.gene || 'Custom Sequence';
+
+  // Position-indexed databases (ClinVar, gnomAD, Split Sites, Baseline) are strictly tied to
+  // the canonical MANE Select transcript in frame 0.
+  // When users supply custom/edited sequences or shift reading frames (+1/+2), positional indices
+  // no longer correspond to canonical CDS coordinates.
+  const isCanonicalPreloaded = Boolean(
+    geneInfo &&
+    frameOffset === 0 &&
+    PRELOADED_CDS[geneInfo.gene] &&
+    cleaned === cleanSequence(PRELOADED_CDS[geneInfo.gene])
+  );
 
   // Read codons according to frameOffset
   const validLength = cleaned.length - frameOffset;
@@ -172,7 +183,7 @@ export function analyzeSequence(
   // Identify CpG dyads (Yaa ends in C, Gly begins with G)
   const cpgDyads: CpGSite[] = [];
   const splitPseudoDyads: CpGSite[] = [];
-  const knownClinvarRecords = geneInfo ? GENE_CLINVAR_MAP[geneInfo.gene] || {} : {};
+  const knownClinvarRecords = (isCanonicalPreloaded && geneInfo) ? GENE_CLINVAR_MAP[geneInfo.gene] || {} : {};
 
   Array.from(collagenousGlySet).sort((a, b) => a - b).forEach(gIdx => {
     if (gIdx > 0) {
@@ -191,9 +202,9 @@ export function analyzeSequence(
         const aaChangeName = `p.${AA_NAME_MAP['G']}${residuePos}${AA_NAME_MAP[mutAA] || mutAA}`;
         const cdnaChangeName = `c.${cStart}G>A`;
 
-        // ClinVar annotation
+        // ClinVar annotation (strictly canonical)
         let clinvarEntry = knownClinvarRecords[residuePos];
-        let isReported = !!clinvarEntry;
+        let isReported = Boolean(clinvarEntry);
         let isMultiSub = clinvarEntry ? clinvarEntry.multipleSubmitters : false;
         let varId = clinvarEntry ? clinvarEntry.variationId : undefined;
         let revStatus = clinvarEntry ? clinvarEntry.reviewStatus : undefined;
@@ -201,8 +212,8 @@ export function analyzeSequence(
         let rawSignificance = clinvarEntry ? (clinvarEntry.rawSignificance || clinvarEntry.significance) : undefined;
         let sigCode: 'P' | 'LP' | 'P/LP' | 'VUS' | 'Conflicting' | 'B/LB' | 'Other' | 'Candidate' = clinvarEntry ? (clinvarEntry.significance as any) : 'Candidate';
 
-        // If COL4A5, benchmark against the exact 12 sites from the paper
-        if (geneSymbol === 'COL4A5') {
+        // If COL4A5 canonical, benchmark against the exact 12 sites from the paper
+        if (isCanonicalPreloaded && geneSymbol === 'COL4A5') {
           const bench = COL4A5_BENCHMARK_CPG.find(b => b.pos === residuePos);
           if (bench) {
             isReported = bench.reported;
@@ -224,7 +235,7 @@ export function analyzeSequence(
         else if (sigCode === 'Conflicting') sigLabel = 'Conflicting Interpretations';
         else if (sigCode === 'B/LB') sigLabel = 'Benign / Likely Benign';
 
-        const isSplit = Boolean(geneSymbol && COLLAGEN_SPLIT_SITES[geneSymbol]?.includes(residuePos));
+        const isSplit = Boolean(isCanonicalPreloaded && geneSymbol && COLLAGEN_SPLIT_SITES[geneSymbol]?.includes(residuePos));
 
         // gnomAD mutability score & empirical population frequency
         // STRICT INTEGRITY: If isSplit, this is NOT a true genomic CpG dyad (intron separates C and G).
@@ -236,8 +247,8 @@ export function analyzeSequence(
           isMultiSub,
           glyCodon,
           prevCodon,
-          geneSymbol,
-          residuePos
+          isCanonicalPreloaded ? geneSymbol : undefined,
+          isCanonicalPreloaded ? residuePos : undefined
         );
 
         // Complementary Sense-Strand Deamination (preceding Yaa last base C>T):
@@ -372,8 +383,8 @@ export function analyzeSequence(
         Boolean(clinvarRec?.multipleSubmitters),
         c,
         prevCodonStr,
-        geneSymbol,
-        residuePos,
+        isCanonicalPreloaded ? geneSymbol : undefined,
+        isCanonicalPreloaded ? residuePos : undefined,
         { triContext: triContextC, altBase: 'T' }
       );
 
@@ -384,8 +395,8 @@ export function analyzeSequence(
         false,
         c,
         prevCodonStr,
-        geneSymbol,
-        residuePos,
+        isCanonicalPreloaded ? geneSymbol : undefined,
+        isCanonicalPreloaded ? residuePos : undefined,
         { triContext: triContextG, altBase: 'A' }
       );
 
@@ -585,7 +596,7 @@ export function analyzeSequence(
     cpgDyadsPct,
     trueGenomicDyadsCount: cpgDyads.length,
     splitSitesCount: splitPseudoDyads.length,
-    hasSplitSiteAnnotation: Boolean(geneSymbol && COLLAGEN_SPLIT_SITES[geneSymbol]),
+    hasSplitSiteAnnotation: Boolean(isCanonicalPreloaded && geneSymbol && COLLAGEN_SPLIT_SITES[geneSymbol]),
     genomeDyadsPct: 14.3,
     noncollagenousDyadsCount: otherEndingInC,
     noncollagenousDyadsPct: otherEndingInCPct,
@@ -627,8 +638,8 @@ export function analyzeSequence(
 
   // Real ClinVar baseline statistics from whole-gene ClinVar single-nucleotide missense database
   // COL4A5 benchmark baseline from paper: 182 of 437 non-CpG glycines P/LP, 69 multiple submitters
-  const baseline = GENE_CLINVAR_BASELINE[geneSymbol];
-  const hasBaselineData = !!baseline;
+  const baseline = isCanonicalPreloaded ? GENE_CLINVAR_BASELINE[geneSymbol] : undefined;
+  const hasBaselineData = Boolean(baseline);
   const nonCpgTotal = baseline ? baseline.nonCpgTotal : Math.max(1, collGlyCount - cpgDyadsCount);
   const nonCpgPlp = baseline ? baseline.nonCpgPlp : 0;
   const nonCpgMulti = baseline ? baseline.nonCpgMulti : 0;
@@ -638,10 +649,10 @@ export function analyzeSequence(
   let orT2Reporting: StatisticalMetric;
   if (cpgPlp === 0 && nonCpgPlp === 0) {
     orT2Reporting = {
-      or: 1.0,
-      ciLower: 0,
-      ciUpper: 0,
-      pValue: 1.0,
+      or: NaN,
+      ciLower: NaN,
+      ciUpper: NaN,
+      pValue: NaN,
       formattedP: 'N/A'
     };
   } else {
@@ -657,10 +668,10 @@ export function analyzeSequence(
   let orT2Multi: StatisticalMetric;
   if (cpgPlp === 0 || nonCpgPlp === 0) {
     orT2Multi = {
-      or: 1.0,
-      ciLower: 0,
-      ciUpper: 0,
-      pValue: 1.0,
+      or: NaN,
+      ciLower: NaN,
+      ciUpper: NaN,
+      pValue: NaN,
       formattedP: 'N/A'
     };
   } else {
@@ -696,7 +707,7 @@ export function analyzeSequence(
     nonCpgMultiSubmittersCount: nonCpgMulti,
     nonCpgMultiSubmittersPct: nonCpgPlp > 0 ? Number(((nonCpgMulti / nonCpgPlp) * 100).toFixed(1)) : 0,
     multiSubmitterOddsRatio: orT2Multi,
-    knownVariantsCount: Object.keys(knownClinvarRecords).length || (geneSymbol === 'COL4A5' ? 707 : cpgReported),
+    knownVariantsCount: Object.keys(knownClinvarRecords).length || (isCanonicalPreloaded && geneSymbol === 'COL4A5' ? 707 : cpgReported),
     hasBaselineData,
     inCodonTotal: inCodonCpGs.length,
     inCodonPlpCount: inCodonPlp,

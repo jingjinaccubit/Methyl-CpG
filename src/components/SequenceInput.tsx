@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Play, Sparkles, RefreshCw, AlertCircle, FileCode } from 'lucide-react';
+import { Play, RefreshCw, AlertCircle, FileCode } from 'lucide-react';
 import { COLLAGEN_TABLE, PRELOADED_CDS } from '../data/collagenTable';
+import { cleanSequence } from '../utils/bioCalculations';
 import type { CollagenGeneInfo } from '../types';
 
 interface SequenceInputProps {
@@ -18,8 +19,15 @@ export const SequenceInput: React.FC<SequenceInputProps> = ({
 
   const selectedGeneInfo = COLLAGEN_TABLE.find(g => g.gene === selectedGeneSymbol);
 
+  const isCustomized = Boolean(
+    selectedGeneInfo &&
+    PRELOADED_CDS[selectedGeneSymbol] &&
+    (cleanSequence(sequenceText) !== cleanSequence(PRELOADED_CDS[selectedGeneSymbol]) || frameOffset !== 0)
+  );
+
   const handleSelectGene = (geneSymbol: string) => {
     setSelectedGeneSymbol(geneSymbol);
+    setFrameOffset(0);
     if (PRELOADED_CDS[geneSymbol]) {
       setSequenceText(PRELOADED_CDS[geneSymbol]);
     } else {
@@ -28,10 +36,12 @@ export const SequenceInput: React.FC<SequenceInputProps> = ({
   };
 
   const handleQuickPreset = (geneSymbol: string) => {
-    handleSelectGene(geneSymbol);
+    setSelectedGeneSymbol(geneSymbol);
+    setFrameOffset(0);
     const gene = COLLAGEN_TABLE.find(g => g.gene === geneSymbol);
     const seq = PRELOADED_CDS[geneSymbol] || '';
     if (seq) {
+      setSequenceText(seq);
       onAnalyze(seq, gene, 0);
     }
   };
@@ -127,14 +137,20 @@ export const SequenceInput: React.FC<SequenceInputProps> = ({
             <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-xs text-slate-600 flex flex-col justify-center h-[42px]">
               {selectedGeneInfo ? (
                 <div className="flex items-center justify-between">
-                  <div>
+                  <div className="truncate mr-2">
                     <span className="font-semibold text-slate-900">{selectedGeneInfo.name}</span>
                     <span className="text-slate-400 mx-1.5">•</span>
                     <span>{selectedGeneInfo.refseqId || selectedGeneInfo.transcriptId}</span>
                   </div>
-                  <span className="font-mono bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded text-[11px]">
-                    {selectedGeneInfo.inheritance}
-                  </span>
+                  {isCustomized ? (
+                    <span className="font-mono bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded text-[11px] whitespace-nowrap border border-amber-300" title="Custom sequence or frame offset applied: Static ClinVar/gnomAD position mappings disabled">
+                      {frameOffset > 0 ? `Frame +${frameOffset}` : 'Sequence Edited'} (Custom)
+                    </span>
+                  ) : (
+                    <span className="font-mono bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded text-[11px] whitespace-nowrap">
+                      {selectedGeneInfo.inheritance}
+                    </span>
+                  )}
                 </div>
               ) : (
                 <span>Custom / Unknown Sequence Mode</span>
@@ -193,6 +209,7 @@ export const SequenceInput: React.FC<SequenceInputProps> = ({
             <button
               type="button"
               onClick={() => {
+                setFrameOffset(0);
                 if (PRELOADED_CDS[selectedGeneSymbol]) {
                   setSequenceText(PRELOADED_CDS[selectedGeneSymbol]);
                 } else {

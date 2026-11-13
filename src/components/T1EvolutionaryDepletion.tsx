@@ -71,13 +71,11 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
               )}
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
-              In {geneSymbol}, <strong className="text-slate-800">{t1.cpgDyadsCount} of {t1.collagenousGlycines} ({t1.cpgDyadsPct}%)</strong> collagenous glycines have a preceding cytosine in mRNA
-              {t1.hasSplitSiteAnnotation ? (
-                t1.splitSitesCount && t1.splitSitesCount > 0 ? (
-                  <> (<strong>{t1.trueGenomicDyadsCount}</strong> true genomic CpG dyads, <strong className="text-amber-700">{t1.splitSitesCount}</strong> split pseudo-dyads across exon junctions)</>
-                ) : (
-                  <> (all <strong>{t1.cpgDyadsCount}</strong> verified contiguous genomic dyads)</>
-                )
+              In {geneSymbol}, <strong className="text-slate-800">{t1.cpgDyadsCount} of {t1.collagenousGlycines} ({t1.cpgDyadsPct}%)</strong> collagenous glycines form contiguous genomic CpG dyads
+              {t1.hasSplitSiteAnnotation && t1.splitSitesCount && t1.splitSitesCount > 0 ? (
+                <> (excluding <strong className="text-amber-700">{t1.splitSitesCount}</strong> intron-split mRNA C-G junctions)</>
+              ) : t1.hasSplitSiteAnnotation ? (
+                <> (all verified contiguous genomic dyads)</>
               ) : (
                 <span className="block mt-1 text-[11px] text-slate-400 italic">
                   *Split site detection unavailable for custom sequence (evaluated at mRNA junction level)

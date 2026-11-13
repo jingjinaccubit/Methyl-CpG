@@ -23,11 +23,9 @@ export const ForestPlot: React.FC<ForestPlotProps> = ({
   const minLog = Math.log(0.04);
   const maxLog = Math.log(80);
   const plotWidth = 340;
-  const rowHeight = 44;
-  const headerHeight = 35;
-  const totalHeight = headerHeight + items.length * rowHeight + 40;
 
   const getX = (val: number) => {
+    if (isNaN(val)) return 0;
     const clamped = Math.max(0.04, Math.min(80, val));
     const logVal = Math.log(clamped);
     return ((logVal - minLog) / (maxLog - minLog)) * plotWidth;
@@ -65,11 +63,12 @@ export const ForestPlot: React.FC<ForestPlotProps> = ({
           </div>
 
           <div className="divide-y divide-slate-100">
-            {items.map((item, idx) => {
-              const xPoint = getX(item.metric.or);
-              const xLower = getX(item.metric.ciLower);
-              const xUpper = getX(item.metric.ciUpper);
-              const isEnriched = item.metric.or > 1.0;
+            {items.map((item) => {
+              const isNA = isNaN(item.metric.or) || item.metric.formattedP === 'N/A' || isNaN(item.metric.ciLower) || isNaN(item.metric.ciUpper);
+              const xPoint = isNA ? 0 : getX(item.metric.or);
+              const xLower = isNA ? 0 : getX(item.metric.ciLower);
+              const xUpper = isNA ? 0 : getX(item.metric.ciUpper);
+              const isEnriched = !isNA && item.metric.or > 1.0;
               const barColor = isEnriched ? '#d97706' : '#2563eb';
 
               return (
@@ -81,73 +80,92 @@ export const ForestPlot: React.FC<ForestPlotProps> = ({
                   </div>
 
                   {/* SVG Plot Column */}
-                  <div className="col-span-5 flex justify-center">
-                    <svg width={plotWidth + 40} height="28" className="overflow-visible">
-                      {/* Neutral dashed line at OR = 1.0 */}
-                      <line
-                        x1={xNull + 20}
-                        y1="0"
-                        x2={xNull + 20}
-                        y2="28"
-                        stroke="#cbd5e1"
-                        strokeWidth="1.5"
-                        strokeDasharray="3 3"
-                      />
+                  <div className="col-span-5 flex justify-center items-center">
+                    {isNA ? (
+                      <div className="flex items-center justify-center h-7 text-xs text-slate-400 font-medium italic">
+                        Insufficient Data (N/A)
+                      </div>
+                    ) : (
+                      <svg width={plotWidth + 40} height="28" className="overflow-visible">
+                        {/* Neutral dashed line at OR = 1.0 */}
+                        <line
+                          x1={xNull + 20}
+                          y1="0"
+                          x2={xNull + 20}
+                          y2="28"
+                          stroke="#cbd5e1"
+                          strokeWidth="1.5"
+                          strokeDasharray="3 3"
+                        />
 
-                      {/* 95% CI horizontal line */}
-                      <line
-                        x1={xLower + 20}
-                        y1="14"
-                        x2={xUpper + 20}
-                        y2="14"
-                        stroke={barColor}
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
+                        {/* 95% CI horizontal line */}
+                        <line
+                          x1={xLower + 20}
+                          y1="14"
+                          x2={xUpper + 20}
+                          y2="14"
+                          stroke={barColor}
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
 
-                      {/* Left tick */}
-                      <line
-                        x1={xLower + 20}
-                        y1="9"
-                        x2={xLower + 20}
-                        y2="19"
-                        stroke={barColor}
-                        strokeWidth="1.5"
-                      />
+                        {/* Left tick */}
+                        <line
+                          x1={xLower + 20}
+                          y1="9"
+                          x2={xLower + 20}
+                          y2="19"
+                          stroke={barColor}
+                          strokeWidth="1.5"
+                        />
 
-                      {/* Right tick */}
-                      <line
-                        x1={xUpper + 20}
-                        y1="9"
-                        x2={xUpper + 20}
-                        y2="19"
-                        stroke={barColor}
-                        strokeWidth="1.5"
-                      />
+                        {/* Right tick */}
+                        <line
+                          x1={xUpper + 20}
+                          y1="9"
+                          x2={xUpper + 20}
+                          y2="19"
+                          stroke={barColor}
+                          strokeWidth="1.5"
+                        />
 
-                      {/* Center Point Estimate */}
-                      <rect
-                        x={xPoint + 20 - 4}
-                        y="10"
-                        width="8"
-                        height="8"
-                        fill={barColor}
-                        transform={`rotate(45, ${xPoint + 20}, 14)`}
-                      />
-                    </svg>
+                        {/* Center Point Estimate */}
+                        <rect
+                          x={xPoint + 20 - 4}
+                          y="10"
+                          width="8"
+                          height="8"
+                          fill={barColor}
+                          transform={`rotate(45, ${xPoint + 20}, 14)`}
+                        />
+                      </svg>
+                    )}
                   </div>
 
                   {/* Numbers Column */}
                   <div className="col-span-3 text-right">
-                    <div className="font-mono text-sm font-semibold text-slate-800">
-                      {item.metric.or.toFixed(2)}
-                      <span className="text-xs font-normal text-slate-500 ml-1">
-                        [{item.metric.ciLower.toFixed(2)} - {item.metric.ciUpper.toFixed(2)}]
-                      </span>
-                    </div>
-                    <div className="text-xs font-medium text-emerald-700">
-                      {item.metric.formattedP}
-                    </div>
+                    {isNA ? (
+                      <>
+                        <div className="font-mono text-sm font-semibold text-slate-400">
+                          N/A
+                        </div>
+                        <div className="text-xs font-medium text-slate-400">
+                          {item.metric.formattedP === 'N/A' ? 'N/A' : (item.metric.formattedP || 'N/A')}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="font-mono text-sm font-semibold text-slate-800">
+                          {item.metric.or.toFixed(2)}
+                          <span className="text-xs font-normal text-slate-500 ml-1">
+                            [{item.metric.ciLower.toFixed(2)} - {item.metric.ciUpper.toFixed(2)}]
+                          </span>
+                        </div>
+                        <div className="text-xs font-medium text-emerald-700">
+                          {item.metric.formattedP}
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               );
