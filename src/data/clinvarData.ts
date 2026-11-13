@@ -1,7 +1,7 @@
 // Auto-generated ClinVar dataset for collagen disorders
 // Tracks monthly NCBI ClinVar snapshots
 export const CLINVAR_RELEASE_DATE = "2026-11";
-export const CLINVAR_LAST_UPDATED = "2026-11-01";
+export const CLINVAR_LAST_UPDATED = "2026-11-13";
 
 export interface ClinVarRecord {
   pos: number; // protein position (1-based)
@@ -204,22 +204,22 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
   },
   "COL11A1": {
     "collGlyCount": 355,
-    "cpgDyadTotal": 8,
+    "cpgDyadTotal": 7,
     "cpgReported": 7,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 347,
-    "nonCpgReported": 60,
+    "nonCpgTotal": 348,
+    "nonCpgReported": 61,
     "nonCpgPlp": 3,
     "nonCpgMulti": 0
   },
   "COL11A2": {
     "collGlyCount": 355,
-    "cpgDyadTotal": 17,
+    "cpgDyadTotal": 16,
     "cpgReported": 15,
     "cpgPlp": 1,
     "cpgMulti": 1,
-    "nonCpgTotal": 338,
+    "nonCpgTotal": 339,
     "nonCpgReported": 38,
     "nonCpgPlp": 2,
     "nonCpgMulti": 1
@@ -236,23 +236,23 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
     "nonCpgMulti": 0
   },
   "COL13A1": {
-    "collGlyCount": 165,
-    "cpgDyadTotal": 13,
-    "cpgReported": 0,
+    "collGlyCount": 175,
+    "cpgDyadTotal": 12,
+    "cpgReported": 9,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 152,
-    "nonCpgReported": 2,
+    "nonCpgTotal": 163,
+    "nonCpgReported": 8,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   },
   "COL14A1": {
     "collGlyCount": 84,
-    "cpgDyadTotal": 2,
+    "cpgDyadTotal": 1,
     "cpgReported": 1,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 82,
+    "nonCpgTotal": 83,
     "nonCpgReported": 0,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
@@ -270,11 +270,11 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
   },
   "COL16A1": {
     "collGlyCount": 337,
-    "cpgDyadTotal": 21,
+    "cpgDyadTotal": 18,
     "cpgReported": 2,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 316,
+    "nonCpgTotal": 319,
     "nonCpgReported": 10,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
@@ -286,18 +286,18 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
     "cpgPlp": 0,
     "cpgMulti": 0,
     "nonCpgTotal": 177,
-    "nonCpgReported": 17,
+    "nonCpgReported": 18,
     "nonCpgPlp": 3,
     "nonCpgMulti": 0
   },
   "COL18A1": {
-    "collGlyCount": 180,
-    "cpgDyadTotal": 39,
-    "cpgReported": 1,
+    "collGlyCount": 181,
+    "cpgDyadTotal": 38,
+    "cpgReported": 34,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 141,
-    "nonCpgReported": 4,
+    "nonCpgTotal": 143,
+    "nonCpgReported": 17,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   },
@@ -314,24 +314,24 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
   },
   "COL1A1": {
     "collGlyCount": 355,
-    "cpgDyadTotal": 39,
-    "cpgReported": 35,
-    "cpgPlp": 31,
+    "cpgDyadTotal": 35,
+    "cpgReported": 34,
+    "cpgPlp": 30,
     "cpgMulti": 28,
-    "nonCpgTotal": 316,
-    "nonCpgReported": 114,
-    "nonCpgPlp": 112,
+    "nonCpgTotal": 320,
+    "nonCpgReported": 116,
+    "nonCpgPlp": 114,
     "nonCpgMulti": 40
   },
   "COL1A2": {
     "collGlyCount": 354,
-    "cpgDyadTotal": 28,
-    "cpgReported": 27,
-    "cpgPlp": 22,
+    "cpgDyadTotal": 26,
+    "cpgReported": 26,
+    "cpgPlp": 21,
     "cpgMulti": 21,
-    "nonCpgTotal": 326,
-    "nonCpgReported": 149,
-    "nonCpgPlp": 139,
+    "nonCpgTotal": 328,
+    "nonCpgReported": 150,
+    "nonCpgPlp": 140,
     "nonCpgMulti": 52
   },
   "COL20A1": {
@@ -347,77 +347,77 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
   },
   "COL21A1": {
     "collGlyCount": 150,
-    "cpgDyadTotal": 3,
+    "cpgDyadTotal": 2,
     "cpgReported": 1,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 147,
+    "nonCpgTotal": 148,
     "nonCpgReported": 4,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   },
   "COL22A1": {
     "collGlyCount": 343,
-    "cpgDyadTotal": 25,
+    "cpgDyadTotal": 22,
     "cpgReported": 4,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 318,
+    "nonCpgTotal": 321,
     "nonCpgReported": 4,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   },
   "COL23A1": {
     "collGlyCount": 122,
-    "cpgDyadTotal": 13,
+    "cpgDyadTotal": 12,
     "cpgReported": 7,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 109,
+    "nonCpgTotal": 110,
     "nonCpgReported": 4,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   },
   "COL24A1": {
     "collGlyCount": 327,
-    "cpgDyadTotal": 5,
+    "cpgDyadTotal": 4,
     "cpgReported": 1,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 322,
+    "nonCpgTotal": 323,
     "nonCpgReported": 14,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   },
   "COL25A1": {
     "collGlyCount": 155,
-    "cpgDyadTotal": 4,
+    "cpgDyadTotal": 3,
     "cpgReported": 2,
     "cpgPlp": 1,
     "cpgMulti": 0,
-    "nonCpgTotal": 151,
+    "nonCpgTotal": 152,
     "nonCpgReported": 3,
     "nonCpgPlp": 1,
     "nonCpgMulti": 0
   },
   "COL26A1": {
     "collGlyCount": 41,
-    "cpgDyadTotal": 5,
-    "cpgReported": 0,
+    "cpgDyadTotal": 4,
+    "cpgReported": 1,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 36,
+    "nonCpgTotal": 37,
     "nonCpgReported": 0,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   },
   "COL27A1": {
     "collGlyCount": 330,
-    "cpgDyadTotal": 29,
+    "cpgDyadTotal": 28,
     "cpgReported": 12,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 301,
+    "nonCpgTotal": 302,
     "nonCpgReported": 24,
     "nonCpgPlp": 1,
     "nonCpgMulti": 0
@@ -435,44 +435,44 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
   },
   "COL2A1": {
     "collGlyCount": 365,
-    "cpgDyadTotal": 26,
+    "cpgDyadTotal": 24,
     "cpgReported": 24,
     "cpgPlp": 19,
     "cpgMulti": 18,
-    "nonCpgTotal": 339,
+    "nonCpgTotal": 341,
     "nonCpgReported": 120,
     "nonCpgPlp": 111,
     "nonCpgMulti": 35
   },
   "COL3A1": {
     "collGlyCount": 356,
-    "cpgDyadTotal": 17,
-    "cpgReported": 16,
-    "cpgPlp": 16,
+    "cpgDyadTotal": 15,
+    "cpgReported": 15,
+    "cpgPlp": 15,
     "cpgMulti": 15,
-    "nonCpgTotal": 339,
-    "nonCpgReported": 135,
-    "nonCpgPlp": 125,
-    "nonCpgMulti": 57
+    "nonCpgTotal": 341,
+    "nonCpgReported": 136,
+    "nonCpgPlp": 126,
+    "nonCpgMulti": 58
   },
   "COL4A1": {
     "collGlyCount": 444,
-    "cpgDyadTotal": 35,
-    "cpgReported": 30,
+    "cpgDyadTotal": 32,
+    "cpgReported": 29,
     "cpgPlp": 13,
     "cpgMulti": 12,
-    "nonCpgTotal": 409,
-    "nonCpgReported": 83,
-    "nonCpgPlp": 68,
-    "nonCpgMulti": 21
+    "nonCpgTotal": 412,
+    "nonCpgReported": 85,
+    "nonCpgPlp": 67,
+    "nonCpgMulti": 20
   },
   "COL4A2": {
     "collGlyCount": 429,
-    "cpgDyadTotal": 49,
-    "cpgReported": 36,
+    "cpgDyadTotal": 47,
+    "cpgReported": 37,
     "cpgPlp": 3,
     "cpgMulti": 2,
-    "nonCpgTotal": 380,
+    "nonCpgTotal": 382,
     "nonCpgReported": 43,
     "nonCpgPlp": 9,
     "nonCpgMulti": 0
@@ -484,8 +484,8 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
     "cpgPlp": 6,
     "cpgMulti": 6,
     "nonCpgTotal": 413,
-    "nonCpgReported": 161,
-    "nonCpgPlp": 90,
+    "nonCpgReported": 164,
+    "nonCpgPlp": 91,
     "nonCpgMulti": 46
   },
   "COL4A4": {
@@ -506,29 +506,29 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
     "cpgPlp": 10,
     "cpgMulti": 10,
     "nonCpgTotal": 437,
-    "nonCpgReported": 220,
-    "nonCpgPlp": 182,
-    "nonCpgMulti": 69
+    "nonCpgReported": 222,
+    "nonCpgPlp": 184,
+    "nonCpgMulti": 74
   },
   "COL4A6": {
     "collGlyCount": 432,
-    "cpgDyadTotal": 23,
-    "cpgReported": 0,
+    "cpgDyadTotal": 22,
+    "cpgReported": 10,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 409,
-    "nonCpgReported": 0,
-    "nonCpgPlp": 0,
-    "nonCpgMulti": 0
+    "nonCpgTotal": 410,
+    "nonCpgReported": 22,
+    "nonCpgPlp": 1,
+    "nonCpgMulti": 1
   },
   "COL5A1": {
     "collGlyCount": 360,
-    "cpgDyadTotal": 48,
-    "cpgReported": 39,
+    "cpgDyadTotal": 46,
+    "cpgReported": 40,
     "cpgPlp": 8,
     "cpgMulti": 2,
-    "nonCpgTotal": 312,
-    "nonCpgReported": 31,
+    "nonCpgTotal": 314,
+    "nonCpgReported": 32,
     "nonCpgPlp": 4,
     "nonCpgMulti": 0
   },
@@ -556,34 +556,34 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
   },
   "COL6A1": {
     "collGlyCount": 110,
-    "cpgDyadTotal": 23,
+    "cpgDyadTotal": 20,
     "cpgReported": 19,
     "cpgPlp": 4,
     "cpgMulti": 4,
-    "nonCpgTotal": 87,
+    "nonCpgTotal": 90,
     "nonCpgReported": 14,
     "nonCpgPlp": 9,
     "nonCpgMulti": 5
   },
   "COL6A2": {
     "collGlyCount": 110,
-    "cpgDyadTotal": 16,
+    "cpgDyadTotal": 15,
     "cpgReported": 14,
     "cpgPlp": 1,
     "cpgMulti": 1,
-    "nonCpgTotal": 94,
+    "nonCpgTotal": 95,
     "nonCpgReported": 28,
     "nonCpgPlp": 10,
     "nonCpgMulti": 6
   },
   "COL6A3": {
     "collGlyCount": 111,
-    "cpgDyadTotal": 14,
+    "cpgDyadTotal": 13,
     "cpgReported": 11,
     "cpgPlp": 2,
     "cpgMulti": 0,
-    "nonCpgTotal": 97,
-    "nonCpgReported": 14,
+    "nonCpgTotal": 98,
+    "nonCpgReported": 15,
     "nonCpgPlp": 4,
     "nonCpgMulti": 2
   },
@@ -600,24 +600,24 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
   },
   "COL6A6": {
     "collGlyCount": 108,
-    "cpgDyadTotal": 5,
+    "cpgDyadTotal": 4,
     "cpgReported": 1,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 103,
+    "nonCpgTotal": 104,
     "nonCpgReported": 6,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   },
   "COL7A1": {
     "collGlyCount": 478,
-    "cpgDyadTotal": 33,
-    "cpgReported": 32,
+    "cpgDyadTotal": 31,
+    "cpgReported": 31,
     "cpgPlp": 20,
     "cpgMulti": 20,
-    "nonCpgTotal": 445,
-    "nonCpgReported": 124,
-    "nonCpgPlp": 64,
+    "nonCpgTotal": 447,
+    "nonCpgReported": 127,
+    "nonCpgPlp": 65,
     "nonCpgMulti": 17
   },
   "COL8A1": {
@@ -644,34 +644,34 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
   },
   "COL9A1": {
     "collGlyCount": 197,
-    "cpgDyadTotal": 10,
-    "cpgReported": 8,
+    "cpgDyadTotal": 9,
+    "cpgReported": 7,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 187,
-    "nonCpgReported": 19,
+    "nonCpgTotal": 188,
+    "nonCpgReported": 20,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   },
   "COL9A2": {
     "collGlyCount": 197,
-    "cpgDyadTotal": 24,
-    "cpgReported": 19,
+    "cpgDyadTotal": 23,
+    "cpgReported": 18,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 173,
-    "nonCpgReported": 45,
+    "nonCpgTotal": 174,
+    "nonCpgReported": 46,
     "nonCpgPlp": 1,
     "nonCpgMulti": 0
   },
   "COL9A3": {
     "collGlyCount": 197,
-    "cpgDyadTotal": 47,
+    "cpgDyadTotal": 44,
     "cpgReported": 41,
     "cpgPlp": 0,
     "cpgMulti": 0,
-    "nonCpgTotal": 150,
-    "nonCpgReported": 39,
+    "nonCpgTotal": 153,
+    "nonCpgReported": 40,
     "nonCpgPlp": 0,
     "nonCpgMulti": 0
   }
@@ -771,7 +771,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "not provided|Intervertebral disc disorder|Hearing loss, autosomal dominant 37;Marshall syndrome;Intervertebral disc disorder;Stickler syndrome type 2;Fibrochondrogenesis 1"
+      "condition": "not provided|Stickler syndrome type 2;Marshall syndrome;Hearing loss, autosomal dominant 37;Intervertebral disc disorder;Fibrochondrogenesis 1|Intervertebral disc disorder"
     },
     "1150": {
       "pos": 1150,
@@ -981,7 +981,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Uncertain significance",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided"
+      "condition": "not provided|Inborn genetic diseases"
     },
     "1462": {
       "pos": 1462,
@@ -1011,7 +1011,138 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
     }
   },
   "COL12A1": {},
-  "COL13A1": {},
+  "COL13A1": {
+    "158": {
+      "pos": 158,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.472G>A",
+      "aaChange": "p.Gly158Arg",
+      "variationId": "2084764",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases"
+    },
+    "169": {
+      "pos": 169,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.505G>A",
+      "aaChange": "p.Gly169Ser",
+      "variationId": "1920227",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases"
+    },
+    "305": {
+      "pos": 305,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.913G>A",
+      "aaChange": "p.Gly305Ser",
+      "variationId": "1925932",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|COL13A1-related disorder"
+    },
+    "326": {
+      "pos": 326,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.976G>A",
+      "aaChange": "p.Gly326Arg",
+      "variationId": "3495074",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "Inborn genetic diseases"
+    },
+    "514": {
+      "pos": 514,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1540G>A",
+      "aaChange": "p.Gly514Ser",
+      "variationId": "1906213",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases"
+    },
+    "568": {
+      "pos": 568,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.1702G>A",
+      "aaChange": "p.Gly568Arg",
+      "variationId": "1491342",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
+    "588": {
+      "pos": 588,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.1762G>A",
+      "aaChange": "p.Gly588Arg",
+      "variationId": "1395144",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases"
+    },
+    "627": {
+      "pos": 627,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.1879G>A",
+      "aaChange": "p.Gly627Arg",
+      "variationId": "1371601",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases"
+    },
+    "633": {
+      "pos": 633,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1897G>A",
+      "aaChange": "p.Gly633Ser",
+      "variationId": "3495082",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "Inborn genetic diseases"
+    },
+    "681": {
+      "pos": 681,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.2041G>A",
+      "aaChange": "p.Gly681Arg",
+      "variationId": "4907733",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    }
+  },
   "COL14A1": {
     "1681": {
       "pos": 1681,
@@ -1121,7 +1252,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Benign/Likely benign",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Junctional epidermolysis bullosa, non-Herlitz type|not provided|Epithelial recurrent erosion dystrophy;Epidermolysis bullosa, junctional 4, intermediate|COL17A1-related disorder"
+      "condition": "Junctional epidermolysis bullosa, non-Herlitz type|not provided|Epidermolysis bullosa, junctional 4, intermediate;Epithelial recurrent erosion dystrophy|COL17A1-related disorder"
     },
     "671": {
       "pos": 671,
@@ -1255,18 +1386,447 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
     }
   },
   "COL18A1": {
-    "919": {
-      "pos": 919,
+    "337": {
+      "pos": 337,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1009G>A",
+      "aaChange": "p.Gly337Ser",
+      "variationId": "340210",
+      "significance": "B/LB",
+      "rawSignificance": "Benign/Likely benign",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "Knobloch syndrome|not provided"
+    },
+    "387": {
+      "pos": 387,
       "refAA": "G",
       "altAA": "R",
-      "cdnaChange": "c.2755G>A",
-      "aaChange": "p.Gly919Arg",
-      "variationId": "1426974",
+      "cdnaChange": "c.1159G>A",
+      "aaChange": "p.Gly387Arg",
+      "variationId": "898136",
+      "significance": "Conflicting",
+      "rawSignificance": "Conflicting classifications of pathogenicity",
+      "reviewStatus": "criteria provided, conflicting classifications",
+      "multipleSubmitters": true,
+      "condition": "Knobloch syndrome|not provided|COL18A1-related disorder|not specified"
+    },
+    "399": {
+      "pos": 399,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1195G>A",
+      "aaChange": "p.Gly399Ser",
+      "variationId": "1445237",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Knobloch syndrome 1;Hereditary glaucoma, primary closed-angle"
+    },
+    "405": {
+      "pos": 405,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1213G>A",
+      "aaChange": "p.Gly405Ser",
+      "variationId": "1383631",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases"
+    },
+    "411": {
+      "pos": 411,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1231G>A",
+      "aaChange": "p.Gly411Ser",
+      "variationId": "1986297",
       "significance": "VUS",
       "rawSignificance": "Uncertain significance",
       "reviewStatus": "criteria provided, single submitter",
       "multipleSubmitters": false,
       "condition": "not provided"
+    },
+    "414": {
+      "pos": 414,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.1240G>A",
+      "aaChange": "p.Gly414Arg",
+      "variationId": "3611181",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
+    "420": {
+      "pos": 420,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.1258G>A",
+      "aaChange": "p.Gly420Arg",
+      "variationId": "1370105",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases"
+    },
+    "426": {
+      "pos": 426,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.1276G>A",
+      "aaChange": "p.Gly426Arg",
+      "variationId": "2179616",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
+    "503": {
+      "pos": 503,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1507G>A",
+      "aaChange": "p.Gly503Ser",
+      "variationId": "340223",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "Knobloch syndrome|not provided|Inborn genetic diseases|Ocular motility disease"
+    },
+    "520": {
+      "pos": 520,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1558G>A",
+      "aaChange": "p.Gly520Ser",
+      "variationId": "1956123",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
+    "532": {
+      "pos": 532,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.1594G>A",
+      "aaChange": "p.Gly532Arg",
+      "variationId": "896560",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "Knobloch syndrome|not provided"
+    },
+    "574": {
+      "pos": 574,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1720G>A",
+      "aaChange": "p.Gly574Ser",
+      "variationId": "1446491",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Hereditary glaucoma, primary closed-angle;Knobloch syndrome 1"
+    },
+    "583": {
+      "pos": 583,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1747G>A",
+      "aaChange": "p.Gly583Ser",
+      "variationId": "1517147",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
+    "589": {
+      "pos": 589,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.1765G>A",
+      "aaChange": "p.Gly589Arg",
+      "variationId": "592027",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "no assertion criteria provided",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
+    "636": {
+      "pos": 636,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1906G>A",
+      "aaChange": "p.Gly636Ser",
+      "variationId": "3268584",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "Inborn genetic diseases"
+    },
+    "663": {
+      "pos": 663,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.1987G>A",
+      "aaChange": "p.Gly663Arg",
+      "variationId": "2094266",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided"
+    },
+    "666": {
+      "pos": 666,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1996G>A",
+      "aaChange": "p.Gly666Ser",
+      "variationId": "1467982",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases|COL18A1-related disorder"
+    },
+    "696": {
+      "pos": 696,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.2086G>A",
+      "aaChange": "p.Gly696Arg",
+      "variationId": "1460713",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
+    "698": {
+      "pos": 698,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.2092G>A",
+      "aaChange": "p.Gly698Arg",
+      "variationId": "1022823",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Knobloch syndrome 1;Hereditary glaucoma, primary closed-angle|Inborn genetic diseases|COL18A1-related disorder"
+    },
+    "707": {
+      "pos": 707,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.2119G>A",
+      "aaChange": "p.Gly707Arg",
+      "variationId": "1020262",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
+    "797": {
+      "pos": 797,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.2389G>A",
+      "aaChange": "p.Gly797Arg",
+      "variationId": "1470350",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases"
+    },
+    "840": {
+      "pos": 840,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.2518G>A",
+      "aaChange": "p.Gly840Ser",
+      "variationId": "2192748",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
+    "868": {
+      "pos": 868,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.2602G>A",
+      "aaChange": "p.Gly868Arg",
+      "variationId": "1419879",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases|COL18A1-related disorder"
+    },
+    "892": {
+      "pos": 892,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.2674G>A",
+      "aaChange": "p.Gly892Arg",
+      "variationId": "1477664",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|COL18A1-related disorder"
+    },
+    "928": {
+      "pos": 928,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.2782G>A",
+      "aaChange": "p.Gly928Arg",
+      "variationId": "447120",
+      "significance": "B/LB",
+      "rawSignificance": "Benign",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not specified|Knobloch syndrome|not provided"
+    },
+    "931": {
+      "pos": 931,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.2791G>A",
+      "aaChange": "p.Gly931Ser",
+      "variationId": "2073651",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
+    "934": {
+      "pos": 934,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.2800G>A",
+      "aaChange": "p.Gly934Ser",
+      "variationId": "1433772",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases"
+    },
+    "939": {
+      "pos": 939,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.2815G>A",
+      "aaChange": "p.Gly939Ser",
+      "variationId": "340258",
+      "significance": "Conflicting",
+      "rawSignificance": "Conflicting classifications of pathogenicity",
+      "reviewStatus": "criteria provided, conflicting classifications",
+      "multipleSubmitters": true,
+      "condition": "Knobloch syndrome|not provided|Inborn genetic diseases|not specified|COL18A1-related disorder"
+    },
+    "942": {
+      "pos": 942,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.2824G>A",
+      "aaChange": "p.Gly942Ser",
+      "variationId": "3029440",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "COL18A1-related disorder"
+    },
+    "968": {
+      "pos": 968,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.2902G>A",
+      "aaChange": "p.Gly968Ser",
+      "variationId": "1895668",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided"
+    },
+    "977": {
+      "pos": 977,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.2929G>A",
+      "aaChange": "p.Gly977Ser",
+      "variationId": "1395895",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Hereditary glaucoma, primary closed-angle;Knobloch syndrome 1|COL18A1-related disorder"
+    },
+    "979": {
+      "pos": 979,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.2935G>A",
+      "aaChange": "p.Gly979Ser",
+      "variationId": "1438532",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided"
+    },
+    "988": {
+      "pos": 988,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.2962G>A",
+      "aaChange": "p.Gly988Ser",
+      "variationId": "2883915",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided"
+    },
+    "1010": {
+      "pos": 1010,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.3028G>A",
+      "aaChange": "p.Gly1010Ser",
+      "variationId": "373915",
+      "significance": "Conflicting",
+      "rawSignificance": "Conflicting classifications of pathogenicity",
+      "reviewStatus": "criteria provided, conflicting classifications",
+      "multipleSubmitters": true,
+      "condition": "Progressive neurodegenerative disease|Hereditary glaucoma, primary closed-angle|not provided|COL18A1-related disorder"
     }
   },
   "COL19A1": {
@@ -1296,7 +1856,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Uncertain significance",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Osteogenesis imperfecta type I|not provided|COL1A1-related disorder|8 conditions"
+      "condition": "not provided|Osteogenesis imperfecta type I|COL1A1-related disorder|8 conditions"
     },
     "142": {
       "pos": 142,
@@ -1322,7 +1882,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Uncertain significance",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided|Osteogenesis imperfecta type I"
+      "condition": "Osteogenesis imperfecta type I|not provided|Cardiovascular phenotype"
     },
     "151": {
       "pos": 151,
@@ -1792,7 +2352,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Osteogenesis imperfecta|not provided|Combined osteogenesis imperfecta and Ehlers-Danlos syndrome 2|Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I|Increased susceptibility to fractures|Osteogenesis imperfecta, perinatal lethal|Ehlers-Danlos syndrome, arthrochalasia type, 2|COL1A2-related disorder|Cardiovascular phenotype|7 conditions|Osteogenesis imperfecta type I"
+      "condition": "Osteogenesis imperfecta|not provided|Osteogenesis imperfecta type I;Ehlers-Danlos syndrome, classic type, 1|Increased susceptibility to fractures|Combined osteogenesis imperfecta and Ehlers-Danlos syndrome 2|Osteogenesis imperfecta, perinatal lethal|Ehlers-Danlos syndrome, arthrochalasia type, 2|COL1A2-related disorder|7 conditions|Cardiovascular phenotype|Osteogenesis imperfecta type I"
     },
     "292": {
       "pos": 292,
@@ -1805,7 +2365,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Osteogenesis imperfecta with normal sclerae, dominant form|Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I|Osteogenesis imperfecta, perinatal lethal|not provided"
+      "condition": "Osteogenesis imperfecta with normal sclerae, dominant form|not provided|Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I|Osteogenesis imperfecta, perinatal lethal"
     },
     "304": {
       "pos": 304,
@@ -1844,7 +2404,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided|Osteogenesis imperfecta|Osteogenesis imperfecta with normal sclerae, dominant form|Osteogenesis imperfecta type I;Ehlers-Danlos syndrome, classic type, 1|See cases|COL1A2-related osteogenesis imperfecta|7 conditions|COL1A2-related disorder|Osteogenesis imperfecta type I"
+      "condition": "not provided|Osteogenesis imperfecta with normal sclerae, dominant form|Osteogenesis imperfecta|Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I|See cases|7 conditions|COL1A2-related osteogenesis imperfecta|Osteogenesis imperfecta type I|COL1A2-related disorder|Cardiovascular phenotype"
     },
     "328": {
       "pos": 328,
@@ -1870,7 +2430,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Osteogenesis imperfecta type I|Osteogenesis imperfecta type III|Ehlers-Danlos syndrome, classic type|Osteogenesis imperfecta type III;Osteogenesis imperfecta with normal sclerae, dominant form|not provided|Osteogenesis imperfecta|Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I|COL1A2-related disorder|Ehlers-Danlos syndrome, arthrochalasia type, 2|Ehlers-Danlos syndrome|Osteogenesis imperfecta with normal sclerae, dominant form"
+      "condition": "Osteogenesis imperfecta type I|Osteogenesis imperfecta type III|Ehlers-Danlos syndrome, classic type|Osteogenesis imperfecta with normal sclerae, dominant form;Osteogenesis imperfecta type III|not provided|Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I|Osteogenesis imperfecta|Ehlers-Danlos syndrome, arthrochalasia type, 2|Ehlers-Danlos syndrome|COL1A2-related disorder|Osteogenesis imperfecta with normal sclerae, dominant form"
     },
     "358": {
       "pos": 358,
@@ -1883,7 +2443,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided|Osteogenesis imperfecta, perinatal lethal|Osteogenesis imperfecta type III|Osteogenesis imperfecta type I;Ehlers-Danlos syndrome, classic type, 1|7 conditions|COL1A2-related disorder"
+      "condition": "not provided|Osteogenesis imperfecta, perinatal lethal|Osteogenesis imperfecta type III|Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I|7 conditions|COL1A2-related disorder"
     },
     "391": {
       "pos": 391,
@@ -1948,7 +2508,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I|not provided|Osteogenesis imperfecta with normal sclerae, dominant form"
+      "condition": "not provided|Osteogenesis imperfecta type I;Ehlers-Danlos syndrome, classic type, 1|Osteogenesis imperfecta with normal sclerae, dominant form"
     },
     "592": {
       "pos": 592,
@@ -2039,7 +2599,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I|not provided|Cardiovascular phenotype|Osteogenesis imperfecta;Ehlers-Danlos syndrome, cardiac valvular type;Ehlers-Danlos syndrome, arthrochalasia type|COL1A2-related disorder|Ehlers-Danlos syndrome, arthrochalasia type, 2|Combined osteogenesis imperfecta and Ehlers-Danlos syndrome 2|7 conditions"
+      "condition": "Osteogenesis imperfecta type I;Ehlers-Danlos syndrome, classic type, 1|not provided|Cardiovascular phenotype|Ehlers-Danlos syndrome, cardiac valvular type;Ehlers-Danlos syndrome, arthrochalasia type;Osteogenesis imperfecta|COL1A2-related disorder|Ehlers-Danlos syndrome, arthrochalasia type, 2|Combined osteogenesis imperfecta and Ehlers-Danlos syndrome 2|7 conditions"
     },
     "943": {
       "pos": 943,
@@ -2300,7 +2860,21 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "condition": "Fibrosis of extraocular muscles, congenital, 5"
     }
   },
-  "COL26A1": {},
+  "COL26A1": {
+    "202": {
+      "pos": 202,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.604G>A",
+      "aaChange": "p.Gly202Arg",
+      "variationId": "4331654",
+      "significance": "Other",
+      "rawSignificance": "-",
+      "reviewStatus": "-",
+      "multipleSubmitters": false,
+      "condition": "Cervical cancer|Ovarian cancer"
+    }
+  },
   "COL27A1": {
     "667": {
       "pos": 667,
@@ -2551,7 +3125,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Stickler syndrome type 1|not provided|Spondyloepiphyseal dysplasia congenita|COL2A1-related disorder"
+      "condition": "Stickler syndrome type 1|not provided|COL2A1-related disorder|Spondyloepiphyseal dysplasia congenita"
     },
     "504": {
       "pos": 504,
@@ -2746,7 +3320,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided|Spondyloepimetaphyseal dysplasia, Strudwick type|Achondrogenesis type II|Spondyloperipheral dysplasia|Type 2 collagenopathy|15 conditions|COL2A1-related disorder"
+      "condition": "not provided|Spondyloepimetaphyseal dysplasia, Strudwick type|Type 2 collagenopathy|Achondrogenesis type II|15 conditions|Spondyloperipheral dysplasia|COL2A1-related disorder"
     },
     "1143": {
       "pos": 1143,
@@ -2839,7 +3413,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided|Ehlers-Danlos syndrome, type 4|Familial thoracic aortic aneurysm and aortic dissection"
+      "condition": "Ehlers-Danlos syndrome, type 4|Familial thoracic aortic aneurysm and aortic dissection|not provided"
     },
     "420": {
       "pos": 420,
@@ -2852,7 +3426,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Ehlers-Danlos syndrome, type 4|Familial thoracic aortic aneurysm and aortic dissection|Connective and Soft Tissue Disorder|not provided|COL3A1-related disorder"
+      "condition": "Ehlers-Danlos syndrome, type 4|Familial thoracic aortic aneurysm and aortic dissection|not provided|Connective and Soft Tissue Disorder|COL3A1-related disorder"
     },
     "444": {
       "pos": 444,
@@ -2943,7 +3517,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided|Ehlers-Danlos syndrome, type 4|Familial thoracic aortic aneurysm and aortic dissection|COL3A1-related disorder"
+      "condition": "Ehlers-Danlos syndrome, type 4|Familial thoracic aortic aneurysm and aortic dissection|COL3A1-related disorder|not provided"
     },
     "987": {
       "pos": 987,
@@ -2969,7 +3543,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided|Familial thoracic aortic aneurysm and aortic dissection|Ehlers-Danlos syndrome, type 4|Micrognathia"
+      "condition": "not provided|Familial thoracic aortic aneurysm and aortic dissection|Micrognathia|Ehlers-Danlos syndrome, type 4"
     },
     "1077": {
       "pos": 1077,
@@ -2995,7 +3569,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Ehlers-Danlos syndrome, type 4|Familial thoracic aortic aneurysm and aortic dissection|not provided"
+      "condition": "Ehlers-Danlos syndrome, type 4|not provided|Familial thoracic aortic aneurysm and aortic dissection"
     }
   },
   "COL4A1": {
@@ -3010,7 +3584,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "not provided|Autosomal dominant familial hematuria-retinal arteriolar tortuosity-contractures syndrome;Hemorrhage, intracerebral, susceptibility to;Brain small vessel disease 1 with or without ocular anomalies;Retinal arterial tortuosity;Microangiopathy and leukoencephalopathy, pontine, autosomal dominant|Autosomal dominant familial hematuria-retinal arteriolar tortuosity-contractures syndrome|Autosomal dominant familial hematuria-retinal arteriolar tortuosity-contractures syndrome;Brain small vessel disease 1 with or without ocular anomalies;Retinal arterial tortuosity;Microangiopathy and leukoencephalopathy, pontine, autosomal dominant"
+      "condition": "not provided|Autosomal dominant familial hematuria-retinal arteriolar tortuosity-contractures syndrome;Brain small vessel disease 1 with or without ocular anomalies;Hemorrhage, intracerebral, susceptibility to;Retinal arterial tortuosity;Microangiopathy and leukoencephalopathy, pontine, autosomal dominant|Autosomal dominant familial hematuria-retinal arteriolar tortuosity-contractures syndrome|Autosomal dominant familial hematuria-retinal arteriolar tortuosity-contractures syndrome;Brain small vessel disease 1 with or without ocular anomalies;Retinal arterial tortuosity;Microangiopathy and leukoencephalopathy, pontine, autosomal dominant"
     },
     "179": {
       "pos": 179,
@@ -3309,7 +3883,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided|Brain small vessel disease 1 with or without ocular anomalies|COL4A1-related disorder"
+      "condition": "not provided|COL4A1-related disorder|Brain small vessel disease 1 with or without ocular anomalies"
     },
     "1198": {
       "pos": 1198,
@@ -3348,7 +3922,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "Brain small vessel disease 1 with or without ocular anomalies|not provided|COL4A1-related disorder|Microangiopathy and leukoencephalopathy, pontine, autosomal dominant;Autosomal dominant familial hematuria-retinal arteriolar tortuosity-contractures syndrome;Retinal arterial tortuosity;Hemorrhage, intracerebral, susceptibility to;Brain small vessel disease 1 with or without ocular anomalies"
+      "condition": "Brain small vessel disease 1 with or without ocular anomalies|not provided|Brain small vessel disease 1 with or without ocular anomalies;Autosomal dominant familial hematuria-retinal arteriolar tortuosity-contractures syndrome;Hemorrhage, intracerebral, susceptibility to;Microangiopathy and leukoencephalopathy, pontine, autosomal dominant;Retinal arterial tortuosity|COL4A1-related disorder"
     },
     "1360": {
       "pos": 1360,
@@ -3439,9 +4013,9 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "variationId": "5002703",
       "significance": "VUS",
       "rawSignificance": "Uncertain significance",
-      "reviewStatus": "criteria provided, single submitter",
-      "multipleSubmitters": false,
-      "condition": "Brain small vessel disease 2A, autosomal dominant"
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "Brain small vessel disease 2A, autosomal dominant|Inborn genetic diseases"
     },
     "193": {
       "pos": 193,
@@ -3755,6 +4329,19 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "multipleSubmitters": false,
       "condition": "not provided"
     },
+    "1030": {
+      "pos": 1030,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.3088G>A",
+      "aaChange": "p.Gly1030Ser",
+      "variationId": "5038796",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
     "1046": {
       "pos": 1046,
       "refAA": "G",
@@ -3950,7 +4537,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "not provided|Autosomal dominant Alport syndrome|Alport syndrome|not specified|Benign familial hematuria|COL4A3-related disorder|Alport syndrome 3b, autosomal recessive|Autosomal dominant Alport syndrome;Hematuria, benign familial, 2;Alport syndrome 3b, autosomal recessive|Inborn genetic diseases|Hematuria"
+      "condition": "not provided|Autosomal dominant Alport syndrome|Alport syndrome|not specified|Benign familial hematuria|COL4A3-related disorder|Autosomal dominant Alport syndrome;Hematuria, benign familial, 2;Alport syndrome 3b, autosomal recessive|Inborn genetic diseases|Alport syndrome 3b, autosomal recessive|Hematuria"
     },
     "378": {
       "pos": 378,
@@ -4067,7 +4654,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "not provided|Autosomal recessive Alport syndrome|Hematuria, benign familial, 2;Alport syndrome 3b, autosomal recessive;Autosomal dominant Alport syndrome|Alport syndrome"
+      "condition": "not provided|Autosomal recessive Alport syndrome|Autosomal dominant Alport syndrome;Alport syndrome 3b, autosomal recessive;Hematuria, benign familial, 2|Alport syndrome|Autosomal dominant Alport syndrome"
     },
     "1167": {
       "pos": 1167,
@@ -4080,7 +4667,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Autosomal dominant Alport syndrome|Autosomal recessive Alport syndrome|not provided|Alport syndrome|Autosomal dominant Alport syndrome;Alport syndrome 3b, autosomal recessive;Hematuria, benign familial, 2|Alport syndrome 3b, autosomal recessive|Hematuria, benign familial, 1|COL4A3-related disorder"
+      "condition": "Autosomal dominant Alport syndrome|not provided|Autosomal recessive Alport syndrome|Alport syndrome|Alport syndrome 3b, autosomal recessive;Hematuria, benign familial, 2;Autosomal dominant Alport syndrome|Alport syndrome 3b, autosomal recessive|Hematuria, benign familial, 1|COL4A3-related disorder"
     },
     "1231": {
       "pos": 1231,
@@ -4147,7 +4734,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "Autosomal recessive Alport syndrome|Benign familial hematuria|not provided|COL4A4-related disorder|Inborn genetic diseases|Autosomal recessive Alport syndrome;Hematuria, benign familial, 1|Hematuria, benign familial, 1|Alport syndrome"
+      "condition": "Autosomal recessive Alport syndrome|Benign familial hematuria|not provided|COL4A4-related disorder|Inborn genetic diseases|Autosomal recessive Alport syndrome;Hematuria, benign familial, 1|Alport syndrome|Hematuria, benign familial, 1"
     },
     "864": {
       "pos": 864,
@@ -4186,7 +4773,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Alport syndrome|Autosomal recessive Alport syndrome|not provided|COL4A4-related disorder|Hematuria, benign familial, 1;Autosomal recessive Alport syndrome|Thyroid cancer, nonmedullary, 1|Inborn genetic diseases"
+      "condition": "Alport syndrome|Autosomal recessive Alport syndrome|not provided|Inborn genetic diseases|COL4A4-related disorder|Autosomal recessive Alport syndrome;Hematuria, benign familial, 1|Thyroid cancer, nonmedullary, 1"
     },
     "960": {
       "pos": 960,
@@ -4464,7 +5051,138 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "condition": "not provided|X-linked Alport syndrome|COL4A5-related disorder"
     }
   },
-  "COL4A6": {},
+  "COL4A6": {
+    "494": {
+      "pos": 494,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.1480G>A",
+      "aaChange": "p.Gly494Arg",
+      "variationId": "4232311",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not specified"
+    },
+    "578": {
+      "pos": 578,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.1732G>A",
+      "aaChange": "p.Gly578Arg",
+      "variationId": "2525799",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|not specified"
+    },
+    "663": {
+      "pos": 663,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.1987G>A",
+      "aaChange": "p.Gly663Ser",
+      "variationId": "1320556",
+      "significance": "Conflicting",
+      "rawSignificance": "Conflicting classifications of pathogenicity",
+      "reviewStatus": "criteria provided, conflicting classifications",
+      "multipleSubmitters": true,
+      "condition": "not provided|not specified|Nonpapillary renal cell carcinoma"
+    },
+    "1078": {
+      "pos": 1078,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.3232G>A",
+      "aaChange": "p.Gly1078Ser",
+      "variationId": "1521705",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not provided"
+    },
+    "1194": {
+      "pos": 1194,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.3580G>A",
+      "aaChange": "p.Gly1194Ser",
+      "variationId": "2040543",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|not specified"
+    },
+    "1243": {
+      "pos": 1243,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.3727G>A",
+      "aaChange": "p.Gly1243Ser",
+      "variationId": "3835284",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not specified"
+    },
+    "1261": {
+      "pos": 1261,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.3781G>A",
+      "aaChange": "p.Gly1261Arg",
+      "variationId": "3147629",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not specified"
+    },
+    "1291": {
+      "pos": 1291,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.3871G>A",
+      "aaChange": "p.Gly1291Arg",
+      "variationId": "1628344",
+      "significance": "Conflicting",
+      "rawSignificance": "Conflicting classifications of pathogenicity",
+      "reviewStatus": "criteria provided, conflicting classifications",
+      "multipleSubmitters": true,
+      "condition": "not provided|not specified|COL4A6-related disorder"
+    },
+    "1415": {
+      "pos": 1415,
+      "refAA": "G",
+      "altAA": "S",
+      "cdnaChange": "c.4243G>A",
+      "aaChange": "p.Gly1415Ser",
+      "variationId": "1366411",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|not specified"
+    },
+    "1454": {
+      "pos": 1454,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.4360G>A",
+      "aaChange": "p.Gly1454Arg",
+      "variationId": "3902416",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "not specified"
+    }
+  },
   "COL5A1": {
     "481": {
       "pos": 481,
@@ -4503,7 +5221,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "not provided|Fibromuscular dysplasia, multifocal|Ehlers-Danlos syndrome, classic type, 1|Familial thoracic aortic aneurysm and aortic dissection|COL5A1-related disorders"
+      "condition": "not provided|Fibromuscular dysplasia, multifocal|Ehlers-Danlos syndrome, classic type, 1|Familial thoracic aortic aneurysm and aortic dissection|COL5A1-related disorders|Cardiovascular phenotype"
     },
     "604": {
       "pos": 604,
@@ -4713,6 +5431,19 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "multipleSubmitters": true,
       "condition": "Ehlers-Danlos syndrome, classic type, 1|Ehlers-Danlos syndrome, classic type, 1;Fibromuscular dysplasia, multifocal"
     },
+    "1102": {
+      "pos": 1102,
+      "refAA": "G",
+      "altAA": "R",
+      "cdnaChange": "c.3304G>A",
+      "aaChange": "p.Gly1102Arg",
+      "variationId": "5034826",
+      "significance": "VUS",
+      "rawSignificance": "Uncertain significance",
+      "reviewStatus": "criteria provided, single submitter",
+      "multipleSubmitters": false,
+      "condition": "Familial thoracic aortic aneurysm and aortic dissection"
+    },
     "1135": {
       "pos": 1135,
       "refAA": "G",
@@ -4815,7 +5546,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "Ehlers-Danlos syndrome, classic type, 1|not provided"
+      "condition": "Ehlers-Danlos syndrome, classic type, 1|not provided|Familial thoracic aortic aneurysm and aortic dissection"
     },
     "1330": {
       "pos": 1330,
@@ -5172,7 +5903,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Pathogenic/Likely pathogenic",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "Bethlem myopathy 1A|not provided|Collagen 6-related myopathy|Bethlem myopathy 1A;Ullrich congenital muscular dystrophy 1A|COL6A1-related disorder|collagen VI-related myopathy"
+      "condition": "Bethlem myopathy 1A|not provided|Collagen 6-related myopathy|Bethlem myopathy 1A;Ullrich congenital muscular dystrophy 1A|collagen VI-related myopathy|COL6A1-related disorder"
     },
     "329": {
       "pos": 329,
@@ -5525,7 +6256,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "not provided|Bethlem myopathy 1A|COL6A2-related disorder|Ullrich congenital muscular dystrophy 1B;Bethlem myopathy 1B;Myosclerosis"
+      "condition": "not provided|Bethlem myopathy 1A|Bethlem myopathy 1B;Ullrich congenital muscular dystrophy 1B;Myosclerosis|COL6A2-related disorder"
     },
     "534": {
       "pos": 534,
@@ -6292,7 +7023,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "not provided|Epiphyseal dysplasia, multiple, 6;Stickler syndrome, type 4|Inborn genetic diseases|not specified|COL9A1-related disorder"
+      "condition": "not provided|Stickler syndrome, type 4;Epiphyseal dysplasia, multiple, 6|Inborn genetic diseases|not specified|COL9A1-related disorder"
     },
     "899": {
       "pos": 899,
@@ -6357,9 +7088,9 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "variationId": "3710769",
       "significance": "VUS",
       "rawSignificance": "Uncertain significance",
-      "reviewStatus": "criteria provided, single submitter",
-      "multipleSubmitters": false,
-      "condition": "not provided"
+      "reviewStatus": "criteria provided, multiple submitters, no conflicts",
+      "multipleSubmitters": true,
+      "condition": "not provided|Inborn genetic diseases"
     },
     "105": {
       "pos": 105,
@@ -6450,7 +7181,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Uncertain significance",
       "reviewStatus": "criteria provided, multiple submitters, no conflicts",
       "multipleSubmitters": true,
-      "condition": "not provided"
+      "condition": "not provided|Inborn genetic diseases"
     },
     "448": {
       "pos": 448,
@@ -6621,7 +7352,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "rawSignificance": "Conflicting classifications of pathogenicity",
       "reviewStatus": "criteria provided, conflicting classifications",
       "multipleSubmitters": true,
-      "condition": "not provided|Intervertebral disc disorder;Epiphyseal dysplasia, multiple, 3|Retinal detachment;Lattice retinal degeneration|COL9A3-related disorder|Connective tissue disorder|Epiphyseal dysplasia, multiple, 3|not specified"
+      "condition": "not provided|Epiphyseal dysplasia, multiple, 3;Intervertebral disc disorder|Retinal detachment;Lattice retinal degeneration|Connective tissue disorder|COL9A3-related disorder|Epiphyseal dysplasia, multiple, 3|not specified"
     },
     "136": {
       "pos": 136,

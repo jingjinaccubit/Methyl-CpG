@@ -244,6 +244,7 @@ export interface SequenceAnalysisResult {
   proteinSequence: string;
   codons: CodonInfo[];
   cpgDyads: CpGSite[];
+  splitPseudoDyads: CpGSite[];
   inCodonCpGs: CpGSite[];
   allCpGSites: CpGSite[];
   t1: T1Stats;

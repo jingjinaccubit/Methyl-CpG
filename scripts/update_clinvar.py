@@ -193,12 +193,31 @@ def fetch_clinvar_records(target_genes):
     return records_by_gene
 
 
-def process_variants(cds_dict, clinvar_by_gene):
+def load_split_sites():
+    """Extract COLLAGEN_SPLIT_SITES dictionary from collagenTable.ts."""
+    if not os.path.exists(COLLAGEN_TABLE_PATH):
+        return {}
+    with open(COLLAGEN_TABLE_PATH, 'r', encoding='utf-8') as f:
+        content = f.read()
+    m = re.search(r'export const COLLAGEN_SPLIT_SITES: Record<string, number\[\]> = ({[\s\S]*?});', content)
+    if not m:
+        return {}
+    try:
+        return json.loads(m.group(1))
+    except Exception as e:
+        print(f"Warning: could not parse COLLAGEN_SPLIT_SITES: {e}")
+        return {}
+
+
+def process_variants(cds_dict, clinvar_by_gene, split_sites=None):
     """
     Compute empirical baselines and CpG hotspot mappings using matching criteria:
     Strictly evaluate single-nucleotide first-base G>A transitions converting
     glycine codons to Arg or Ser (c.<cStart>G>A / p.Gly<pos>Arg|Ser).
+    Excludes split pseudo-dyads (cross-intron boundaries) from true genomic CpG dyads.
     """
+    if split_sites is None:
+        split_sites = {}
     print("[3/4] Processing variants and computing real gene-specific baselines...")
     gly_ga_pattern = re.compile(r'p\.Gly(\d+)(Arg|Ser)')
     cdna_ga_pattern = re.compile(r'c\.(\d+)G>A')
@@ -214,6 +233,9 @@ def process_variants(cds_dict, clinvar_by_gene):
             codons = codons[:len(prot)]
 
         effective_len = len(prot)
+        # Type IV collagens possess naturally interrupted triple-helical domains; threshold is 3.
+        # Fibrillar and other collagens use standard threshold of 5.
+        min_gly_run = 3 if gene.startswith('COL4') else 5
         coll_gly_set = set()
         for offset in range(3):
             run = []
@@ -221,19 +243,23 @@ def process_variants(cds_dict, clinvar_by_gene):
                 if prot[pos] == 'G':
                     run.append(pos)
                 else:
-                    if len(run) >= 5:
+                    if len(run) >= min_gly_run:
                         coll_gly_set.update(run)
                     run = []
-            if len(run) >= 5:
+            if len(run) >= min_gly_run:
                 coll_gly_set.update(run)
 
+        split_for_gene = set(split_sites.get(gene, []))
         cpg_dyad_positions = set()
         for g_idx in sorted(coll_gly_set):
             if g_idx > 0:
                 prev_c = codons[g_idx - 1]
                 gly_c = codons[g_idx]
+                pos = g_idx + 1
                 if prev_c.endswith('C') and gly_c.startswith('G'):
-                    cpg_dyad_positions.add(g_idx + 1)
+                    # Strictly exclude cross-intron split pseudo-dyads from true genomic CpG dyads
+                    if pos not in split_for_gene:
+                        cpg_dyad_positions.add(pos)
 
         non_cpg_positions = set(g + 1 for g in coll_gly_set) - cpg_dyad_positions
 
@@ -308,7 +334,9 @@ def process_variants(cds_dict, clinvar_by_gene):
                 pos_variants[aa_pos].append(var_obj)
 
         gene_map = {}
-        for pos in sorted(cpg_dyad_positions):
+        # Retain ClinVar records for BOTH true CpG dyads and split pseudo-dyads so frontend can annotate splitPseudoDyads!
+        target_clinvar_positions = sorted(cpg_dyad_positions | (split_for_gene & set(g + 1 for g in coll_gly_set)))
+        for pos in target_clinvar_positions:
             if pos in pos_variants:
                 vars = pos_variants[pos]
                 # Prioritize: P/LP first, then multiple submitters, then most submitters
@@ -564,8 +592,9 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = "
 
 def main():
     cds_dict = load_preloaded_cds()
+    split_sites = load_split_sites()
     clinvar_records = fetch_clinvar_records(cds_dict.keys())
-    gene_clinvar_map, gene_baseline = process_variants(cds_dict, clinvar_records)
+    gene_clinvar_map, gene_baseline = process_variants(cds_dict, clinvar_records, split_sites)
     write_typescript_data(gene_clinvar_map, gene_baseline)
 
 

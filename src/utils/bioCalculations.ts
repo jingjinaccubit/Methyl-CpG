@@ -171,6 +171,7 @@ export function analyzeSequence(
 
   // Identify CpG dyads (Yaa ends in C, Gly begins with G)
   const cpgDyads: CpGSite[] = [];
+  const splitPseudoDyads: CpGSite[] = [];
   const knownClinvarRecords = geneInfo ? GENE_CLINVAR_MAP[geneInfo.gene] || {} : {};
 
   Array.from(collagenousGlySet).sort((a, b) => a - b).forEach(gIdx => {
@@ -223,9 +224,13 @@ export function analyzeSequence(
         else if (sigCode === 'Conflicting') sigLabel = 'Conflicting Interpretations';
         else if (sigCode === 'B/LB') sigLabel = 'Benign / Likely Benign';
 
+        const isSplit = Boolean(geneSymbol && COLLAGEN_SPLIT_SITES[geneSymbol]?.includes(residuePos));
+
         // gnomAD mutability score & empirical population frequency
+        // STRICT INTEGRITY: If isSplit, this is NOT a true genomic CpG dyad (intron separates C and G).
+        // Pass isCpGDyad = false so it receives background neutral mutation rate (~1.20e-8), not high methyl-CpG rate.
         const gnomadInfo = calculateGnomadScore(
-          true,
+          !isSplit,
           false,
           isPlp,
           isMultiSub,
@@ -234,8 +239,6 @@ export function analyzeSequence(
           geneSymbol,
           residuePos
         );
-
-        const isSplit = Boolean(geneSymbol && COLLAGEN_SPLIT_SITES[geneSymbol]?.includes(residuePos));
 
         // Complementary Sense-Strand Deamination (preceding Yaa last base C>T):
         const yaaMutCodon = prevCodon.substring(0, 2) + 'T';
@@ -247,7 +250,7 @@ export function analyzeSequence(
         const nextAA = gIdx < effectiveCodonCount - 1 ? protRaw[gIdx + 1] : undefined;
         const thermalStability = predictTripleHelixDestabilization(mutAA, prevAA, nextAA);
 
-        cpgDyads.push({
+        const dyadSite: CpGSite = {
           id: `dyad-${residuePos}`,
           type: 'dyad',
           isSplitSite: isSplit,
@@ -300,7 +303,13 @@ export function analyzeSequence(
             observedInGnomad: gnomadInfo.observedInGnomad,
             classification: gnomadInfo.classification
           }
-        });
+        };
+
+        if (isSplit) {
+          splitPseudoDyads.push(dyadSite);
+        } else {
+          cpgDyads.push(dyadSite);
+        }
       }
     }
   });
@@ -514,8 +523,8 @@ export function analyzeSequence(
     noncollagenousCodons: otherCodonsCount,
     cpgDyadsCount,
     cpgDyadsPct,
-    trueGenomicDyadsCount: cpgDyads.filter(d => !d.isSplitSite).length,
-    splitSitesCount: cpgDyads.filter(d => d.isSplitSite).length,
+    trueGenomicDyadsCount: cpgDyads.length,
+    splitSitesCount: splitPseudoDyads.length,
     hasSplitSiteAnnotation: Boolean(geneSymbol && COLLAGEN_SPLIT_SITES[geneSymbol]),
     genomeDyadsPct: 14.3,
     noncollagenousDyadsCount: otherEndingInC,
@@ -801,6 +810,7 @@ export function analyzeSequence(
     proteinSequence: protRaw.slice(0, effectiveCodonCount).join(''),
     codons: codonInfos,
     cpgDyads,
+    splitPseudoDyads,
     inCodonCpGs,
     allCpGSites: [...cpgDyads, ...inCodonCpGs],
     t1: t1Stats,

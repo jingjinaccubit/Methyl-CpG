@@ -1,5 +1,6 @@
 // Real gnomAD v4 Population Allele Frequency & Counts for Human Collagen Genes
 // Extracted directly from Broad Institute gnomAD v4 exome + genome dataset
+// Unified from MANE Select Truth Source (701 Genomic CpG Dyads + 48 Split Sites)
 
 export interface GnomadVariantRecord {
   pos: number; // 1-based protein position
@@ -152,10 +153,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 661,
       "cdnaChange": "c.1981G>A",
       "aaChange": "p.Gly661Arg",
-      "ac": 1,
-      "an": 1460746,
-      "af": 6.845817137270956e-07,
-      "variantId": "6-33177216-C-G",
+      "ac": 8,
+      "an": 1613058,
+      "af": 4.959524084068893e-06,
+      "variantId": "6-33177216-C-T",
       "observedInGnomad": true
     },
     "667": {
@@ -326,131 +327,131 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 131,
       "cdnaChange": "c.391G>A",
       "aaChange": "p.Gly131Arg",
-      "ac": 1,
-      "an": 1461682,
-      "af": 6.84143336238662e-07,
-      "variantId": "10-69872202-G-C",
+      "ac": 11,
+      "an": 1613894,
+      "af": 6.81581318227839e-06,
+      "variantId": "10-69872202-G-A",
       "observedInGnomad": true
     },
-    "149": {
-      "pos": 149,
-      "cdnaChange": "c.445G>A",
-      "aaChange": "p.Gly149Arg",
-      "ac": 0,
-      "an": 1484454,
-      "af": 0.0,
+    "158": {
+      "pos": 158,
+      "cdnaChange": "c.472G>A",
+      "aaChange": "p.Gly158Arg",
+      "ac": 25,
+      "an": 1612448,
+      "af": 1.550437595506956e-05,
       "variantId": "10-69880512-G-A",
-      "observedInGnomad": false
-    },
-    "160": {
-      "pos": 160,
-      "cdnaChange": "c.478G>A",
-      "aaChange": "p.Gly160Ser",
-      "ac": 14108,
-      "an": 1613006,
-      "af": 0.00874640267922128,
-      "variantId": "10-69880518-G-A",
       "observedInGnomad": true
     },
-    "181": {
-      "pos": 181,
-      "cdnaChange": "c.541G>A",
-      "aaChange": "p.Gly181Ser",
-      "ac": 0,
-      "an": 1484454,
-      "af": 0.0,
+    "169": {
+      "pos": 169,
+      "cdnaChange": "c.505G>A",
+      "aaChange": "p.Gly169Ser",
+      "ac": 14,
+      "an": 1613328,
+      "af": 8.67771463707318e-06,
+      "variantId": "10-69880545-G-A",
+      "observedInGnomad": true
+    },
+    "190": {
+      "pos": 190,
+      "cdnaChange": "c.568G>A",
+      "aaChange": "p.Gly190Ser",
+      "ac": 10,
+      "an": 1612802,
+      "af": 6.200389136422202e-06,
       "variantId": "10-69888322-G-A",
-      "observedInGnomad": false
-    },
-    "315": {
-      "pos": 315,
-      "cdnaChange": "c.943G>A",
-      "aaChange": "p.Gly315Ser",
-      "ac": 0,
-      "an": 1484454,
-      "af": 0.0,
-      "variantId": "10-69905814-G-A",
-      "observedInGnomad": false
-    },
-    "336": {
-      "pos": 336,
-      "cdnaChange": "c.1006G>A",
-      "aaChange": "p.Gly336Arg",
-      "ac": 0,
-      "an": 1484454,
-      "af": 0.0,
-      "variantId": "10-69918294-G-A",
-      "observedInGnomad": false
-    },
-    "503": {
-      "pos": 503,
-      "cdnaChange": "c.1507G>A",
-      "aaChange": "p.Gly503Ser",
-      "ac": 0,
-      "an": 1484454,
-      "af": 0.0,
-      "variantId": "10-69930409-G-A",
-      "observedInGnomad": false
-    },
-    "530": {
-      "pos": 530,
-      "cdnaChange": "c.1588G>A",
-      "aaChange": "p.Gly530Arg",
-      "ac": 0,
-      "an": 1484454,
-      "af": 0.0,
-      "variantId": "10-69930490-G-A",
-      "observedInGnomad": false
-    },
-    "557": {
-      "pos": 557,
-      "cdnaChange": "c.1669G>A",
-      "aaChange": "p.Gly557Arg",
-      "ac": 0,
-      "an": 1484454,
-      "af": 0.0,
-      "variantId": "10-69932578-G-A",
-      "observedInGnomad": false
-    },
-    "577": {
-      "pos": 577,
-      "cdnaChange": "c.1729G>A",
-      "aaChange": "p.Gly577Arg",
-      "ac": 1,
-      "an": 1427718,
-      "af": 7.004184299700641e-07,
-      "variantId": "10-69935350-G-A",
       "observedInGnomad": true
     },
-    "616": {
-      "pos": 616,
-      "cdnaChange": "c.1846G>A",
-      "aaChange": "p.Gly616Arg",
-      "ac": 0,
-      "an": 1435412,
-      "af": 0.0,
-      "variantId": "10-69937683-G-A",
-      "observedInGnomad": false
+    "305": {
+      "pos": 305,
+      "cdnaChange": "c.913G>A",
+      "aaChange": "p.Gly305Ser",
+      "ac": 50,
+      "an": 1613632,
+      "af": 3.0985999286082574e-05,
+      "variantId": "10-69905814-G-A",
+      "observedInGnomad": true
     },
-    "622": {
-      "pos": 622,
-      "cdnaChange": "c.1864G>A",
-      "aaChange": "p.Gly622Ser",
+    "326": {
+      "pos": 326,
+      "cdnaChange": "c.976G>A",
+      "aaChange": "p.Gly326Arg",
+      "ac": 15,
+      "an": 1612760,
+      "af": 9.300825913341105e-06,
+      "variantId": "10-69918294-G-A",
+      "observedInGnomad": true
+    },
+    "514": {
+      "pos": 514,
+      "cdnaChange": "c.1540G>A",
+      "aaChange": "p.Gly514Ser",
+      "ac": 30,
+      "an": 1605956,
+      "af": 1.8680461980278414e-05,
+      "variantId": "10-69930409-G-A",
+      "observedInGnomad": true
+    },
+    "541": {
+      "pos": 541,
+      "cdnaChange": "c.1621G>A",
+      "aaChange": "p.Gly541Arg",
+      "ac": 9,
+      "an": 1613780,
+      "af": 5.576968359999504e-06,
+      "variantId": "10-69930490-G-A",
+      "observedInGnomad": true
+    },
+    "568": {
+      "pos": 568,
+      "cdnaChange": "c.1702G>A",
+      "aaChange": "p.Gly568Arg",
+      "ac": 69,
+      "an": 1611244,
+      "af": 4.282405396079054e-05,
+      "variantId": "10-69932578-G-A",
+      "observedInGnomad": true
+    },
+    "588": {
+      "pos": 588,
+      "cdnaChange": "c.1762G>A",
+      "aaChange": "p.Gly588Arg",
+      "ac": 27,
+      "an": 1567220,
+      "af": 1.72279577851227e-05,
+      "variantId": "10-69935383-G-A",
+      "observedInGnomad": true
+    },
+    "627": {
+      "pos": 627,
+      "cdnaChange": "c.1879G>A",
+      "aaChange": "p.Gly627Arg",
       "ac": 0,
       "an": 1484454,
       "af": 0.0,
+      "variantId": "10-69940988-G-A",
+      "observedInGnomad": false
+    },
+    "633": {
+      "pos": 633,
+      "cdnaChange": "c.1897G>A",
+      "aaChange": "p.Gly633Ser",
+      "ac": 20,
+      "an": 1613636,
+      "af": 1.2394368990280336e-05,
       "variantId": "10-69941006-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "670": {
-      "pos": 670,
-      "cdnaChange": "c.2008G>A",
-      "aaChange": "p.Gly670Arg",
-      "ac": 0,
-      "an": 1484454,
-      "af": 0.0,
+    "681": {
+      "pos": 681,
+      "cdnaChange": "c.2041G>A",
+      "aaChange": "p.Gly681Arg",
+      "ac": 10,
+      "an": 1612454,
+      "af": 6.2017273050890135e-06,
       "variantId": "10-69947325-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     }
   },
   "COL14A1": {
@@ -632,10 +633,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 913,
       "cdnaChange": "c.2737G>A",
       "aaChange": "p.Gly913Arg",
-      "ac": 1,
-      "an": 1461816,
-      "af": 6.840806230059049e-07,
-      "variantId": "1-31679667-C-G",
+      "ac": 2,
+      "an": 1613980,
+      "af": 1.2391727282865958e-06,
+      "variantId": "1-31679667-C-T",
       "observedInGnomad": true
     },
     "931": {
@@ -902,395 +903,395 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
     }
   },
   "COL18A1": {
-    "517": {
-      "pos": 517,
-      "cdnaChange": "c.1549G>A",
-      "aaChange": "p.Gly517Ser",
-      "ac": 250,
-      "an": 1611438,
-      "af": 0.0001551409362321107,
-      "variantId": "21-45480796-G-A",
+    "337": {
+      "pos": 337,
+      "cdnaChange": "c.1009G>A",
+      "aaChange": "p.Gly337Ser",
+      "ac": 3130,
+      "an": 1537764,
+      "af": 0.0020354228607250527,
+      "variantId": "21-45477753-G-A",
       "observedInGnomad": true
     },
-    "567": {
-      "pos": 567,
-      "cdnaChange": "c.1699G>A",
-      "aaChange": "p.Gly567Arg",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "387": {
+      "pos": 387,
+      "cdnaChange": "c.1159G>A",
+      "aaChange": "p.Gly387Arg",
+      "ac": 217,
+      "an": 1565104,
+      "af": 0.00013864893323382982,
       "variantId": "21-45477903-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "579": {
-      "pos": 579,
-      "cdnaChange": "c.1735G>A",
-      "aaChange": "p.Gly579Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "399": {
+      "pos": 399,
+      "cdnaChange": "c.1195G>A",
+      "aaChange": "p.Gly399Ser",
+      "ac": 27,
+      "an": 1554968,
+      "af": 1.736370137520515e-05,
       "variantId": "21-45477939-G-A",
-      "observedInGnomad": false
-    },
-    "585": {
-      "pos": 585,
-      "cdnaChange": "c.1753G>A",
-      "aaChange": "p.Gly585Ser",
-      "ac": 0,
-      "an": 1371688,
-      "af": 0.0,
-      "variantId": "21-45486912-G-A",
-      "observedInGnomad": false
-    },
-    "591": {
-      "pos": 591,
-      "cdnaChange": "c.1771G>A",
-      "aaChange": "p.Gly591Ser",
-      "ac": 1,
-      "an": 1355088,
-      "af": 7.379594535557838e-07,
-      "variantId": "21-45486930-G-A",
       "observedInGnomad": true
     },
-    "594": {
-      "pos": 594,
-      "cdnaChange": "c.1780G>A",
-      "aaChange": "p.Gly594Arg",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "405": {
+      "pos": 405,
+      "cdnaChange": "c.1213G>A",
+      "aaChange": "p.Gly405Ser",
+      "ac": 9,
+      "an": 1519390,
+      "af": 5.923429797484517e-06,
+      "variantId": "21-45477957-G-A",
+      "observedInGnomad": true
+    },
+    "411": {
+      "pos": 411,
+      "cdnaChange": "c.1231G>A",
+      "aaChange": "p.Gly411Ser",
+      "ac": 14,
+      "an": 1614168,
+      "af": 8.67319882440985e-06,
+      "variantId": "21-45478336-G-A",
+      "observedInGnomad": true
+    },
+    "414": {
+      "pos": 414,
+      "cdnaChange": "c.1240G>A",
+      "aaChange": "p.Gly414Arg",
+      "ac": 15,
+      "an": 1614164,
+      "af": 9.292736054081246e-06,
       "variantId": "21-45478345-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "600": {
-      "pos": 600,
-      "cdnaChange": "c.1798G>A",
-      "aaChange": "p.Gly600Arg",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "420": {
+      "pos": 420,
+      "cdnaChange": "c.1258G>A",
+      "aaChange": "p.Gly420Arg",
+      "ac": 21,
+      "an": 1613592,
+      "af": 1.3014442312554846e-05,
       "variantId": "21-45479911-G-A",
-      "observedInGnomad": false
-    },
-    "606": {
-      "pos": 606,
-      "cdnaChange": "c.1816G>A",
-      "aaChange": "p.Gly606Arg",
-      "ac": 0,
-      "an": 1365166,
-      "af": 0.0,
-      "variantId": "21-45486975-G-C",
-      "observedInGnomad": false
-    },
-    "674": {
-      "pos": 674,
-      "cdnaChange": "c.2020G>A",
-      "aaChange": "p.Gly674Arg",
-      "ac": 1,
-      "an": 1429956,
-      "af": 6.993222169073734e-07,
-      "variantId": "21-45490335-G-A",
       "observedInGnomad": true
     },
-    "677": {
-      "pos": 677,
-      "cdnaChange": "c.2029G>A",
-      "aaChange": "p.Gly677Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "426": {
+      "pos": 426,
+      "cdnaChange": "c.1276G>A",
+      "aaChange": "p.Gly426Arg",
+      "ac": 9,
+      "an": 1613680,
+      "af": 5.5773139655941696e-06,
+      "variantId": "21-45479929-G-A",
+      "observedInGnomad": true
+    },
+    "494": {
+      "pos": 494,
+      "cdnaChange": "c.1480G>A",
+      "aaChange": "p.Gly494Arg",
+      "ac": 5,
+      "an": 1610562,
+      "af": 3.1045063772770004e-06,
+      "variantId": "21-45480727-G-A",
+      "observedInGnomad": true
+    },
+    "497": {
+      "pos": 497,
+      "cdnaChange": "c.1489G>A",
+      "aaChange": "p.Gly497Ser",
+      "ac": 9,
+      "an": 1610756,
+      "af": 5.587438445053131e-06,
       "variantId": "21-45480736-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "683": {
-      "pos": 683,
-      "cdnaChange": "c.2047G>A",
-      "aaChange": "p.Gly683Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "503": {
+      "pos": 503,
+      "cdnaChange": "c.1507G>A",
+      "aaChange": "p.Gly503Ser",
+      "ac": 116,
+      "an": 1610750,
+      "af": 7.201614154896787e-05,
       "variantId": "21-45480754-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "700": {
-      "pos": 700,
-      "cdnaChange": "c.2098G>A",
-      "aaChange": "p.Gly700Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "520": {
+      "pos": 520,
+      "cdnaChange": "c.1558G>A",
+      "aaChange": "p.Gly520Ser",
+      "ac": 12,
+      "an": 1611664,
+      "af": 7.445720696125247e-06,
       "variantId": "21-45480805-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "712": {
-      "pos": 712,
-      "cdnaChange": "c.2134G>A",
-      "aaChange": "p.Gly712Arg",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "532": {
+      "pos": 532,
+      "cdnaChange": "c.1594G>A",
+      "aaChange": "p.Gly532Arg",
+      "ac": 94,
+      "an": 1610960,
+      "af": 5.835030044197249e-05,
       "variantId": "21-45480841-G-A",
-      "observedInGnomad": false
-    },
-    "754": {
-      "pos": 754,
-      "cdnaChange": "c.2260G>A",
-      "aaChange": "p.Gly754Ser",
-      "ac": 0,
-      "an": 1409062,
-      "af": 0.0,
-      "variantId": "21-45493208-G-A",
-      "observedInGnomad": false
-    },
-    "763": {
-      "pos": 763,
-      "cdnaChange": "c.2287G>A",
-      "aaChange": "p.Gly763Ser",
-      "ac": 1,
-      "an": 1408604,
-      "af": 7.099227320098481e-07,
-      "variantId": "21-45493510-G-A",
       "observedInGnomad": true
     },
-    "769": {
-      "pos": 769,
-      "cdnaChange": "c.2305G>A",
-      "aaChange": "p.Gly769Arg",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "574": {
+      "pos": 574,
+      "cdnaChange": "c.1720G>A",
+      "aaChange": "p.Gly574Ser",
+      "ac": 16,
+      "an": 1528280,
+      "af": 1.0469285732980868e-05,
+      "variantId": "21-45486879-G-A",
+      "observedInGnomad": true
+    },
+    "583": {
+      "pos": 583,
+      "cdnaChange": "c.1747G>A",
+      "aaChange": "p.Gly583Ser",
+      "ac": 15,
+      "an": 1523056,
+      "af": 9.848620142660546e-06,
+      "variantId": "21-45486906-G-A",
+      "observedInGnomad": true
+    },
+    "589": {
+      "pos": 589,
+      "cdnaChange": "c.1765G>A",
+      "aaChange": "p.Gly589Arg",
+      "ac": 6,
+      "an": 1506108,
+      "af": 3.983778055756957e-06,
       "variantId": "21-45486924-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "816": {
-      "pos": 816,
-      "cdnaChange": "c.2446G>A",
-      "aaChange": "p.Gly816Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "636": {
+      "pos": 636,
+      "cdnaChange": "c.1906G>A",
+      "aaChange": "p.Gly636Ser",
+      "ac": 4,
+      "an": 1613856,
+      "af": 2.4785358792853886e-06,
       "variantId": "21-45488427-G-A",
-      "observedInGnomad": false
-    },
-    "843": {
-      "pos": 843,
-      "cdnaChange": "c.2527G>A",
-      "aaChange": "p.Gly843Arg",
-      "ac": 3,
-      "an": 1352068,
-      "af": 2.2188233136203208e-06,
-      "variantId": "21-45496518-G-A",
       "observedInGnomad": true
     },
-    "846": {
-      "pos": 846,
-      "cdnaChange": "c.2536G>A",
-      "aaChange": "p.Gly846Ser",
-      "ac": 0,
-      "an": 1379872,
-      "af": 0.0,
-      "variantId": "21-45496527-G-A",
-      "observedInGnomad": false
+    "663": {
+      "pos": 663,
+      "cdnaChange": "c.1987G>A",
+      "aaChange": "p.Gly663Arg",
+      "ac": 25,
+      "an": 1587830,
+      "af": 1.574475856987209e-05,
+      "variantId": "21-45490302-G-A",
+      "observedInGnomad": true
     },
-    "876": {
-      "pos": 876,
-      "cdnaChange": "c.2626G>A",
-      "aaChange": "p.Gly876Arg",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "666": {
+      "pos": 666,
+      "cdnaChange": "c.1996G>A",
+      "aaChange": "p.Gly666Ser",
+      "ac": 20,
+      "an": 1588330,
+      "af": 1.2591841745732939e-05,
+      "variantId": "21-45490311-G-A",
+      "observedInGnomad": true
+    },
+    "696": {
+      "pos": 696,
+      "cdnaChange": "c.2086G>A",
+      "aaChange": "p.Gly696Arg",
+      "ac": 27,
+      "an": 1612048,
+      "af": 1.674888092662253e-05,
       "variantId": "21-45491243-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "878": {
-      "pos": 878,
-      "cdnaChange": "c.2632G>A",
-      "aaChange": "p.Gly878Arg",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "698": {
+      "pos": 698,
+      "cdnaChange": "c.2092G>A",
+      "aaChange": "p.Gly698Arg",
+      "ac": 84,
+      "an": 1612264,
+      "af": 5.2100648529025024e-05,
       "variantId": "21-45491249-G-A",
-      "observedInGnomad": false
-    },
-    "887": {
-      "pos": 887,
-      "cdnaChange": "c.2659G>A",
-      "aaChange": "p.Gly887Arg",
-      "ac": 0,
-      "an": 1417818,
-      "af": 0.0,
-      "variantId": "21-45497637-G-A",
-      "observedInGnomad": false
-    },
-    "919": {
-      "pos": 919,
-      "cdnaChange": "c.2755G>A",
-      "aaChange": "p.Gly919Arg",
-      "ac": 3,
-      "an": 1459458,
-      "af": 2.0555576111131665e-06,
-      "variantId": "21-45504443-G-C",
       "observedInGnomad": true
     },
-    "977": {
-      "pos": 977,
-      "cdnaChange": "c.2929G>A",
-      "aaChange": "p.Gly977Arg",
-      "ac": 54,
-      "an": 1604934,
-      "af": 3.3646243396924736e-05,
-      "variantId": "21-45505194-G-A",
+    "707": {
+      "pos": 707,
+      "cdnaChange": "c.2119G>A",
+      "aaChange": "p.Gly707Arg",
+      "ac": 10,
+      "an": 1612060,
+      "af": 6.2032430554694e-06,
+      "variantId": "21-45491276-G-A",
       "observedInGnomad": true
     },
-    "995": {
-      "pos": 995,
-      "cdnaChange": "c.2983G>A",
-      "aaChange": "p.Gly995Arg",
+    "739": {
+      "pos": 739,
+      "cdnaChange": "c.2215G>A",
+      "aaChange": "p.Gly739Arg",
       "ac": 0,
-      "an": 1442633,
+      "an": 1557014,
       "af": 0.0,
+      "variantId": "21-45493163-G-A",
+      "observedInGnomad": false
+    },
+    "797": {
+      "pos": 797,
+      "cdnaChange": "c.2389G>A",
+      "aaChange": "p.Gly797Arg",
+      "ac": 8,
+      "an": 1609776,
+      "af": 4.969635526930455e-06,
+      "variantId": "21-45494871-G-A",
+      "observedInGnomad": true
+    },
+    "815": {
+      "pos": 815,
+      "cdnaChange": "c.2443G>A",
+      "aaChange": "p.Gly815Arg",
+      "ac": 17,
+      "an": 1609910,
+      "af": 1.0559596499183184e-05,
       "variantId": "21-45495367-G-A",
-      "observedInGnomad": false
-    },
-    "998": {
-      "pos": 998,
-      "cdnaChange": "c.2992G>A",
-      "aaChange": "p.Gly998Arg",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
-      "variantId": "21-45495376-G-A",
-      "observedInGnomad": false
-    },
-    "1020": {
-      "pos": 1020,
-      "cdnaChange": "c.3058G>A",
-      "aaChange": "p.Gly1020Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
-      "variantId": "21-45496509-G-A",
-      "observedInGnomad": false
-    },
-    "1048": {
-      "pos": 1048,
-      "cdnaChange": "c.3142G>A",
-      "aaChange": "p.Gly1048Arg",
-      "ac": 99,
-      "an": 1612450,
-      "af": 6.139725262798847e-05,
-      "variantId": "21-45505892-G-A",
       "observedInGnomad": true
     },
-    "1072": {
-      "pos": 1072,
-      "cdnaChange": "c.3214G>A",
-      "aaChange": "p.Gly1072Arg",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "818": {
+      "pos": 818,
+      "cdnaChange": "c.2452G>A",
+      "aaChange": "p.Gly818Arg",
+      "ac": 15,
+      "an": 1610986,
+      "af": 9.311067880167798e-06,
+      "variantId": "21-45495376-G-A",
+      "observedInGnomad": true
+    },
+    "840": {
+      "pos": 840,
+      "cdnaChange": "c.2518G>A",
+      "aaChange": "p.Gly840Ser",
+      "ac": 28,
+      "an": 1461294,
+      "af": 1.91610996828838e-05,
+      "variantId": "21-45496509-G-A",
+      "observedInGnomad": true
+    },
+    "868": {
+      "pos": 868,
+      "cdnaChange": "c.2602G>A",
+      "aaChange": "p.Gly868Arg",
+      "ac": 75,
+      "an": 1599762,
+      "af": 4.688197369358692e-05,
+      "variantId": "21-45497074-G-A",
+      "observedInGnomad": true
+    },
+    "892": {
+      "pos": 892,
+      "cdnaChange": "c.2674G>A",
+      "aaChange": "p.Gly892Arg",
+      "ac": 92,
+      "an": 1567046,
+      "af": 5.870918913675795e-05,
       "variantId": "21-45497652-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "1108": {
-      "pos": 1108,
-      "cdnaChange": "c.3322G>A",
-      "aaChange": "p.Gly1108Arg",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "928": {
+      "pos": 928,
+      "cdnaChange": "c.2782G>A",
+      "aaChange": "p.Gly928Arg",
+      "ac": 2318,
+      "an": 1607030,
+      "af": 0.0014424124005152361,
       "variantId": "21-45504470-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "1111": {
-      "pos": 1111,
-      "cdnaChange": "c.3331G>A",
-      "aaChange": "p.Gly1111Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "931": {
+      "pos": 931,
+      "cdnaChange": "c.2791G>A",
+      "aaChange": "p.Gly931Ser",
+      "ac": 83,
+      "an": 1603646,
+      "af": 5.1757058602709077e-05,
       "variantId": "21-45504479-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "1114": {
-      "pos": 1114,
-      "cdnaChange": "c.3340G>A",
-      "aaChange": "p.Gly1114Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "934": {
+      "pos": 934,
+      "cdnaChange": "c.2800G>A",
+      "aaChange": "p.Gly934Ser",
+      "ac": 51,
+      "an": 1590494,
+      "af": 3.206550920657355e-05,
       "variantId": "21-45504488-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "1119": {
-      "pos": 1119,
-      "cdnaChange": "c.3355G>A",
-      "aaChange": "p.Gly1119Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "939": {
+      "pos": 939,
+      "cdnaChange": "c.2815G>A",
+      "aaChange": "p.Gly939Ser",
+      "ac": 152,
+      "an": 1388924,
+      "af": 0.00010943723342673897,
       "variantId": "21-45504503-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "1122": {
-      "pos": 1122,
-      "cdnaChange": "c.3364G>A",
-      "aaChange": "p.Gly1122Ser",
+    "942": {
+      "pos": 942,
+      "cdnaChange": "c.2824G>A",
+      "aaChange": "p.Gly942Ser",
       "ac": 0,
       "an": 1442633,
       "af": 0.0,
       "variantId": "21-45504512-G-A",
       "observedInGnomad": false
     },
-    "1145": {
-      "pos": 1145,
-      "cdnaChange": "c.3433G>A",
-      "aaChange": "p.Gly1145Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "968": {
+      "pos": 968,
+      "cdnaChange": "c.2902G>A",
+      "aaChange": "p.Gly968Ser",
+      "ac": 38,
+      "an": 1607420,
+      "af": 2.3640367794353686e-05,
       "variantId": "21-45505167-G-A",
-      "observedInGnomad": false
-    },
-    "1154": {
-      "pos": 1154,
-      "cdnaChange": "c.3460G>A",
-      "aaChange": "p.Gly1154Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
-      "variantId": "21-45505194-G-A",
-      "observedInGnomad": false
-    },
-    "1156": {
-      "pos": 1156,
-      "cdnaChange": "c.3466G>A",
-      "aaChange": "p.Gly1156Ser",
-      "ac": 54,
-      "an": 1521116,
-      "af": 3.550025113140615e-05,
-      "variantId": "21-45509572-G-A",
       "observedInGnomad": true
     },
-    "1165": {
-      "pos": 1165,
-      "cdnaChange": "c.3493G>A",
-      "aaChange": "p.Gly1165Ser",
-      "ac": 0,
-      "an": 1340780,
-      "af": 0.0,
-      "variantId": "21-45509599-G-A",
-      "observedInGnomad": false
+    "977": {
+      "pos": 977,
+      "cdnaChange": "c.2929G>A",
+      "aaChange": "p.Gly977Ser",
+      "ac": 54,
+      "an": 1604934,
+      "af": 3.3646243396924736e-05,
+      "variantId": "21-45505194-G-A",
+      "observedInGnomad": true
     },
-    "1187": {
-      "pos": 1187,
-      "cdnaChange": "c.3559G>A",
-      "aaChange": "p.Gly1187Ser",
-      "ac": 0,
-      "an": 1442633,
-      "af": 0.0,
+    "979": {
+      "pos": 979,
+      "cdnaChange": "c.2935G>A",
+      "aaChange": "p.Gly979Ser",
+      "ac": 229,
+      "an": 1603118,
+      "af": 0.00014284662763439746,
+      "variantId": "21-45505200-G-A",
+      "observedInGnomad": true
+    },
+    "988": {
+      "pos": 988,
+      "cdnaChange": "c.2962G>A",
+      "aaChange": "p.Gly988Ser",
+      "ac": 17,
+      "an": 1592052,
+      "af": 1.0678043179494138e-05,
+      "variantId": "21-45505227-G-A",
+      "observedInGnomad": true
+    },
+    "1010": {
+      "pos": 1010,
+      "cdnaChange": "c.3028G>A",
+      "aaChange": "p.Gly1010Ser",
+      "ac": 34,
+      "an": 1593514,
+      "af": 2.133649280771929e-05,
       "variantId": "21-45505372-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     }
   },
   "COL19A1": {
@@ -2096,10 +2097,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 785,
       "cdnaChange": "c.2353G>A",
       "aaChange": "p.Gly785Arg",
-      "ac": 2,
-      "an": 1608798,
-      "af": 1.2431641511240068e-06,
-      "variantId": "6-56060795-C-G",
+      "ac": 1,
+      "an": 1608916,
+      "af": 6.215364879210599e-07,
+      "variantId": "6-56060795-C-T",
       "observedInGnomad": true
     }
   },
@@ -2380,11 +2381,11 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 220,
       "cdnaChange": "c.658G>A",
       "aaChange": "p.Gly220Arg",
-      "ac": 0,
-      "an": 1431498,
-      "af": 0.0,
-      "variantId": "5-178262234-C-G",
-      "observedInGnomad": false
+      "ac": 20,
+      "an": 1583684,
+      "af": 1.2628782004490795e-05,
+      "variantId": "5-178262234-C-T",
+      "observedInGnomad": true
     },
     "223": {
       "pos": 223,
@@ -2554,11 +2555,11 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 264,
       "cdnaChange": "c.790G>A",
       "aaChange": "p.Gly264Arg",
-      "ac": 1,
-      "an": 1459434,
-      "af": 6.851971380685937e-07,
-      "variantId": "4-108901163-C-G",
-      "observedInGnomad": true
+      "ac": 0,
+      "an": 1562210,
+      "af": 0.0,
+      "variantId": "4-108901163-C-T",
+      "observedInGnomad": false
     },
     "294": {
       "pos": 294,
@@ -2582,50 +2583,50 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
     }
   },
   "COL26A1": {
-    "200": {
-      "pos": 200,
-      "cdnaChange": "c.598G>A",
-      "aaChange": "p.Gly200Arg",
-      "ac": 0,
-      "an": 1540000,
-      "af": 0.0,
+    "202": {
+      "pos": 202,
+      "cdnaChange": "c.604G>A",
+      "aaChange": "p.Gly202Arg",
+      "ac": 2270,
+      "an": 1610780,
+      "af": 0.001409255143470865,
       "variantId": "7-101540049-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "215": {
-      "pos": 215,
-      "cdnaChange": "c.643G>A",
-      "aaChange": "p.Gly215Arg",
-      "ac": 0,
-      "an": 1540000,
-      "af": 0.0,
+    "217": {
+      "pos": 217,
+      "cdnaChange": "c.649G>A",
+      "aaChange": "p.Gly217Arg",
+      "ac": 9,
+      "an": 1601526,
+      "af": 5.619640268094305e-06,
       "variantId": "7-101544042-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "251": {
-      "pos": 251,
-      "cdnaChange": "c.751G>A",
-      "aaChange": "p.Gly251Ser",
-      "ac": 0,
-      "an": 1540000,
-      "af": 0.0,
+    "253": {
+      "pos": 253,
+      "cdnaChange": "c.757G>A",
+      "aaChange": "p.Gly253Ser",
+      "ac": 20,
+      "an": 1589464,
+      "af": 1.2582858120724975e-05,
       "variantId": "7-101545391-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "257": {
-      "pos": 257,
-      "cdnaChange": "c.769G>A",
-      "aaChange": "p.Gly257Ser",
-      "ac": 0,
-      "an": 1540000,
-      "af": 0.0,
+    "259": {
+      "pos": 259,
+      "cdnaChange": "c.775G>A",
+      "aaChange": "p.Gly259Ser",
+      "ac": 11,
+      "an": 1606698,
+      "af": 6.846339511221151e-06,
       "variantId": "7-101545409-G-A",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "342": {
-      "pos": 342,
-      "cdnaChange": "c.1024G>A",
-      "aaChange": "p.Gly342Ser",
+    "344": {
+      "pos": 344,
+      "cdnaChange": "c.1030G>A",
+      "aaChange": "p.Gly344Ser",
       "ac": 0,
       "an": 1540000,
       "af": 0.0,
@@ -2738,10 +2739,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 904,
       "cdnaChange": "c.2710G>A",
       "aaChange": "p.Gly904Arg",
-      "ac": 1,
-      "an": 1461832,
-      "af": 6.840731356270762e-07,
-      "variantId": "9-114237698-G-C",
+      "ac": 3,
+      "an": 1614070,
+      "af": 1.8586554486484476e-06,
+      "variantId": "9-114237698-G-A",
       "observedInGnomad": true
     },
     "916": {
@@ -2848,10 +2849,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 1451,
       "cdnaChange": "c.4351G>A",
       "aaChange": "p.Gly1451Arg",
-      "ac": 8,
-      "an": 1580554,
-      "af": 5.061516405007358e-06,
-      "variantId": "9-114290314-G-C",
+      "ac": 17,
+      "an": 1580552,
+      "af": 1.0755735970724152e-05,
+      "variantId": "9-114290314-G-A",
       "observedInGnomad": true
     },
     "1481": {
@@ -2899,9 +2900,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.4729G>A",
       "aaChange": "p.Gly1577Arg",
       "ac": 1,
-      "an": 1460900,
-      "af": 6.845095489082072e-07,
-      "variantId": "9-114301099-G-C",
+      "an": 1613120,
+      "af": 6.199166831977782e-07,
+      "variantId": "9-114301099-G-A",
       "observedInGnomad": true
     },
     "1607": {
@@ -3517,9 +3518,9 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.1111G>A",
       "aaChange": "p.Gly371Arg",
       "ac": 1,
-      "an": 1461864,
-      "af": 6.840581613611115e-07,
-      "variantId": "13-110200863-C-G",
+      "an": 1614108,
+      "af": 6.195372304703279e-07,
+      "variantId": "13-110200863-C-T",
       "observedInGnomad": true
     },
     "437": {
@@ -3828,10 +3829,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 252,
       "cdnaChange": "c.754G>A",
       "aaChange": "p.Gly252Arg",
-      "ac": 1,
-      "an": 1461874,
-      "af": 6.840534820374396e-07,
-      "variantId": "13-110436296-G-C",
+      "ac": 2,
+      "an": 1613758,
+      "af": 1.2393431976789581e-06,
+      "variantId": "13-110436296-G-A",
       "observedInGnomad": true
     },
     "341": {
@@ -4240,10 +4241,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 43,
       "cdnaChange": "c.127G>A",
       "aaChange": "p.Gly43Arg",
-      "ac": 543490,
-      "an": 1604472,
-      "af": 0.33873448710853166,
-      "variantId": "2-227238007-G-C",
+      "ac": 4,
+      "an": 1607728,
+      "af": 2.4879830419075864e-06,
+      "variantId": "2-227238007-G-A",
       "observedInGnomad": true
     },
     "58": {
@@ -4270,10 +4271,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 118,
       "cdnaChange": "c.352G>A",
       "aaChange": "p.Gly118Arg",
-      "ac": 1,
-      "an": 1461624,
-      "af": 6.841704843379692e-07,
-      "variantId": "2-227245981-G-C",
+      "ac": 24,
+      "an": 1613792,
+      "af": 1.4871805040550455e-05,
+      "variantId": "2-227245981-G-A",
       "observedInGnomad": true
     },
     "121": {
@@ -4290,10 +4291,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 174,
       "cdnaChange": "c.520G>A",
       "aaChange": "p.Gly174Arg",
-      "ac": 1,
-      "an": 1460992,
-      "af": 6.844664447170142e-07,
-      "variantId": "2-227248494-G-C",
+      "ac": 13,
+      "an": 1613190,
+      "af": 8.058567186754194e-06,
+      "variantId": "2-227248494-G-A",
       "observedInGnomad": true
     },
     "300": {
@@ -4502,11 +4503,11 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 996,
       "cdnaChange": "c.2986G>A",
       "aaChange": "p.Gly996Arg",
-      "ac": 0,
-      "an": 1461852,
-      "af": 0.0,
-      "variantId": "2-227051141-C-G",
-      "observedInGnomad": false
+      "ac": 65,
+      "an": 1614004,
+      "af": 4.027251481408968e-05,
+      "variantId": "2-227051141-C-T",
+      "observedInGnomad": true
     },
     "1008": {
       "pos": 1008,
@@ -4533,19 +4534,19 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "cdnaChange": "c.3406G>A",
       "aaChange": "p.Gly1136Arg",
       "ac": 1,
-      "an": 152128,
-      "af": 6.573411863693732e-06,
-      "variantId": "2-227042247-C-G",
+      "an": 1608960,
+      "af": 6.215194908512331e-07,
+      "variantId": "2-227042247-C-T",
       "observedInGnomad": true
     },
     "1172": {
       "pos": 1172,
       "cdnaChange": "c.3514G>A",
       "aaChange": "p.Gly1172Arg",
-      "ac": 1,
-      "an": 1460888,
-      "af": 6.845151715942632e-07,
-      "variantId": "2-227033473-C-G",
+      "ac": 5,
+      "an": 1613028,
+      "af": 3.099760202550731e-06,
+      "variantId": "2-227033473-C-T",
       "observedInGnomad": true
     },
     "1178": {
@@ -4702,235 +4703,235 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
     }
   },
   "COL4A6": {
-    "146": {
-      "pos": 146,
-      "cdnaChange": "c.436G>A",
-      "aaChange": "p.Gly146Arg",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "145": {
+      "pos": 145,
+      "cdnaChange": "c.433G>A",
+      "aaChange": "p.Gly145Arg",
+      "ac": 5,
+      "an": 1203276,
+      "af": 4.15532263587074e-06,
       "variantId": "X-108214120-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "149": {
-      "pos": 149,
-      "cdnaChange": "c.445G>A",
-      "aaChange": "p.Gly149Arg",
+    "148": {
+      "pos": 148,
+      "cdnaChange": "c.442G>A",
+      "aaChange": "p.Gly148Arg",
       "ac": 0,
       "an": 1093842,
       "af": 0.0,
       "variantId": "X-108211740-C-T",
       "observedInGnomad": false
     },
-    "190": {
-      "pos": 190,
-      "cdnaChange": "c.568G>A",
-      "aaChange": "p.Gly190Arg",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "189": {
+      "pos": 189,
+      "cdnaChange": "c.565G>A",
+      "aaChange": "p.Gly189Arg",
+      "ac": 4,
+      "an": 1208263,
+      "af": 3.3105375237013794e-06,
       "variantId": "X-108206562-C-T",
-      "observedInGnomad": false
-    },
-    "495": {
-      "pos": 495,
-      "cdnaChange": "c.1483G>A",
-      "aaChange": "p.Gly495Arg",
-      "ac": 1,
-      "an": 1082418,
-      "af": 9.238575116082696e-07,
-      "variantId": "X-108188621-C-T",
       "observedInGnomad": true
     },
-    "579": {
-      "pos": 579,
-      "cdnaChange": "c.1735G>A",
-      "aaChange": "p.Gly579Arg",
-      "ac": 1,
-      "an": 111069,
-      "af": 9.003412293259146e-06,
-      "variantId": "X-108187880-C-T",
+    "494": {
+      "pos": 494,
+      "cdnaChange": "c.1480G>A",
+      "aaChange": "p.Gly494Arg",
+      "ac": 5,
+      "an": 1195556,
+      "af": 4.182154579124692e-06,
+      "variantId": "X-108188624-C-T",
       "observedInGnomad": true
     },
-    "649": {
-      "pos": 649,
-      "cdnaChange": "c.1945G>A",
-      "aaChange": "p.Gly649Arg",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "578": {
+      "pos": 578,
+      "cdnaChange": "c.1732G>A",
+      "aaChange": "p.Gly578Arg",
+      "ac": 25,
+      "an": 1206341,
+      "af": 2.072382518707397e-05,
+      "variantId": "X-108187883-C-T",
+      "observedInGnomad": true
+    },
+    "648": {
+      "pos": 648,
+      "cdnaChange": "c.1942G>A",
+      "aaChange": "p.Gly648Arg",
+      "ac": 8,
+      "an": 1153472,
+      "af": 6.9355823114908726e-06,
       "variantId": "X-108187105-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "664": {
-      "pos": 664,
-      "cdnaChange": "c.1990G>A",
-      "aaChange": "p.Gly664Ser",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "663": {
+      "pos": 663,
+      "cdnaChange": "c.1987G>A",
+      "aaChange": "p.Gly663Ser",
+      "ac": 57,
+      "an": 1209405,
+      "af": 4.713061381423097e-05,
       "variantId": "X-108180933-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "673": {
-      "pos": 673,
-      "cdnaChange": "c.2017G>A",
-      "aaChange": "p.Gly673Arg",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "672": {
+      "pos": 672,
+      "cdnaChange": "c.2014G>A",
+      "aaChange": "p.Gly672Arg",
+      "ac": 3,
+      "an": 1208253,
+      "af": 2.4829236923061642e-06,
       "variantId": "X-108180906-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "789": {
-      "pos": 789,
-      "cdnaChange": "c.2365G>A",
-      "aaChange": "p.Gly789Arg",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "788": {
+      "pos": 788,
+      "cdnaChange": "c.2362G>A",
+      "aaChange": "p.Gly788Arg",
+      "ac": 8,
+      "an": 1204370,
+      "af": 6.642476979665717e-06,
       "variantId": "X-108178837-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "954": {
-      "pos": 954,
-      "cdnaChange": "c.2860G>A",
-      "aaChange": "p.Gly954Arg",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "953": {
+      "pos": 953,
+      "cdnaChange": "c.2857G>A",
+      "aaChange": "p.Gly953Arg",
+      "ac": 23,
+      "an": 1193084,
+      "af": 1.9277770886207508e-05,
       "variantId": "X-108175189-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "978": {
-      "pos": 978,
-      "cdnaChange": "c.2932G>A",
-      "aaChange": "p.Gly978Arg",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "977": {
+      "pos": 977,
+      "cdnaChange": "c.2929G>A",
+      "aaChange": "p.Gly977Arg",
+      "ac": 7,
+      "an": 1198392,
+      "af": 5.841160488387773e-06,
       "variantId": "X-108175117-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "1072": {
-      "pos": 1072,
-      "cdnaChange": "c.3214G>A",
-      "aaChange": "p.Gly1072Ser",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "1071": {
+      "pos": 1071,
+      "cdnaChange": "c.3211G>A",
+      "aaChange": "p.Gly1071Ser",
+      "ac": 19,
+      "an": 1205941,
+      "af": 1.5755331313886832e-05,
       "variantId": "X-108171453-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "1079": {
-      "pos": 1079,
-      "cdnaChange": "c.3235G>A",
-      "aaChange": "p.Gly1079Ser",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "1078": {
+      "pos": 1078,
+      "cdnaChange": "c.3232G>A",
+      "aaChange": "p.Gly1078Ser",
+      "ac": 88,
+      "an": 1209003,
+      "af": 7.278724701262114e-05,
       "variantId": "X-108171432-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "1136": {
-      "pos": 1136,
-      "cdnaChange": "c.3406G>A",
-      "aaChange": "p.Gly1136Ser",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "1135": {
+      "pos": 1135,
+      "cdnaChange": "c.3403G>A",
+      "aaChange": "p.Gly1135Ser",
+      "ac": 18,
+      "an": 1204769,
+      "af": 1.4940623472217495e-05,
       "variantId": "X-108170699-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "1160": {
-      "pos": 1160,
-      "cdnaChange": "c.3478G>A",
-      "aaChange": "p.Gly1160Arg",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "1159": {
+      "pos": 1159,
+      "cdnaChange": "c.3475G>A",
+      "aaChange": "p.Gly1159Arg",
+      "ac": 2,
+      "an": 1203427,
+      "af": 1.6619204987091033e-06,
       "variantId": "X-108170627-C-T",
-      "observedInGnomad": false
-    },
-    "1195": {
-      "pos": 1195,
-      "cdnaChange": "c.3583G>A",
-      "aaChange": "p.Gly1195Ser",
-      "ac": 1,
-      "an": 1096856,
-      "af": 9.116967040340756e-07,
-      "variantId": "X-108169603-C-T",
       "observedInGnomad": true
     },
-    "1217": {
-      "pos": 1217,
-      "cdnaChange": "c.3649G>A",
-      "aaChange": "p.Gly1217Arg",
-      "ac": 1,
-      "an": 1098164,
-      "af": 9.106108013010807e-07,
-      "variantId": "X-108169537-C-T",
+    "1194": {
+      "pos": 1194,
+      "cdnaChange": "c.3580G>A",
+      "aaChange": "p.Gly1194Ser",
+      "ac": 68,
+      "an": 1208177,
+      "af": 5.628314394331294e-05,
+      "variantId": "X-108169606-C-T",
       "observedInGnomad": true
     },
-    "1244": {
-      "pos": 1244,
-      "cdnaChange": "c.3730G>A",
-      "aaChange": "p.Gly1244Ser",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "1216": {
+      "pos": 1216,
+      "cdnaChange": "c.3646G>A",
+      "aaChange": "p.Gly1216Arg",
+      "ac": 25,
+      "an": 1211751,
+      "af": 2.0631301315204195e-05,
+      "variantId": "X-108169540-C-T",
+      "observedInGnomad": true
+    },
+    "1243": {
+      "pos": 1243,
+      "cdnaChange": "c.3727G>A",
+      "aaChange": "p.Gly1243Ser",
+      "ac": 18,
+      "an": 1198591,
+      "af": 1.501763320432074e-05,
       "variantId": "X-108165451-C-T",
-      "observedInGnomad": false
-    },
-    "1262": {
-      "pos": 1262,
-      "cdnaChange": "c.3784G>A",
-      "aaChange": "p.Gly1262Arg",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
-      "variantId": "X-108165397-C-T",
-      "observedInGnomad": false
-    },
-    "1292": {
-      "pos": 1292,
-      "cdnaChange": "c.3874G>A",
-      "aaChange": "p.Gly1292Arg",
-      "ac": 1,
-      "an": 1097933,
-      "af": 9.108023895811493e-07,
-      "variantId": "X-108164973-C-T",
       "observedInGnomad": true
     },
-    "1349": {
-      "pos": 1349,
-      "cdnaChange": "c.4045G>A",
-      "aaChange": "p.Gly1349Arg",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "1261": {
+      "pos": 1261,
+      "cdnaChange": "c.3781G>A",
+      "aaChange": "p.Gly1261Arg",
+      "ac": 2,
+      "an": 1209603,
+      "af": 1.6534350526577728e-06,
+      "variantId": "X-108165397-C-T",
+      "observedInGnomad": true
+    },
+    "1291": {
+      "pos": 1291,
+      "cdnaChange": "c.3871G>A",
+      "aaChange": "p.Gly1291Arg",
+      "ac": 667,
+      "an": 1208629,
+      "af": 0.0005518649643521709,
+      "variantId": "X-108164976-C-T",
+      "observedInGnomad": true
+    },
+    "1348": {
+      "pos": 1348,
+      "cdnaChange": "c.4042G>A",
+      "aaChange": "p.Gly1348Arg",
+      "ac": 18,
+      "an": 1209949,
+      "af": 1.4876660090631919e-05,
       "variantId": "X-108164627-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "1416": {
-      "pos": 1416,
-      "cdnaChange": "c.4246G>A",
-      "aaChange": "p.Gly1416Ser",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "1415": {
+      "pos": 1415,
+      "cdnaChange": "c.4243G>A",
+      "aaChange": "p.Gly1415Ser",
+      "ac": 35,
+      "an": 1201915,
+      "af": 2.912019568771502e-05,
       "variantId": "X-108161709-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     },
-    "1455": {
-      "pos": 1455,
-      "cdnaChange": "c.4363G>A",
-      "aaChange": "p.Gly1455Arg",
-      "ac": 0,
-      "an": 1093842,
-      "af": 0.0,
+    "1454": {
+      "pos": 1454,
+      "cdnaChange": "c.4360G>A",
+      "aaChange": "p.Gly1454Arg",
+      "ac": 21,
+      "an": 1209181,
+      "af": 1.7367127005799793e-05,
       "variantId": "X-108160628-C-T",
-      "observedInGnomad": false
+      "observedInGnomad": true
     }
   },
   "COL5A1": {
@@ -5522,10 +5523,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 497,
       "cdnaChange": "c.1489G>A",
       "aaChange": "p.Gly497Arg",
-      "ac": 1,
-      "an": 152106,
-      "af": 6.574362615544423e-06,
-      "variantId": "19-9996110-C-G",
+      "ac": 6,
+      "an": 1581092,
+      "af": 3.794845587733035e-06,
+      "variantId": "19-9996110-C-T",
       "observedInGnomad": true
     },
     "575": {
@@ -5602,10 +5603,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 1085,
       "cdnaChange": "c.3253G>A",
       "aaChange": "p.Gly1085Arg",
-      "ac": 6,
-      "an": 1461830,
-      "af": 4.104444429242799e-06,
-      "variantId": "19-9977264-C-G",
+      "ac": 26,
+      "an": 1614076,
+      "af": 1.6108287342107806e-05,
+      "variantId": "19-9977264-C-T",
       "observedInGnomad": true
     },
     "1118": {
@@ -5652,11 +5653,11 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 1265,
       "cdnaChange": "c.3793G>A",
       "aaChange": "p.Gly1265Arg",
-      "ac": 0,
-      "an": 1410354,
-      "af": 0.0,
-      "variantId": "19-9971240-C-G",
-      "observedInGnomad": false
+      "ac": 19,
+      "an": 1562470,
+      "af": 1.2160233476482748e-05,
+      "variantId": "19-9971240-C-T",
+      "observedInGnomad": true
     },
     "1304": {
       "pos": 1304,
@@ -5672,11 +5673,11 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 1307,
       "cdnaChange": "c.3919G>A",
       "aaChange": "p.Gly1307Arg",
-      "ac": 0,
-      "an": 1299346,
-      "af": 0.0,
-      "variantId": "19-9970639-C-G",
-      "observedInGnomad": false
+      "ac": 16,
+      "an": 1451212,
+      "af": 1.1025267156004774e-05,
+      "variantId": "19-9970639-C-T",
+      "observedInGnomad": true
     },
     "1310": {
       "pos": 1310,
@@ -5914,11 +5915,11 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 553,
       "cdnaChange": "c.1657G>A",
       "aaChange": "p.Gly553Arg",
-      "ac": 0,
-      "an": 1402612,
-      "af": 0.0,
-      "variantId": "21-45998942-G-C",
-      "observedInGnomad": false
+      "ac": 4,
+      "an": 1554994,
+      "af": 2.5723571923750186e-06,
+      "variantId": "21-45998942-G-A",
+      "observedInGnomad": true
     },
     "556": {
       "pos": 556,
@@ -5976,10 +5977,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 388,
       "cdnaChange": "c.1162G>A",
       "aaChange": "p.Gly388Arg",
-      "ac": 1,
-      "an": 1459134,
-      "af": 6.853380155626557e-07,
-      "variantId": "21-46118659-G-C",
+      "ac": 3,
+      "an": 1611490,
+      "af": 1.861631161223464e-06,
+      "variantId": "21-46118659-G-A",
       "observedInGnomad": true
     },
     "418": {
@@ -6272,11 +6273,11 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 1512,
       "cdnaChange": "c.4534G>A",
       "aaChange": "p.Gly1512Arg",
-      "ac": 1,
-      "an": 152014,
-      "af": 6.57834146854895e-06,
-      "variantId": "3-130598365-G-C",
-      "observedInGnomad": true
+      "ac": 0,
+      "an": 1575505,
+      "af": 0.0,
+      "variantId": "3-130598365-G-A",
+      "observedInGnomad": false
     },
     "1543": {
       "pos": 1543,
@@ -6292,10 +6293,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 1659,
       "cdnaChange": "c.4975G>A",
       "aaChange": "p.Gly1659Arg",
-      "ac": 1,
-      "an": 1461410,
-      "af": 6.842706701062672e-07,
-      "variantId": "3-130627352-G-C",
+      "ac": 498,
+      "an": 1613688,
+      "af": 0.0003086098427948897,
+      "variantId": "3-130627352-G-A",
       "observedInGnomad": true
     }
   },
@@ -6384,10 +6385,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 1782,
       "cdnaChange": "c.5344G>A",
       "aaChange": "p.Gly1782Arg",
-      "ac": 1,
-      "an": 152178,
-      "af": 6.571252086372537e-06,
-      "variantId": "3-48579241-C-G",
+      "ac": 11,
+      "an": 1613762,
+      "af": 6.81637069158897e-06,
+      "variantId": "3-48579241-C-T",
       "observedInGnomad": true
     },
     "1809": {
@@ -6514,20 +6515,20 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 2287,
       "cdnaChange": "c.6859G>A",
       "aaChange": "p.Gly2287Arg",
-      "ac": 1,
-      "an": 1456534,
-      "af": 6.865613847668506e-07,
-      "variantId": "3-48572712-C-G",
+      "ac": 2,
+      "an": 1608732,
+      "af": 1.2432151533008606e-06,
+      "variantId": "3-48572712-C-T",
       "observedInGnomad": true
     },
     "2304": {
       "pos": 2304,
       "cdnaChange": "c.6910G>A",
       "aaChange": "p.Gly2304Arg",
-      "ac": 1,
-      "an": 1461830,
-      "af": 6.840740715404664e-07,
-      "variantId": "3-48572529-C-G",
+      "ac": 4,
+      "an": 1613838,
+      "af": 2.4785635237241905e-06,
+      "variantId": "3-48572529-C-T",
       "observedInGnomad": true
     },
     "2351": {
@@ -6728,10 +6729,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 214,
       "cdnaChange": "c.640G>A",
       "aaChange": "p.Gly214Arg",
-      "ac": 1,
-      "an": 1387384,
-      "af": 7.207809806081085e-07,
-      "variantId": "1-36099041-C-G",
+      "ac": 4,
+      "an": 1537370,
+      "af": 2.601846009743913e-06,
+      "variantId": "1-36099041-C-T",
       "observedInGnomad": true
     },
     "226": {
@@ -7082,10 +7083,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 511,
       "cdnaChange": "c.1531G>A",
       "aaChange": "p.Gly511Arg",
-      "ac": 2,
-      "an": 1460334,
-      "af": 1.3695497057522457e-06,
-      "variantId": "1-40303547-C-G",
+      "ac": 3,
+      "an": 1612170,
+      "af": 1.8608459405645807e-06,
+      "variantId": "1-40303547-C-T",
       "observedInGnomad": true
     },
     "592": {
@@ -7174,11 +7175,11 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 50,
       "cdnaChange": "c.148G>A",
       "aaChange": "p.Gly50Arg",
-      "ac": 5,
-      "an": 1460710,
-      "af": 3.4229929280966107e-06,
-      "variantId": "20-62818518-G-C",
-      "observedInGnomad": true
+      "ac": 0,
+      "an": 1566248,
+      "af": 0.0,
+      "variantId": "20-62818518-G-A",
+      "observedInGnomad": false
     },
     "113": {
       "pos": 113,
@@ -7324,10 +7325,10 @@ export const GENE_GNOMAD_MAP: Record<string, Record<number, GnomadVariantRecord>
       "pos": 295,
       "cdnaChange": "c.883G>A",
       "aaChange": "p.Gly295Arg",
-      "ac": 1,
-      "an": 1460652,
-      "af": 6.846257698616782e-07,
-      "variantId": "20-62827959-G-C",
+      "ac": 24,
+      "an": 1612904,
+      "af": 1.4879992857603428e-05,
+      "variantId": "20-62827959-G-A",
       "observedInGnomad": true
     },
     "298": {

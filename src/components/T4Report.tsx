@@ -19,7 +19,7 @@ interface T4ReportProps {
 }
 
 export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
-  const [filterMode, setFilterMode] = useState<string>('ALL');
+  const [filterMode, setFilterMode] = useState<string>('TRUE_DYADS');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isExportingPdf, setIsExportingPdf] = useState<boolean>(false);
 
@@ -67,8 +67,12 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
     }
   ];
 
+  // Combine true genomic CpG dyads and cross-intron split pseudo-dyads
+  const allDyadCandidates = [...result.cpgDyads, ...(result.splitPseudoDyads || [])]
+    .sort((a, b) => a.residueIndex - b.residueIndex);
+
   // Filtered variant table list
-  const filteredSites = result.cpgDyads.filter(site => {
+  const filteredSites = allDyadCandidates.filter(site => {
     const matchesSearch =
       site.residueName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       site.cDnaChange.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -129,7 +133,7 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
       'gnomAD_Observed'
     ];
 
-    const rows = result.cpgDyads.map(s => [
+    const rows = allDyadCandidates.map(s => [
       s.residueName,
       s.isSplitSite ? 'Split Codon (Intron-Exon Boundary)' : 'True Genomic Dyad',
       s.cDnaChange,
@@ -260,7 +264,7 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
           {/* Filter Pills */}
           <div className="flex items-center gap-1.5 flex-wrap no-print">
             {[
-              { id: 'ALL', label: `All (${result.cpgDyads.length})` },
+              { id: 'ALL', label: `All (${allDyadCandidates.length})` },
               { id: 'TRUE_DYADS', label: `True Dyads (${result.t1.trueGenomicDyadsCount ?? result.cpgDyads.length})` },
               ...(result.t1.splitSitesCount && result.t1.splitSitesCount > 0
                 ? [{ id: 'SPLIT', label: `⚠️ Split Sites (${result.t1.splitSitesCount})` }]
