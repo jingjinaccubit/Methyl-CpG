@@ -3,6 +3,7 @@
 // and empirical allele counts from gnomAD v4.1 exomes/genomes.
 
 import { GENE_GNOMAD_MAP } from './gnomadData';
+import { lookupTrinucleotideRate } from './trinucleotideMatrix';
 
 export interface GnomadContextScore {
   mutabilityRate: number; // probability per base pair per generation
@@ -69,35 +70,20 @@ export function calculateGnomadScore(
   if (isCpGDyad) {
     // Reverse-strand CpG deamination: [Yaa ends in C][Gly begins with G]
     // The forward G->A mutation is driven by reverse C->T at a methylated CpG.
-    // Determine context-dependent rate based on 2nd base of Yaa codon:
-    // Forward sequence across junction: ...[Yaa_2][C] [G][Gly_2]...
-    // Reverse strand complement around deaminating C: ...comp(Gly_2) - C - G - comp(Yaa_2)...
+    // Determine context-dependent rate dynamically from Karczewski 192 trinucleotide matrix:
     const yaaBase2 = prevCodon && prevCodon.length >= 2 ? prevCodon[prevCodon.length - 2].toUpperCase() : 'C';
     
-    let baseRate = 1.28e-7;
-    let percentile = 99.4;
-
+    // Map preceding Yaa_2 context to 3-mer:
+    let triContext = 'CCG';
     switch (yaaBase2) {
-      case 'C': // e.g. Pro CCC -> reverse CCG-G context
-        baseRate = 1.28e-7;
-        percentile = 99.4;
-        break;
-      case 'T': // e.g. Phe TTC, Ile ATC -> reverse CCG-A context
-        baseRate = 1.35e-7;
-        percentile = 99.6;
-        break;
-      case 'A': // e.g. His CAC, Asp GAC -> reverse CCG-T context
-        baseRate = 1.18e-7;
-        percentile = 99.1;
-        break;
-      case 'G': // e.g. Arg CGC, Gly GGC -> reverse CCG-C context
-        baseRate = 1.42e-7;
-        percentile = 99.7;
-        break;
-      default:
-        baseRate = 1.28e-7;
-        percentile = 99.4;
+      case 'C': triContext = 'CCG'; break;
+      case 'T': triContext = 'TCG'; break;
+      case 'A': triContext = 'ACG'; break;
+      case 'G': triContext = 'GCG'; break;
+      default: triContext = 'CCG';
     }
+
+    const { rate: baseRate, percentile } = lookupTrinucleotideRate(triContext, 'T');
 
     const fold = baseRate / GENOME_BASELINE_MUTABILITY;
 
@@ -144,9 +130,10 @@ export function calculateGnomadScore(
 
   if (isInCodonCpG) {
     // In-codon CpG (e.g. CGA for Arg, CCG for Pro, TCG for Ser, etc.)
-    const baseRate = 1.15e-7;
+    // Dynamically retrieve exact context-dependent mutability rate from Karczewski 192 matrix:
+    const triContext = glyCodon && glyCodon.length === 3 ? glyCodon.toUpperCase() : 'CCG';
+    const { rate: baseRate, percentile } = lookupTrinucleotideRate(triContext, 'T');
     const fold = baseRate / GENOME_BASELINE_MUTABILITY;
-    const percentile = 98.8;
 
     return {
       mutabilityRate: baseRate,
@@ -161,14 +148,14 @@ export function calculateGnomadScore(
         ? 'Pathogenic (In-Codon CpG Hotspot)'
         : 'Potential Somatic / In-Codon De Novo',
       rationale:
-        'In-codon CpG site subject to hydrolytic deamination. Elevated somatic and germline mutation rate. Collagen junction cohort lookup unindexed.'
+        `In-codon CpG site subject to hydrolytic deamination (μ = ${baseRate.toExponential(2)}, ${percentile}th percentile). Elevated somatic and germline mutability.`
     };
   }
 
-  // Baseline non-CpG codon
-  const baseRate = 1.05e-8;
-  const fold = 0.88;
-  const percentile = 54.2;
+  // Baseline non-CpG codon (Karczewski background rate)
+  const normGly = glyCodon && glyCodon.length === 3 ? glyCodon.toUpperCase() : 'GGT';
+  const { rate: baseRate, percentile } = lookupTrinucleotideRate(normGly, 'A');
+  const fold = baseRate / GENOME_BASELINE_MUTABILITY;
 
   return {
     mutabilityRate: baseRate,

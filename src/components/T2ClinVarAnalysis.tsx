@@ -175,7 +175,7 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
 
       {/* Candidate Hotspots Discovery Section */}
       {candidateSites.length > 0 && (
-        <div className="bg-amber-50 rounded-xl p-4 border border-amber-300">
+        <div className="bg-amber-50 rounded-xl p-4 border border-amber-300 mb-6">
           <div className="flex items-center gap-2 mb-2 text-amber-900 font-bold text-xs">
             <AlertCircle className="w-4 h-4 text-amber-600" />
             <span>Targeted Candidate Hotspots for Biobank Discovery (Unreported / Non-P/LP in ClinVar)</span>
@@ -198,6 +198,36 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
           </div>
         </div>
       )}
+
+      {/* In-Codon CpG Mutational Spectrum Section (#9) */}
+      <div className="bg-purple-50/60 rounded-xl p-4 border border-purple-200">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2 text-purple-950 font-bold text-xs">
+            <ShieldCheck className="w-4 h-4 text-purple-600" />
+            <span>In-Codon CpG Mutational Spectrum &amp; ClinVar Validation</span>
+          </div>
+          <span className="text-[10px] bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full font-semibold">
+            {t2.inCodonPlpCount} of {t2.inCodonTotal} Pathogenic / Truncation Hotspots
+          </span>
+        </div>
+        <p className="text-xs text-purple-900/80 mb-3 leading-relaxed">
+          In addition to inter-codon junction dyads (Glycine G&rarr;A missense), 5mC hydrolytic deamination occurs at intra-codon CpG sites (e.g., Arg CGA&rarr;TGA nonsense mutations). In {geneSymbol}, <strong>{t2.inCodonNonsenseCount}</strong> premature termination (nonsense) hotspots and <strong>{t2.inCodonPlpCount}</strong> confirmed ClinVar/PVS1 pathogenic variants originate from in-codon CpG deamination, serving as an independent biological validation of the methyl-CpG mutational burden.
+        </p>
+        <div className="grid grid-cols-3 gap-3 text-center">
+          <div className="bg-white p-2.5 rounded-lg border border-purple-100 shadow-2xs">
+            <div className="text-lg font-black text-purple-900 font-mono">{t2.inCodonTotal}</div>
+            <div className="text-[11px] text-purple-700">Total In-Codon CpGs</div>
+          </div>
+          <div className="bg-white p-2.5 rounded-lg border border-purple-100 shadow-2xs">
+            <div className="text-lg font-black text-purple-900 font-mono">{t2.inCodonNonsenseCount}</div>
+            <div className="text-[11px] text-purple-700">Nonsense Truncations (CGA&rarr;TGA)</div>
+          </div>
+          <div className="bg-white p-2.5 rounded-lg border border-purple-100 shadow-2xs">
+            <div className="text-lg font-black text-emerald-700 font-mono">{t2.inCodonPlpCount}</div>
+            <div className="text-[11px] text-emerald-800 font-medium">Pathogenic / PVS1 Hotspots</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

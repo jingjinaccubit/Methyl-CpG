@@ -19,6 +19,16 @@ export interface CollagenGeneInfo {
   aliasSymbols?: string; // from collagentable.xlsx
 }
 
+export type CollagenDomainType =
+  | '7S'
+  | 'Collagenous'
+  | 'NC1'
+  | 'N-Propeptide'
+  | 'C-Propeptide'
+  | 'Noncollagenous'
+  | 'Interruption'
+  | 'Unspecified';
+
 export interface CodonInfo {
   index: number; // 0-based
   pos: number; // 1-based codon position
@@ -27,7 +37,7 @@ export interface CodonInfo {
   isCollagenous: boolean;
   isGlycine: boolean;
   register?: 'Gly' | 'Xaa' | 'Yaa' | 'Noncollagenous';
-  domainType: '7S' | 'Collagenous' | 'NC1' | 'Unspecified';
+  domainType: CollagenDomainType;
 }
 
 export interface CpGSite {
@@ -49,6 +59,19 @@ export interface CpGSite {
   mutAA: string; // e.g. 'Arg'
   substitutionClass: 'High Destabilization (Arg)' | 'Moderate Destabilization (Ser)' | 'Other' | 'Nonsense (Stop Codon)' | 'Missense (In-Codon CpG)';
   isSplitSite?: boolean; // True if junction spans an intron-exon boundary (lacks contiguous genomic CpG dyad)
+
+  // Complementary sense-strand deamination analysis (preceding Yaa codon last base C>T)
+  senseDeamination?: {
+    yaaPos: number; // 1-based position of Yaa residue
+    yaaAA: string;
+    yaacDnaPos: number;
+    yaacDnaChange: string; // e.g. 'c.366C>T'
+    yaaMutCodon: string; // e.g. 'CCT'
+    yaaMutAA: string; // e.g. 'Pro'
+    yaaAaChange: string; // e.g. 'p.Pro122Pro'
+    isSynonymous: boolean;
+    consequence: 'Synonymous (Silent)' | 'Missense' | 'Nonsense';
+  };
   clinvar: {
     reported: boolean;
     isPathogenicOrLikely: boolean; // true if P, LP, or P/LP
@@ -163,6 +186,12 @@ export interface T2Stats {
 
   knownVariantsCount: number;
   hasBaselineData: boolean; // true if curated ClinVar baseline exists; false triggers UI warning
+
+  // In-codon CpG mutational spectrum stats (ClinVar cross-validation)
+  inCodonTotal: number;
+  inCodonPlpCount: number;
+  inCodonNonsenseCount: number;
+  inCodonReportedCount: number;
 }
 
 export interface T3Stats {

@@ -254,7 +254,7 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-[11px] leading-relaxed">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-[11px] leading-relaxed">
               <div className="bg-white p-3 rounded-lg border border-slate-200">
                 <strong className="text-slate-800 block mb-1">Why Genome-Wide Comparison is Scientifically Appropriate:</strong>
                 Due to spontaneous 5mC hydrolytic deamination over evolutionary time, CpG dinucleotides are universally depleted across mammalian genomes (global CpG depletion). The 14.31% frequency represents the neutral background equilibrium rate of adjacent-codon C-G junctions across all 732,543 coding junctions in the MANE Select human reference. Depletion of collagenous Gly dyads below this baseline (OR &lt; 1, P &lt; 0.05) proves the action of heightened structural purifying selection against mutagenic hotspots.
@@ -262,6 +262,10 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
               <div className="bg-white p-3 rounded-lg border border-slate-200">
                 <strong className="text-slate-800 block mb-1">Split Pseudo-Dyads as Natural Internal Controls:</strong>
                 When a Yaa and Gly codon are separated by an intron, their mRNA junction creates a &ldquo;split pseudo-dyad&rdquo; that does not exist as a contiguous CpG in genomic DNA, rendering it immune to genomic 5mC deamination. JASN demonstrated that split sites are retained at expected frequencies while true genomic dyads are severely purged&mdash;providing a definitive internal biological negative control.
+              </div>
+              <div className="bg-white p-3 rounded-lg border border-slate-200">
+                <strong className="text-slate-800 block mb-1">Dual-Strand Symmetry (Antisense G&rarr;A vs Sense C&rarr;T):</strong>
+                A CpG dyad undergoes 5mC deamination on both strands. On the antisense strand, C&rarr;T manifests as Glycine G&rarr;A (missense loss of Gly), devastating the triple helix and facing rigorous purifying selection. On the sense strand, C&rarr;T mutates the 3rd base of Yaa (e.g. Pro CCC&rarr;CCT, His CAC&rarr;CAT), which is predominantly <em>synonymous (silent)</em>, demonstrating why selection is asymmetric despite symmetric chemical deamination.
               </div>
             </div>
           </div>

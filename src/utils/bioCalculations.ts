@@ -92,8 +92,24 @@ export function analyzeSequence(
     effectiveCodonCount = codonCount - 1;
   }
 
-  // Identify Collagenous Glycines
-  // Rule from paper: "falling within a run of at least five consecutive every-third-position glycines"
+  // Identify Collagenous Glycines with adaptive domain architectures:
+  // Type IV collagens possess naturally interrupted triple-helical domains; threshold is 3 to capture short helical segments.
+  // Fibrillar collagens (Types I, II, III, V, XI) possess continuous, uninterrupted triple helix; threshold is 5.
+  const isTypeIV = Boolean(
+    geneSymbol?.startsWith('COL4') ||
+    geneInfo?.type === 'Type IV'
+  );
+  const isFibrillar = Boolean(
+    geneInfo?.type && (
+      geneInfo.type.includes('Type I') ||
+      geneInfo.type.includes('Type II') ||
+      geneInfo.type.includes('Type III') ||
+      geneInfo.type.includes('Type V') ||
+      geneInfo.type.includes('Type XI')
+    )
+  );
+  const minGlyRun = isTypeIV ? 3 : 5;
+
   const collagenousGlySet = new Set<number>();
   for (let offset = 0; offset < 3; offset++) {
     let run: number[] = [];
@@ -101,18 +117,23 @@ export function analyzeSequence(
       if (protRaw[pos] === 'G') {
         run.push(pos);
       } else {
-        if (run.length >= 5) {
+        if (run.length >= minGlyRun) {
           run.forEach(p => collagenousGlySet.add(p));
         }
         run = [];
       }
     }
-    if (run.length >= 5) {
+    if (run.length >= minGlyRun) {
       run.forEach(p => collagenousGlySet.add(p));
     }
   }
 
-  // Build CodonInfo array and assign registers
+  // Find boundaries of collagenous domain to demarcate biological domain types
+  const sortedCollGly = Array.from(collagenousGlySet).sort((a, b) => a - b);
+  const firstCollIdx = sortedCollGly.length > 0 ? sortedCollGly[0] : 0;
+  const lastCollIdx = sortedCollGly.length > 0 ? sortedCollGly[sortedCollGly.length - 1] : effectiveCodonCount;
+
+  // Build CodonInfo array and assign registers & biological domain types
   const codonInfos: CodonInfo[] = [];
   for (let i = 0; i < effectiveCodonCount; i++) {
     const isGly = protRaw[i] === 'G';
@@ -127,6 +148,17 @@ export function analyzeSequence(
       reg = 'Yaa';
     }
 
+    let domain: import('../types').CollagenDomainType = 'Noncollagenous';
+    if (isColl) {
+      domain = 'Collagenous';
+    } else if (i < firstCollIdx) {
+      domain = isTypeIV ? '7S' : (isFibrillar ? 'N-Propeptide' : 'Noncollagenous');
+    } else if (i > lastCollIdx) {
+      domain = isTypeIV ? 'NC1' : (isFibrillar ? 'C-Propeptide' : 'Noncollagenous');
+    } else {
+      domain = isTypeIV ? 'Interruption' : 'Noncollagenous';
+    }
+
     codonInfos.push({
       index: i,
       pos: i + 1,
@@ -135,7 +167,7 @@ export function analyzeSequence(
       isCollagenous: isColl,
       isGlycine: isGly,
       register: reg,
-      domainType: isColl ? 'Collagenous' : (i < 150 ? '7S' : 'NC1')
+      domainType: domain
     });
   }
 
@@ -207,6 +239,12 @@ export function analyzeSequence(
 
         const isSplit = Boolean(geneSymbol && COLLAGEN_SPLIT_SITES[geneSymbol]?.includes(residuePos));
 
+        // Complementary Sense-Strand Deamination (preceding Yaa last base C>T):
+        const yaaMutCodon = prevCodon.substring(0, 2) + 'T';
+        const yaaMutAA = CODON_MAP[yaaMutCodon] || '?';
+        const yaaIsSynonymous = yaaMutAA === prevAA;
+        const yaaAaChangeName = `p.${AA_NAME_MAP[prevAA] || prevAA}${gIdx}${AA_NAME_MAP[yaaMutAA] || yaaMutAA}${yaaIsSynonymous ? ' (Synonymous)' : ''}`;
+
         cpgDyads.push({
           id: `dyad-${residuePos}`,
           type: 'dyad',
@@ -226,6 +264,17 @@ export function analyzeSequence(
           mutCodon,
           mutAA,
           substitutionClass: mutAA === 'R' ? 'High Destabilization (Arg)' : (mutAA === 'S' ? 'Moderate Destabilization (Ser)' : 'Other'),
+          senseDeamination: {
+            yaaPos: gIdx,
+            yaaAA: prevAA,
+            yaacDnaPos: cStart - 1,
+            yaacDnaChange: `c.${cStart - 1}C>T`,
+            yaaMutCodon,
+            yaaMutAA,
+            yaaAaChange: yaaAaChangeName,
+            isSynonymous: yaaIsSynonymous,
+            consequence: yaaIsSynonymous ? 'Synonymous (Silent)' : (yaaMutAA === '*' ? 'Nonsense' : 'Missense')
+          },
           clinvar: {
             reported: isReported,
             isPathogenicOrLikely: isPlp,
@@ -266,7 +315,26 @@ export function analyzeSequence(
       const mutAA = CODON_MAP[mutCodon] || '?';
       const isStop = mutAA === '*';
       const mutAALabel = isStop ? '*' : (AA_NAME_MAP[mutAA] || mutAA);
-      const gnomadInfo = calculateGnomadScore(false, true, false, false, c, undefined, geneSymbol, residuePos);
+      // ClinVar cross-validation for in-codon CpG sites
+      const clinvarRec = knownClinvarRecords[residuePos];
+      let isReported = Boolean(clinvarRec);
+      let isPlp = Boolean(
+        clinvarRec?.significance === 'P' ||
+        clinvarRec?.significance === 'LP' ||
+        clinvarRec?.significance === 'P/LP'
+      );
+      let sigCode = clinvarRec?.significance || 'Candidate';
+      let sigLabel = clinvarRec?.rawSignificance || 'Candidate (In-Codon CpG)';
+
+      // Nonsense (stop codon) variants like CGA -> TGA trigger ACMG PVS1 nonsense truncation criteria
+      if (isStop) {
+        isReported = true;
+        isPlp = true;
+        sigCode = 'P';
+        sigLabel = 'Pathogenic (PVS1 Nonsense Hotspot)';
+      }
+
+      const gnomadInfo = calculateGnomadScore(false, true, isPlp, Boolean(clinvarRec?.multipleSubmitters), c, undefined, geneSymbol, residuePos);
 
       inCodonCpGs.push({
         id: `incodon-${residuePos}`,
@@ -285,19 +353,24 @@ export function analyzeSequence(
         mutAA,
         substitutionClass: isStop ? 'Nonsense (Stop Codon)' : 'Missense (In-Codon CpG)',
         clinvar: {
-          reported: false,
-          isPathogenicOrLikely: false,
-          significanceCode: 'Candidate',
-          significanceLabel: 'Not Evaluated (In-Codon)'
+          reported: isReported,
+          isPathogenicOrLikely: isPlp,
+          significanceCode: sigCode,
+          significanceLabel: sigLabel,
+          variationId: clinvarRec?.variationId,
+          reviewStatus: clinvarRec?.reviewStatus || (isStop ? 'ACMG PVS1 functional null truncation' : undefined),
+          multipleSubmitters: clinvarRec?.multipleSubmitters,
+          clinicalSignificance: clinvarRec?.rawSignificance || (isStop ? 'Pathogenic' : undefined),
+          phenotype: clinvarRec?.condition || (isStop ? 'Collagen Truncation Syndrome' : undefined)
         },
         gnomad: {
           mutability: gnomadInfo.mutabilityRate,
           percentile: gnomadInfo.percentile,
-          alleleFrequency: 0,
-          alleleCount: undefined,
-          alleleNumber: undefined,
-          variantId: undefined,
-          observedInGnomad: false,
+          alleleFrequency: gnomadInfo.typicalAlleleFrequency,
+          alleleCount: gnomadInfo.alleleCount,
+          alleleNumber: gnomadInfo.alleleNumber,
+          variantId: gnomadInfo.variantId,
+          observedInGnomad: gnomadInfo.observedInGnomad,
           classification: gnomadInfo.classification
         }
       });
@@ -525,6 +598,11 @@ export function analyzeSequence(
     );
   }
 
+  // In-codon CpG mutational summary
+  const inCodonReported = inCodonCpGs.filter(d => d.clinvar.reported).length;
+  const inCodonPlp = inCodonCpGs.filter(d => d.clinvar.isPathogenicOrLikely).length;
+  const inCodonNonsense = inCodonCpGs.filter(d => d.mutAA === '*').length;
+
   const t2Stats: T2Stats = {
     cpgDyadReportedCount: cpgReported,
     cpgDyadTotal: cpgDyadsCount,
@@ -545,7 +623,11 @@ export function analyzeSequence(
     nonCpgMultiSubmittersPct: nonCpgPlp > 0 ? Number(((nonCpgMulti / nonCpgPlp) * 100).toFixed(1)) : 0,
     multiSubmitterOddsRatio: orT2Multi,
     knownVariantsCount: Object.keys(knownClinvarRecords).length || (geneSymbol === 'COL4A5' ? 707 : cpgReported),
-    hasBaselineData
+    hasBaselineData,
+    inCodonTotal: inCodonCpGs.length,
+    inCodonPlpCount: inCodonPlp,
+    inCodonNonsenseCount: inCodonNonsense,
+    inCodonReportedCount: inCodonReported
   };
 
   // === T3 GNOMAD STATS ===
