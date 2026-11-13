@@ -4,6 +4,20 @@
  * and models 3-tier error suppression for low-frequency CpG G>A deamination mutations.
  */
 
+import { accuratePoissonPValue } from './statistics';
+
+const ALT_BASES: Record<string, string[]> = {
+  G: ['A', 'C', 'T'],
+  C: ['A', 'G', 'T'],
+  A: ['C', 'G', 'T'],
+  T: ['A', 'C', 'G'],
+};
+
+function randomAltBase(base: string): string {
+  const alts = ALT_BASES[base] || ['A', 'C', 'G', 'T'];
+  return alts[Math.floor(Math.random() * alts.length)];
+}
+
 export interface DuplexSimParams {
   targetName: string;
   gene: string;
@@ -112,41 +126,8 @@ export function samplePoisson(lambda: number): number {
   return Math.max(0, Math.round(lambda + Math.sqrt(lambda) * z));
 }
 
-/**
- * Exact, numerically stable Poisson tail probability P(X >= k | lambda).
- * Avoids catastrophic floating-point cancellation (1.0 - cdf) by summing forward terms directly.
- */
-export function accuratePoissonPValue(k: number, lambda: number): number {
-  if (k <= 0) return 1.0;
-  if (lambda <= 0) return 0.0;
-
-  // Compute ln(k!)
-  let logKFact = 0;
-  for (let i = 2; i <= k; i++) {
-    logKFact += Math.log(i);
-  }
-
-  // P(X = k) = exp(-lambda + k*ln(lambda) - ln(k!))
-  const logFirstTerm = -lambda + k * Math.log(lambda) - logKFact;
-  if (logFirstTerm < -700) {
-    // Underflow limit for IEEE-754 double
-    return 0.0;
-  }
-
-  let currentTerm = Math.exp(logFirstTerm);
-  let tailSum = currentTerm;
-
-  // Forward summation of P(X = k+1), P(X = k+2), ... without subtracting from 1.0
-  for (let j = k; j < k + 60; j++) {
-    currentTerm = currentTerm * (lambda / (j + 1));
-    tailSum += currentTerm;
-    if (currentTerm < tailSum * 1e-15) break;
-  }
-
-  return Math.max(0.0, Math.min(1.0, tailSum));
-}
-
-// Backward compatibility alias
+// Re-export canonical high-precision Poisson tail probability from statistics.ts
+export { accuratePoissonPValue };
 export const poissonPValue = accuratePoissonPValue;
 
 /**
@@ -223,13 +204,13 @@ export function runDuplexSimulation(params: DuplexSimParams): DuplexSimResult {
     // Top strand reads
     for (let r = 0; r < famSizeTop; r++) {
       let readBase = damagedTop;
-      // PCR error
+      // PCR error: randomly mutates into one of 3 alternative non-template bases (matching Python simulation)
       if (Math.random() < pcrErrorRate) {
-        readBase = 'A';
+        readBase = randomAltBase(readBase);
       }
-      // Sequencing error
+      // Sequencing error: randomly mutates into one of 3 alternative bases
       if (Math.random() < seqErrorRate) {
-        readBase = readBase === 'A' ? 'G' : 'A';
+        readBase = randomAltBase(readBase);
         hadSeqError = true;
       }
       topReads.push(readBase);
@@ -241,10 +222,10 @@ export function runDuplexSimulation(params: DuplexSimParams): DuplexSimResult {
     for (let r = 0; r < famSizeBottom; r++) {
       let readBase = damagedBottom;
       if (Math.random() < pcrErrorRate) {
-        readBase = 'T';
+        readBase = randomAltBase(readBase);
       }
       if (Math.random() < seqErrorRate) {
-        readBase = readBase === 'T' ? 'C' : 'T';
+        readBase = randomAltBase(readBase);
         hadSeqError = true;
       }
       bottomReads.push(readBase);

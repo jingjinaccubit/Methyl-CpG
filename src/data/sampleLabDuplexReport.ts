@@ -16,15 +16,15 @@ export const SAMPLE_LAB_DUPLEX_REPORT: DuplexSimResult = {
     meanFamilySize: 5.8,
     duplexRecoveryRatePct: 81.2,
     biologicalContext:
-      'Male proband with suspected somatic/gonadal mosaic X-linked Alport syndrome; resolving ultra-low frequency c.1871G>A (p.Gly624Asp) pathogenic variant against background optical and acoustic shearing noise.'
+      'Male proband with suspected somatic/gonadal mosaic X-linked Alport syndrome; resolving ultra-low frequency c.1876G>A (p.Gly626Ser) pathogenic variant against background optical and acoustic shearing noise.'
   },
   params: {
-    targetName: 'COL4A5 c.1871G>A Hotspot (Exon 25)',
+    targetName: 'COL4A5 c.1876G>A Hotspot (Exon 25)',
     gene: 'COL4A5',
-    aminoAcidChange: 'Gly624Asp',
-    cdnaChange: 'c.1871G>A',
+    aminoAcidChange: 'Gly626Ser',
+    cdnaChange: 'c.1876G>A',
     targetSequence:
-      'TCCACCAGGCCTTCCTGGATTTCCAGGTCTTCCTGGCCCTAAAGGTGAAATCGGAGTTCCAGGAATTCCTGGCTCCCCTGGTCTTAAAGGACTGCCAGGATGTGCCTGGTTTGCCAATTGCTGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAG',
+      'GCCTGGTGGAATTACTTTTAAGGGTGAAAGAGGTCCCCCTGGGAACCCAGGTTTACCAGGCCTCCCAGGGAATATAGGGCCTATGGGTCCCCCTGGTTTCGGCCCTCCAGGCCCAGTAGGTGAAAAAGGCATACAAGGTGTGGCAGGAAATCCAGGCCAGCCAGGAATACCAGGTCCTAAAGGGGATCCAGGTCAGACTAT',
     hotspotIndex: 100,
     initialMolecules: 8500,
     targetVaf: 0.0007,
@@ -69,7 +69,7 @@ export const SAMPLE_LAB_DUPLEX_REPORT: DuplexSimResult = {
       dcsCall: 'A (Top A + Bottom T Complement Confirmed)',
       isCorrect: true,
       explanation:
-        'TRUE MUTANT: Both independent strands carry the c.1871G>A deamination transition (A on top strand, T on bottom strand). Authenticated genuine biological variant.'
+        'TRUE MUTANT: Both independent strands carry the c.1876G>A deamination transition (A on top strand, T on bottom strand). Authenticated genuine biological variant.'
     },
     {
       id: 'MOL-001894 (True Somatic Mosaic)',

@@ -328,7 +328,7 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
     "cpgDyadTotal": 26,
     "cpgReported": 26,
     "cpgPlp": 21,
-    "cpgMulti": 21,
+    "cpgMulti": 20,
     "nonCpgTotal": 328,
     "nonCpgReported": 150,
     "nonCpgPlp": 140,
@@ -438,7 +438,7 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
     "cpgDyadTotal": 24,
     "cpgReported": 24,
     "cpgPlp": 19,
-    "cpgMulti": 18,
+    "cpgMulti": 17,
     "nonCpgTotal": 341,
     "nonCpgReported": 120,
     "nonCpgPlp": 111,
@@ -460,7 +460,7 @@ export const GENE_CLINVAR_BASELINE: Record<string, ClinVarBaseline> = {
     "cpgDyadTotal": 32,
     "cpgReported": 29,
     "cpgPlp": 13,
-    "cpgMulti": 12,
+    "cpgMulti": 11,
     "nonCpgTotal": 412,
     "nonCpgReported": 85,
     "nonCpgPlp": 67,
@@ -783,7 +783,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "significance": "B/LB",
       "rawSignificance": "Likely benign",
       "reviewStatus": "criteria provided, single submitter",
-      "multipleSubmitters": true,
+      "multipleSubmitters": false,
       "condition": "COL11A1-related disorder|not provided"
     },
     "1393": {
@@ -2559,7 +2559,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "significance": "P",
       "rawSignificance": "Pathogenic",
       "reviewStatus": "criteria provided, single submitter",
-      "multipleSubmitters": true,
+      "multipleSubmitters": false,
       "condition": "Osteogenesis imperfecta type III|Ehlers-Danlos syndrome, classic type, 1;Osteogenesis imperfecta type I"
     },
     "772": {
@@ -2899,7 +2899,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "significance": "VUS",
       "rawSignificance": "Uncertain significance",
       "reviewStatus": "criteria provided, single submitter",
-      "multipleSubmitters": true,
+      "multipleSubmitters": false,
       "condition": "not provided|Adrenocortical carcinoma, hereditary|Melanoma"
     },
     "721": {
@@ -3085,7 +3085,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "significance": "LP",
       "rawSignificance": "Likely pathogenic",
       "reviewStatus": "criteria provided, single submitter",
-      "multipleSubmitters": true,
+      "multipleSubmitters": false,
       "condition": "Autosomal dominant rhegmatogenous retinal detachment|not provided"
     },
     "360": {
@@ -3908,7 +3908,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "significance": "P",
       "rawSignificance": "Pathogenic",
       "reviewStatus": "criteria provided, single submitter",
-      "multipleSubmitters": true,
+      "multipleSubmitters": false,
       "condition": "not provided|Microangiopathy and leukoencephalopathy, pontine, autosomal dominant"
     },
     "1278": {
@@ -5928,7 +5928,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "significance": "B/LB",
       "rawSignificance": "Likely benign",
       "reviewStatus": "criteria provided, single submitter",
-      "multipleSubmitters": true,
+      "multipleSubmitters": false,
       "condition": "Bethlem myopathy 1A"
     },
     "350": {
@@ -6229,7 +6229,7 @@ export const GENE_CLINVAR_MAP: Record<string, Record<number, ClinVarRecord>> = {
       "significance": "VUS",
       "rawSignificance": "Uncertain significance",
       "reviewStatus": "criteria provided, single submitter",
-      "multipleSubmitters": true,
+      "multipleSubmitters": false,
       "condition": "Bethlem myopathy 1A|COL6A2-related disorder"
     },
     "511": {

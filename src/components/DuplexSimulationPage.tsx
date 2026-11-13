@@ -42,10 +42,10 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
   const [selectedCohort, setSelectedCohort] = useState<
     'SAMPLE1_COLLAGEN_ALPORT' | 'SAMPLE2_SPERM_DE_NOVO' | 'SAMPLE3_NAR_PAPER_METHYLATION'
   >('SAMPLE1_COLLAGEN_ALPORT');
-  const [selectedPresetId, setSelectedPresetId] = useState<string>('COL4A5_Gly624');
+  const [selectedPresetId, setSelectedPresetId] = useState<string>('COL4A5_Gly626');
   const [customSeq, setCustomSeq] = useState<string>(HOTSPOT_PRESETS[0].flankingSequence201bp);
   const [customGene, setCustomGene] = useState<string>('COL4A5');
-  const [customCdna, setCustomCdna] = useState<string>('c.1871G>A');
+  const [customCdna, setCustomCdna] = useState<string>('c.1876G>A');
   const [hotspotIndex, setHotspotIndex] = useState<number>(100);
 
   // Simulation Parameters
@@ -1372,14 +1372,14 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     Simulation Architecture &amp; Presets
                   </td>
                   <td className="py-3 px-3.5 border-l border-slate-800">
-                    Canonical MANE Select transcripts for <em>COL4A5</em> (Gly624Asp), <em>COL4A6</em> (Gly1291Arg), <em>COL4A4</em> (Gly873Arg), and <em>COL1A1</em> (Gly244Ser) at 3,820&times; &ndash; 5,000&times; depth.
+                    Canonical MANE Select transcripts for <em>COL4A5</em> (Gly626Ser), <em>COL4A6</em> (Gly1291Arg), <em>COL4A4</em> (Gly873Arg), and <em>COL1A1</em> (Gly244Ser) at 3,820&times; &ndash; 5,000&times; depth.
                   </td>
                   <td className="py-3 px-3.5 border-l border-slate-800">
                     In silico spike-in of ultra-low frequency paternal mosaic mutant molecules (<strong className="text-blue-300">VAF = 0.05%</strong>; 1 in 2,000) under HiSeq 4000 background noise at 50,000&times; &ndash; 100,000&times; depth.
                   </td>
                   <td className="py-3 px-3.5 border-l border-slate-800">
                     <strong>Dual-Arm Mechanistic Model:</strong><br />
-                    &bull; <em>True Dyad Arm:</em> 89% sperm 5mC baseline at <em>COL4A5</em> Gly624 and <em>COL1A1</em> Gly244.<br />
+                    &bull; <em>True Dyad Arm:</em> 89% sperm 5mC baseline at <em>COL4A5</em> Gly626 and <em>COL1A1</em> Gly244.<br />
                     &bull; <em>Negative Control Arm:</em> 48 exon-initial split junction sites lacking genomic CpG (0% 5mC).
                   </td>
                 </tr>

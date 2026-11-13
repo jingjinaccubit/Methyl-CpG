@@ -143,6 +143,12 @@ def fetch_clinvar_records(target_genes):
                     if 'single nucleotide' not in vtype.lower():
                         continue
 
+                    # Strict filter: GRCh38 assembly only (ClinVar outputs duplicate rows for GRCh37 and GRCh38)
+                    assembly_idx = col_map.get('Assembly')
+                    assembly = parts[assembly_idx].decode('utf-8', errors='ignore') if assembly_idx is not None else ''
+                    if assembly and assembly != 'GRCh38':
+                        continue
+
                     name_idx = col_map.get('Name')
                     name = parts[name_idx].decode('utf-8', errors='ignore') if name_idx is not None else ''
 
@@ -310,8 +316,14 @@ def process_variants(cds_dict, clinvar_by_gene, split_sites=None):
                     sig_code = 'Other'
 
                 is_plp = sig_code in ('P', 'LP', 'P/LP')
-                is_multi = r['submitters'] >= 2 or (
-                    'multiple submitters' in r['rev'].lower() and 'no conflicts' in r['rev'].lower()
+                # Strict multi-submitter criterion: Align with ClinVar official 2-star/3-star review status
+                # (criteria provided, multiple submitters, no conflicts; expert panel; practice guideline)
+                # Prevents counting non-P/LP submitters or 1-star single submitter records as multi-submitter
+                rev_lower = r['rev'].lower()
+                is_multi = (
+                    ('multiple submitters' in rev_lower and 'no conflicts' in rev_lower) or
+                    ('expert panel' in rev_lower) or
+                    ('practice guideline' in rev_lower)
                 )
 
                 var_obj = {

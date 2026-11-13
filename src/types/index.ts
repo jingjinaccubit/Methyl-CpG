@@ -74,6 +74,18 @@ export interface CpGSite {
     isSynonymous: boolean;
     consequence: 'Synonymous (Silent)' | 'Missense' | 'Nonsense';
   };
+  // Complementary antisense-strand deamination analysis for in-codon CpG (forward G>A transition)
+  reverseDeamination?: {
+    cDnaPos: number;
+    cDnaChange: string; // e.g. 'c.1232G>A'
+    mutCodon: string; // e.g. 'CAA'
+    mutAA: string; // e.g. 'Gln'
+    aaChange: string; // e.g. 'p.Arg411Gln'
+    isSynonymous: boolean;
+    consequence: 'Synonymous (Silent)' | 'Missense' | 'Nonsense';
+    mutability: number;
+    percentile: number;
+  };
   clinvar: {
     reported: boolean;
     isPathogenicOrLikely: boolean; // true if P, LP, or P/LP

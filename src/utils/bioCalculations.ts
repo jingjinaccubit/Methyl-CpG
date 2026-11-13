@@ -322,11 +322,35 @@ export function analyzeSequence(
       const residuePos = i + 1;
       const aa = protRaw[i];
       const cgIdx = c.indexOf('CG'); // 0 or 1
-      const cDnaPos = i * 3 + cgIdx + 1;
-      const mutCodon = c.substring(0, cgIdx) + 'TG' + c.substring(cgIdx + 2);
+      const cDnaPos = i * 3 + cgIdx + 1; // Cytosine cDNA position (forward strand C>T)
+      const mutCodon = c.substring(0, cgIdx) + 'T' + c.substring(cgIdx + 1);
       const mutAA = CODON_MAP[mutCodon] || '?';
       const isStop = mutAA === '*';
       const mutAALabel = isStop ? '*' : (AA_NAME_MAP[mutAA] || mutAA);
+
+      // Flanking context resolution for accurate central-base trinucleotide rate lookup:
+      // For forward strand C>T (central base C):
+      // - If cgIdx === 1 (CCG, ACG, TCG, GCG), codon itself has C in center (e.g. ACG > T)
+      // - If cgIdx === 0 (CGA, CGC, CGG, CGT), 5' base comes from preceding codon 3rd base (e.g. [N]CG > T)
+      const prevCodonStr = i > 0 ? codonsRaw[i - 1] : '';
+      const prevBase = prevCodonStr.length >= 3 ? prevCodonStr.slice(-1) : 'C';
+      const triContextC = cgIdx === 1 ? c : `${prevBase}CG`;
+
+      // Antisense-strand deamination resolution (reverse 5mC>T -> forward G>A transition):
+      const cDnaPosG = i * 3 + cgIdx + 2;
+      const mutCodonG = c.substring(0, cgIdx + 1) + 'A' + c.substring(cgIdx + 2);
+      const mutAAG = CODON_MAP[mutCodonG] || '?';
+      const isStopG = mutAAG === '*';
+      const mutAALabelG = isStopG ? '*' : (AA_NAME_MAP[mutAAG] || mutAAG);
+      const isSynonymousG = mutAAG === aa;
+
+      // For reverse strand G>A (central base G):
+      // - If cgIdx === 0 (CGA, CGC, CGG, CGT), codon itself has G in center (e.g. CGA > A)
+      // - If cgIdx === 1 (CCG, ACG, TCG, GCG), 3' base comes from succeeding codon 1st base (e.g. CG[N] > A)
+      const nextCodonStr = i < effectiveCodonCount - 1 ? codonsRaw[i + 1] : '';
+      const nextBase = nextCodonStr.length >= 1 ? nextCodonStr[0] : 'G';
+      const triContextG = cgIdx === 0 ? c : `CG${nextBase}`;
+
       // ClinVar cross-validation for in-codon CpG sites:
       // STRICT CLINICAL INTEGRITY: Never overwrite actual ClinVar records.
       // If ClinVar has an authoritative record (even VUS, Conflicting, or B/LB), preserve it.
@@ -341,11 +365,36 @@ export function analyzeSequence(
       let sigCode = clinvarRec?.significance || 'Candidate';
       let sigLabel = clinvarRec?.rawSignificance || (isStop ? 'Candidate (PVS1 Nonsense Hotspot — Predicted LOF, Unreported in ClinVar)' : 'Candidate (In-Codon CpG)');
 
-      const gnomadInfo = calculateGnomadScore(false, true, isPlp, Boolean(clinvarRec?.multipleSubmitters), c, undefined, geneSymbol, residuePos);
+      const gnomadInfo = calculateGnomadScore(
+        false,
+        true,
+        isPlp,
+        Boolean(clinvarRec?.multipleSubmitters),
+        c,
+        prevCodonStr,
+        geneSymbol,
+        residuePos,
+        { triContext: triContextC, altBase: 'T' }
+      );
 
-      const inCodonPrevAA = i > 0 ? protRaw[i - 1] : undefined;
-      const inCodonNextAA = i < effectiveCodonCount - 1 ? protRaw[i + 1] : undefined;
-      const thermalStability = predictTripleHelixDestabilization(mutAA, inCodonPrevAA, inCodonNextAA);
+      const revGnomadInfo = calculateGnomadScore(
+        false,
+        true,
+        false,
+        false,
+        c,
+        prevCodonStr,
+        geneSymbol,
+        residuePos,
+        { triContext: triContextG, altBase: 'A' }
+      );
+
+      // Biophysical note: Brodsky triple-helix destabilization delta Tm is exclusively
+      // calibrated for core Glycine (Gly) substitutions. Xaa/Yaa substitutions (Arg, Pro, etc.)
+      // do not disrupt the glycine hydrogen-bonding core and cannot be modeled by Brodsky Delta Tm.
+      const thermalStability = aa === 'G'
+        ? predictTripleHelixDestabilization(mutAA, i > 0 ? protRaw[i - 1] : undefined, i < effectiveCodonCount - 1 ? protRaw[i + 1] : undefined)
+        : undefined;
 
       inCodonCpGs.push({
         id: `incodon-${residuePos}`,
@@ -353,12 +402,12 @@ export function analyzeSequence(
         residueIndex: residuePos,
         residueName: `${AA_NAME_MAP[aa] || aa}${residuePos}`,
         cStart: cDnaPos,
-        prevCodon: i > 0 ? codonsRaw[i - 1] : '',
+        prevCodon: prevCodonStr,
         prevAA: i > 0 ? protRaw[i - 1] : '',
         codon: c,
         aa,
-        nextCodon: i < effectiveCodonCount - 1 ? codonsRaw[i + 1] : undefined,
-        nextAA: inCodonNextAA,
+        nextCodon: nextCodonStr || undefined,
+        nextAA: i < effectiveCodonCount - 1 ? protRaw[i + 1] : undefined,
         junctionDna: `[${c}]`,
         cDnaChange: `c.${cDnaPos}C>T`,
         aaChange: `p.${AA_NAME_MAP[aa] || aa}${residuePos}${mutAALabel}`,
@@ -366,6 +415,17 @@ export function analyzeSequence(
         mutAA,
         substitutionClass: isStop ? 'Nonsense (Stop Codon)' : 'Missense (In-Codon CpG)',
         thermalStability,
+        reverseDeamination: {
+          cDnaPos: cDnaPosG,
+          cDnaChange: `c.${cDnaPosG}G>A`,
+          mutCodon: mutCodonG,
+          mutAA: mutAAG,
+          aaChange: `p.${AA_NAME_MAP[aa] || aa}${residuePos}${mutAALabelG}`,
+          isSynonymous: isSynonymousG,
+          consequence: isSynonymousG ? 'Synonymous (Silent)' : (isStopG ? 'Nonsense' : 'Missense'),
+          mutability: revGnomadInfo.mutabilityRate,
+          percentile: revGnomadInfo.percentile
+        },
         clinvar: {
           reported: isReported,
           isPathogenicOrLikely: isPlp,

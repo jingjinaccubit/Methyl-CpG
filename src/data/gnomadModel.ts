@@ -47,7 +47,11 @@ export function calculateGnomadScore(
   glyCodon: string,
   prevCodon?: string,
   geneSymbol?: string,
-  residuePos?: number
+  residuePos?: number,
+  inCodonParams?: {
+    triContext: string;
+    altBase: string;
+  }
 ): GnomadContextScore {
   // Query real gnomAD observation if available in preloaded dataset
   let realAc: number | undefined = undefined;
@@ -131,8 +135,9 @@ export function calculateGnomadScore(
   if (isInCodonCpG) {
     // In-codon CpG (e.g. CGA for Arg, CCG for Pro, TCG for Ser, etc.)
     // Dynamically retrieve exact context-dependent mutability rate from Karczewski 192 matrix:
-    const triContext = glyCodon && glyCodon.length === 3 ? glyCodon.toUpperCase() : 'CCG';
-    const { rate: baseRate, percentile } = lookupTrinucleotideRate(triContext, 'T');
+    const triContext = inCodonParams?.triContext || (glyCodon && glyCodon.length === 3 ? glyCodon.toUpperCase() : 'CCG');
+    const alt = inCodonParams?.altBase || 'T';
+    const { rate: baseRate, percentile } = lookupTrinucleotideRate(triContext, alt);
     const fold = baseRate / GENOME_BASELINE_MUTABILITY;
 
     return {
@@ -148,7 +153,7 @@ export function calculateGnomadScore(
         ? 'Pathogenic (In-Codon CpG Hotspot)'
         : 'Potential Somatic / In-Codon De Novo',
       rationale:
-        `In-codon CpG site subject to hydrolytic deamination (μ = ${baseRate.toExponential(2)}, ${percentile}th percentile). Elevated somatic and germline mutability.`
+        `In-codon CpG site (${triContext}>${alt}) subject to hydrolytic deamination (μ = ${baseRate.toExponential(2)}, ${percentile}th percentile). Elevated somatic and germline mutability.`
     };
   }
 

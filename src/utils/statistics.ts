@@ -276,6 +276,53 @@ export function logGamma(z: number): number {
   return 0.5 * Math.log(2 * Math.PI) + (z - 0.5) * Math.log(t) - t + Math.log(x);
 }
 
+/**
+ * Lower incomplete gamma function P(a, x) = gamma(a, x) / Gamma(a)
+ * Numerically stable for all x >= 0 and a > 0.
+ * In particular, when x < a + 1, computed directly via series expansion without
+ * subtractive cancellation from 1.0, preserving full double precision (~1e-15).
+ */
+export function gammaLowerIncomplete(a: number, x: number): number {
+  if (x <= 0) return 0.0;
+  if (a <= 0) return 1.0;
+
+  if (x < a + 1) {
+    // Series expansion for lower incomplete gamma P(a, x)
+    let sum = 1.0 / a;
+    let term = 1.0 / a;
+    for (let n = 1; n < 200; n++) {
+      term *= x / (a + n);
+      sum += term;
+      if (term < sum * 1e-15) break;
+    }
+    const logP = a * Math.log(x) - x - logGamma(a) + Math.log(sum);
+    if (logP < -700) return 0.0;
+    return Math.min(1.0, Math.max(0.0, Math.exp(logP)));
+  } else {
+    // Continued fraction for Q(a, x) (Lentz's method)
+    const TINY = 1e-30;
+    let b = x + 1.0 - a;
+    let c = 1.0 / TINY;
+    let d = 1.0 / b;
+    let h = d;
+    for (let i = 1; i <= 200; i++) {
+      const an = -i * (i - a);
+      b += 2.0;
+      d = an * d + b;
+      if (Math.abs(d) < TINY) d = TINY;
+      c = b + an / c;
+      if (Math.abs(c) < TINY) c = TINY;
+      d = 1.0 / d;
+      const delta = d * c;
+      h *= delta;
+      if (Math.abs(delta - 1.0) < 1e-15) break;
+    }
+    const logQ = a * Math.log(x) - x - logGamma(a) + Math.log(h);
+    if (logQ < -700) return 1.0;
+    return Math.min(1.0, Math.max(0.0, 1.0 - Math.exp(logQ)));
+  }
+}
+
 // Upper incomplete gamma function Q(a, x) = 1 - P(a, x) = Gamma(a, x) / Gamma(a)
 // Numerically stable for all x >= 0 and a > 0 using series representation (x < a + 1)
 // or Legendre continued fraction (x >= a + 1).
@@ -388,32 +435,13 @@ export function adjustPValuesBonferroni(pValues: number[]): number[] {
 
 /**
  * Exact, numerically stable Poisson tail probability P(X >= k | lambda).
- * Avoids catastrophic floating-point cancellation by summing forward terms directly.
+ * Strictly equals the regularized lower incomplete gamma function P(k, lambda) = 1 - Q(k, lambda).
+ * Eliminates step truncation error and log-underflow across arbitrary (k, lambda) parameter space.
  */
 export function accuratePoissonPValue(k: number, lambda: number): number {
   if (k <= 0) return 1.0;
   if (lambda <= 0) return 0.0;
-
-  let logKFact = 0;
-  for (let i = 2; i <= k; i++) {
-    logKFact += Math.log(i);
-  }
-
-  const logFirstTerm = -lambda + k * Math.log(lambda) - logKFact;
-  if (logFirstTerm < -700) {
-    return 0.0;
-  }
-
-  let currentTerm = Math.exp(logFirstTerm);
-  let tailSum = currentTerm;
-
-  for (let j = k; j < k + 60; j++) {
-    currentTerm = currentTerm * (lambda / (j + 1));
-    tailSum += currentTerm;
-    if (currentTerm < tailSum * 1e-15) break;
-  }
-
-  return Math.max(0.0, Math.min(1.0, tailSum));
+  return gammaLowerIncomplete(k, lambda);
 }
 
 /**
