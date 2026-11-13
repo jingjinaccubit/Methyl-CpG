@@ -11,6 +11,8 @@ import type {
 import {
   computeStatisticalMetric,
   chiSquareGoodnessOfFit,
+  adjustPValuesBH,
+  accuratePoissonPValue
 } from './statistics';
 import { GENE_CLINVAR_MAP, COL4A5_BENCHMARK_CPG, GENE_CLINVAR_BASELINE } from '../data/clinvarData';
 import { calculateGnomadScore } from '../data/gnomadModel';
@@ -99,14 +101,9 @@ export function analyzeSequence(
     geneSymbol?.startsWith('COL4') ||
     geneInfo?.type === 'Type IV'
   );
+  const FIBRILLAR_COLLAGEN_TYPES = ['Type I', 'Type II', 'Type III', 'Type V', 'Type XI'];
   const isFibrillar = Boolean(
-    geneInfo?.type && (
-      geneInfo.type.includes('Type I') ||
-      geneInfo.type.includes('Type II') ||
-      geneInfo.type.includes('Type III') ||
-      geneInfo.type.includes('Type V') ||
-      geneInfo.type.includes('Type XI')
-    )
+    geneInfo?.type && FIBRILLAR_COLLAGEN_TYPES.includes(geneInfo.type)
   );
   const minGlyRun = isTypeIV ? 3 : 5;
 
@@ -315,24 +312,19 @@ export function analyzeSequence(
       const mutAA = CODON_MAP[mutCodon] || '?';
       const isStop = mutAA === '*';
       const mutAALabel = isStop ? '*' : (AA_NAME_MAP[mutAA] || mutAA);
-      // ClinVar cross-validation for in-codon CpG sites
+      // ClinVar cross-validation for in-codon CpG sites:
+      // STRICT CLINICAL INTEGRITY: Never overwrite actual ClinVar records.
+      // If ClinVar has an authoritative record (even VUS, Conflicting, or B/LB), preserve it.
+      // If unrecorded in ClinVar, do NOT fabricate 'reported=true' or 'isPathogenic=true'.
       const clinvarRec = knownClinvarRecords[residuePos];
-      let isReported = Boolean(clinvarRec);
-      let isPlp = Boolean(
+      const isReported = Boolean(clinvarRec);
+      const isPlp = Boolean(
         clinvarRec?.significance === 'P' ||
         clinvarRec?.significance === 'LP' ||
         clinvarRec?.significance === 'P/LP'
       );
       let sigCode = clinvarRec?.significance || 'Candidate';
-      let sigLabel = clinvarRec?.rawSignificance || 'Candidate (In-Codon CpG)';
-
-      // Nonsense (stop codon) variants like CGA -> TGA trigger ACMG PVS1 nonsense truncation criteria
-      if (isStop) {
-        isReported = true;
-        isPlp = true;
-        sigCode = 'P';
-        sigLabel = 'Pathogenic (PVS1 Nonsense Hotspot)';
-      }
+      let sigLabel = clinvarRec?.rawSignificance || (isStop ? 'Candidate (PVS1 Nonsense Hotspot — Predicted LOF, Unreported in ClinVar)' : 'Candidate (In-Codon CpG)');
 
       const gnomadInfo = calculateGnomadScore(false, true, isPlp, Boolean(clinvarRec?.multipleSubmitters), c, undefined, geneSymbol, residuePos);
 
@@ -358,10 +350,10 @@ export function analyzeSequence(
           significanceCode: sigCode,
           significanceLabel: sigLabel,
           variationId: clinvarRec?.variationId,
-          reviewStatus: clinvarRec?.reviewStatus || (isStop ? 'ACMG PVS1 functional null truncation' : undefined),
+          reviewStatus: clinvarRec?.reviewStatus || (isStop ? 'Predicted LOF by sequence' : undefined),
           multipleSubmitters: clinvarRec?.multipleSubmitters,
-          clinicalSignificance: clinvarRec?.rawSignificance || (isStop ? 'Pathogenic' : undefined),
-          phenotype: clinvarRec?.condition || (isStop ? 'Collagen Truncation Syndrome' : undefined)
+          clinicalSignificance: clinvarRec?.rawSignificance || (isStop ? 'Predicted Truncation (PVS1)' : undefined),
+          phenotype: clinvarRec?.condition || (isStop ? 'Collagen Truncation Susceptibility' : undefined)
         },
         gnomad: {
           mutability: gnomadInfo.mutabilityRate,
@@ -630,10 +622,46 @@ export function analyzeSequence(
     inCodonReportedCount: inCodonReported
   };
 
-  // === T3 GNOMAD STATS ===
+  // === T3 GNOMAD STATS & MULTIPLE TESTING CORRECTION ===
   const deNovoCount = cpgDyads.filter(d => d.gnomad.classification === 'Prone to Recurrent De Novo Hotspot').length;
   const candCount = cpgDyads.filter(d => d.gnomad.classification === 'High Mutability Candidate Hotspot').length;
   const somaticCount = inCodonCpGs.length;
+
+  // === T3 Mutability Tier Stratification (Honest context ranking, no pseudo p-values) ===
+  const allTargetSites = [...cpgDyads, ...inCodonCpGs];
+  const top1PctCount = allTargetSites.filter(s => s.gnomad.percentile >= 99.0).length;
+  const highTierCount = allTargetSites.filter(s => s.gnomad.percentile >= 95.0).length;
+
+  // === Rigorous Population Cohort Testing (Poisson test on actual gnomAD allele counts) ===
+  // Null hypothesis H0: the locus mutates at the genome-wide baseline point mutation rate mu0 = 1.20e-8.
+  // Expected mutant allele count under H0: lambda0 = alleleNumber * mu0.
+  // Exact one-tailed Poisson test p-value: P(X >= alleleCount | lambda0).
+  const sitesWithObs = allTargetSites.filter(s => s.gnomad.alleleNumber !== undefined && s.gnomad.alleleCount !== undefined);
+  let cohortTestingResult: T3Stats['cohortTesting'] = undefined;
+
+  if (sitesWithObs.length > 0) {
+    const avgBaseline = 1.20e-8;
+    const poissonPs = sitesWithObs.map(s => {
+      const an = s.gnomad.alleleNumber || 0;
+      const ac = s.gnomad.alleleCount || 0;
+      const lambda0 = Math.max(1e-8, an * avgBaseline);
+      const p = accuratePoissonPValue(ac, lambda0);
+      s.gnomad.poissonPValue = Number(p.toFixed(5));
+      return p;
+    });
+
+    const fdrQs = adjustPValuesBH(poissonPs);
+    sitesWithObs.forEach((s, idx) => {
+      s.gnomad.poissonFdrQ = fdrQs[idx];
+      s.gnomad.isPoissonSignificant = fdrQs[idx] < 0.05;
+    });
+
+    cohortTestingResult = {
+      testedLociCount: sitesWithObs.length,
+      nominalSignificantCount: poissonPs.filter(p => p < 0.05).length,
+      fdrSignificantCount: fdrQs.filter(q => q < 0.05).length
+    };
+  }
 
   const cpgMutabilities = cpgDyads.map(d => d.gnomad.mutability);
   const avgMutabilityCpG = cpgMutabilities.length > 0
@@ -657,7 +685,13 @@ export function analyzeSequence(
     deNovoPredictedCount: deNovoCount,
     somaticDeNovoPredictedCount: somaticCount,
     candidateHotspotsCount: candCount,
-    lowRiskCount: Math.max(0, effectiveCodonCount - cpgDyadsCount - inCodonCpGs.length)
+    lowRiskCount: Math.max(0, effectiveCodonCount - cpgDyadsCount - inCodonCpGs.length),
+    mutabilityStratification: {
+      totalLoci: allTargetSites.length,
+      topPercentileCount: top1PctCount,
+      highPercentileCount: highTierCount
+    },
+    cohortTesting: cohortTestingResult
   };
 
   // === SEQUENCE LOGO FREQUENCY MATRIX ===

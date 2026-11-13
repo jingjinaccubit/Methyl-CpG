@@ -102,6 +102,11 @@ export interface CpGSite {
       | 'Candidate Hotspot (Unreported)'
       | 'Pathogenic (In-Codon CpG Hotspot)'
       | 'Pathogenic (Baseline Mutability)';
+    
+    // Rigorous statistical testing on real population observations (AC vs expected AN * baseline)
+    poissonPValue?: number; // True Poisson tail probability P(X >= AC | lambda = AN * baseline)
+    poissonFdrQ?: number;   // Benjamini-Hochberg FDR adjusted q-value on cohort tests
+    isPoissonSignificant?: boolean; // poissonFdrQ < 0.05
   };
 }
 
@@ -206,6 +211,20 @@ export interface T3Stats {
   somaticDeNovoPredictedCount: number;
   candidateHotspotsCount: number;
   lowRiskCount: number;
+
+  // Context-dependent Mutability Tier Stratification (Honest percentile distribution, no pseudo p-values)
+  mutabilityStratification: {
+    totalLoci: number;
+    topPercentileCount: number; // percentile >= 99.0% (top 1% mutability tier in exome)
+    highPercentileCount: number; // percentile >= 95.0%
+  };
+
+  // Rigorous Population Poisson Testing on real cohort counts (gnomAD AC vs expected AN * baseline)
+  cohortTesting?: {
+    testedLociCount: number;
+    nominalSignificantCount: number; // Poisson P < 0.05
+    fdrSignificantCount: number;     // BH FDR q < 0.05
+  };
 }
 
 export interface SequenceAnalysisResult {

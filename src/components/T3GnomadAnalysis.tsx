@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, Zap, Dna } from 'lucide-react';
+import { Activity, Zap, Dna, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import type { T3Stats, CpGSite } from '../types';
 
 interface T3GnomadAnalysisProps {
@@ -11,6 +11,7 @@ interface T3GnomadAnalysisProps {
 export const T3GnomadAnalysis: React.FC<T3GnomadAnalysisProps> = ({
   t3,
   cpgSites,
+  geneSymbol
 }) => {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8">
@@ -119,10 +120,44 @@ export const T3GnomadAnalysis: React.FC<T3GnomadAnalysisProps> = ({
         </div>
       </div>
 
+      {/* Context Mutability Stratification & Empirical Percentile Tier */}
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-200/70">
+          <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+            <ShieldCheck className="w-4 h-4 text-purple-600" />
+            <span>Trinucleotide Context Mutability Stratification (Karczewski 192 Matrix)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] font-semibold text-purple-800 bg-purple-50 border border-purple-200 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+              <CheckCircle2 className="w-3 h-3 text-purple-600" />
+              {t3.mutabilityStratification.topPercentileCount} of {t3.mutabilityStratification.totalLoci} Loci in Top 1% Exome Mutability Tier (&ge;99th percentile)
+            </span>
+          </div>
+        </div>
+        <p className="text-xs text-slate-600 m-0 mb-3 leading-relaxed">
+          Evaluates the biophysical vulnerability of each locus based on its flanking trinucleotide sequence context against the empirical 192-context mutability distribution. CpG sites in {geneSymbol} exhibit an average <strong>{t3.foldElevation}x</strong> mutational acceleration above the genome-wide baseline (1.20 &times; 10⁻⁸).
+        </p>
+
+        {/* If population cohort data exists with actual allele counts, show rigorous Poisson tests */}
+        {t3.cohortTesting && t3.cohortTesting.testedLociCount > 0 && (
+          <div className="mt-3 pt-3 border-t border-slate-200">
+            <div className="text-[11px] font-bold text-slate-700 mb-1.5 flex items-center justify-between">
+              <span>Population Cohort Poisson Testing (gnomAD Observed vs Expected under H0: μ = 1.20e-8)</span>
+              <span className="text-emerald-700 font-mono text-[10px]">
+                {t3.cohortTesting.fdrSignificantCount} of {t3.cohortTesting.testedLociCount} pass BH FDR q &lt; 0.05
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 m-0 leading-relaxed">
+              Hypothesis testing evaluates whether observed mutant allele counts in gnomAD v4 reference cohort (AN ~1.6M) significantly exceed neutral expectation. Benjamini-Hochberg (BH) FDR is applied exclusively to real cohort test p-values.
+            </p>
+          </div>
+        )}
+      </div>
+
       {/* Summary Table of Classification Status */}
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
         <div className="px-4 py-2.5 bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
-          <span>Target CpG Positions &amp; gnomAD Risk Stratification</span>
+          <span>Target CpG Positions &amp; Context Mutability Stratification</span>
           <span className="text-[11px] font-normal text-slate-500 lowercase">
             showing {cpgSites.length} CpG sites
           </span>
@@ -140,6 +175,18 @@ export const T3GnomadAnalysis: React.FC<T3GnomadAnalysisProps> = ({
                 <span className="font-mono text-[11px] text-slate-500">
                   μ = {site.gnomad.mutability.toExponential(2)}
                 </span>
+                <span className="font-mono text-[10px] bg-purple-50 text-purple-700 border border-purple-200 px-1.5 py-0.5 rounded font-medium">
+                  {site.gnomad.percentile >= 99.0 ? 'Top 1% Tier' : `${site.gnomad.percentile}th pct`}
+                </span>
+                {site.gnomad.poissonFdrQ !== undefined && (
+                  <span className={`font-mono text-[10px] px-1.5 py-0.5 rounded font-bold ${
+                    site.gnomad.isPoissonSignificant
+                      ? 'bg-emerald-100 text-emerald-800'
+                      : 'bg-slate-100 text-slate-600'
+                  }`}>
+                    Poisson FDR q = {site.gnomad.poissonFdrQ < 0.001 ? '<0.001' : site.gnomad.poissonFdrQ.toFixed(3)}
+                  </span>
+                )}
                 <span className="font-mono text-[10px] bg-slate-100 px-1.5 py-0.5 rounded text-slate-600">
                   {site.gnomad.alleleCount !== undefined
                     ? (site.gnomad.alleleCount > 0

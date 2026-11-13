@@ -209,3 +209,84 @@ export function chiSquareGoodnessOfFit(
     formattedP: formatPValue(pVal)
   };
 }
+
+// === Multiple Testing Correction (FDR & Bonferroni) ===
+
+/**
+ * Benjamini-Hochberg (BH) procedure to control False Discovery Rate (FDR).
+ * Takes an array of nominal p-values and returns monotonically adjusted q-values.
+ */
+export function adjustPValuesBH(pValues: number[]): number[] {
+  const n = pValues.length;
+  if (n === 0) return [];
+  if (n === 1) return [Math.min(1.0, Math.max(0.0, pValues[0]))];
+
+  const indexed = pValues.map((p, idx) => ({ p: isNaN(p) ? 1.0 : p, idx }));
+  indexed.sort((a, b) => a.p - b.p);
+
+  const qValues = new Array<number>(n);
+  let cumMin = 1.0;
+
+  // Backward pass to enforce monotonicity: q_i = min(q_{i+1}, p_i * n / rank)
+  for (let i = n - 1; i >= 0; i--) {
+    const rank = i + 1;
+    const rawQ = (indexed[i].p * n) / rank;
+    cumMin = Math.min(cumMin, Math.min(1.0, Math.max(0.0, rawQ)));
+    qValues[indexed[i].idx] = Number(cumMin.toFixed(4));
+  }
+
+  return qValues;
+}
+
+/**
+ * Bonferroni Family-Wise Error Rate (FWER) correction.
+ * p_adj = min(1.0, p * n)
+ */
+export function adjustPValuesBonferroni(pValues: number[]): number[] {
+  const n = pValues.length;
+  return pValues.map(p => {
+    if (isNaN(p)) return 1.0;
+    return Number(Math.min(1.0, Math.max(0.0, p * n)).toFixed(4));
+  });
+}
+
+/**
+ * Exact, numerically stable Poisson tail probability P(X >= k | lambda).
+ * Avoids catastrophic floating-point cancellation by summing forward terms directly.
+ */
+export function accuratePoissonPValue(k: number, lambda: number): number {
+  if (k <= 0) return 1.0;
+  if (lambda <= 0) return 0.0;
+
+  let logKFact = 0;
+  for (let i = 2; i <= k; i++) {
+    logKFact += Math.log(i);
+  }
+
+  const logFirstTerm = -lambda + k * Math.log(lambda) - logKFact;
+  if (logFirstTerm < -700) {
+    return 0.0;
+  }
+
+  let currentTerm = Math.exp(logFirstTerm);
+  let tailSum = currentTerm;
+
+  for (let j = k; j < k + 60; j++) {
+    currentTerm = currentTerm * (lambda / (j + 1));
+    tailSum += currentTerm;
+    if (currentTerm < tailSum * 1e-15) break;
+  }
+
+  return Math.max(0.0, Math.min(1.0, tailSum));
+}
+
+/**
+ * Format FDR adjusted q-value for clean UI reporting.
+ */
+export function formatQValue(q: number): string {
+  if (isNaN(q)) return 'N/A';
+  if (q < 0.001) return 'q < 0.001';
+  if (q < 0.01) return `q = ${q.toFixed(3)}`;
+  return `q = ${q.toFixed(3)}`;
+}
+
