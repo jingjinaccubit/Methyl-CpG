@@ -7,8 +7,8 @@ Usage:
   python3 scripts/export_lab_duplex_report.py \
     --sample-id "LAB-PATIENT-COL4A5-001" \
     --gene "COL4A5" \
-    --cdna "c.1871G>A" \
-    --amino-acid "p.Gly624Asp" \
+    --cdna "c.1876G>A" \
+    --amino-acid "p.Gly626Ser" \
     --instrument "Illumina NovaSeq 6000" \
     --run-id "FC_H3K5TDSX3_L2" \
     --output "my_lab_report.json"
@@ -39,7 +39,7 @@ def generate_report(sample_id, gene, cdna, amino_acid, instrument, run_id, outpu
             "gene": gene,
             "aminoAcidChange": amino_acid,
             "cdnaChange": cdna,
-            "targetSequence": "TCCACCAGGCCTTCCTGGATTTCCAGGTCTTCCTGGCCCTAAAGGTGAAATCGGAGTTCCAGGAATTCCTGGCTCCCCTGGTCTTAAAGGACTGCCAGGATGTGCCTGGTTTGCCAATTGCTGGAATTCCTGGGCCACCTGGTTCTCCTGGACACCCTGGACCCCCTGGTCCTCAAGGACCAAGTGGACCTCCTGGAG",
+            "targetSequence": "GCCTGGTGGAATTACTTTTAAGGGTGAAAGAGGTCCCCCTGGGAACCCAGGTTTACCAGGCCTCCCAGGGAATATAGGGCCTATGGGTCCCCCTGGTTTCGGCCCTCCAGGCCCAGTAGGTGAAAAAGGCATACAAGGTGTGGCAGGAAATCCAGGCCAGCCAGGAATACCAGGTCCTAAAGGGGATCCAGGTCAGACTAT",
             "hotspotIndex": 100,
             "initialMolecules": 8000,
             "targetVaf": 0.0006,
@@ -117,8 +117,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Export Lab Duplex Report to JSON")
     parser.add_argument("--sample-id", default="LAB-COL4A5-SAMPLE-01")
     parser.add_argument("--gene", default="COL4A5")
-    parser.add_argument("--cdna", default="c.1871G>A")
-    parser.add_argument("--amino-acid", default="p.Gly624Asp")
+    parser.add_argument("--cdna", default="c.1876G>A")
+    parser.add_argument("--amino-acid", default="p.Gly626Ser")
     parser.add_argument("--instrument", default="Illumina NovaSeq 6000")
     parser.add_argument("--run-id", default="RUN_20261110_L1")
     parser.add_argument("--output", default="lab_duplex_report.json")

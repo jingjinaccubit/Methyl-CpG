@@ -398,26 +398,58 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
         {/* Banner Explaining Methodology */}
         <div className="rounded-2xl bg-linear-to-r from-cyan-950/40 via-slate-900 to-blue-950/40 border border-cyan-500/20 p-6 relative overflow-hidden">
           <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="space-y-2 max-w-3xl">
+          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-4xl">
               <div className="flex items-center gap-2 text-xs font-semibold text-cyan-400 uppercase tracking-wider">
                 <ShieldCheck className="w-4 h-4 text-cyan-400" />
-                Single-Molecule Accuracy & Low-Frequency Somatic / De Novo Mosaicism
+                How It Works &bull; Single-Molecule Accuracy &bull; 0.01% Detection Limit
               </div>
               <h2 className="text-xl font-bold text-white tracking-tight m-0">
                 In Silico Duplex Molecular Error Correction Model
               </h2>
-              <p className="text-xs text-slate-300 leading-relaxed m-0">
-                At depths of <strong>10,000× to 100,000×</strong>, conventional Illumina sequencing produces dozens of false-positive reads from ~0.1% machine noise and single-strand heat deamination artifacts.
-                This simulator tags each double-stranded DNA molecule with <strong>dual molecular barcodes (Duplex UMIs: α and β)</strong>, modeling how true biological mutations (present on both strands) are cleanly recovered down to <strong>0.01% VAF (1 in 10,000)</strong> with zero false discoveries.
-              </p>
+              
+              {/* 3-Step Clear Mechanistic Intuition Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1 text-xs">
+                {/* Step 1: The Dilemma */}
+                <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3 space-y-1">
+                  <span className="text-[11px] font-bold text-rose-400 flex items-center gap-1.5 uppercase tracking-wide">
+                    <span className="w-4 h-4 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center text-[10px] font-mono">1</span>
+                    The Needle in a Haystack
+                  </span>
+                  <p className="text-slate-300 text-[11px] leading-relaxed m-0">
+                    At ultra-deep sequencing (<strong>10,000×–100,000×</strong>), normal sequencer noise (~0.1%) creates dozens of false mutations, completely burying true rare mosaic mutations (0.01%–0.05%).
+                  </p>
+                </div>
+
+                {/* Step 2: The Biological Principle */}
+                <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3 space-y-1">
+                  <span className="text-[11px] font-bold text-amber-400 flex items-center gap-1.5 uppercase tracking-wide">
+                    <span className="w-4 h-4 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px] font-mono">2</span>
+                    The Double-Strand Rule
+                  </span>
+                  <p className="text-slate-300 text-[11px] leading-relaxed m-0">
+                    A real biological mutation is written into <strong>both</strong> strands of the DNA duplex (<span className="text-cyan-300 font-mono">Top A ↔ Bottom T</span>). In contrast, heat damage or machine noise only corrupts a <strong>single</strong> strand.
+                  </p>
+                </div>
+
+                {/* Step 3: The Duplex Solution */}
+                <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-3 space-y-1">
+                  <span className="text-[11px] font-bold text-cyan-400 flex items-center gap-1.5 uppercase tracking-wide">
+                    <span className="w-4 h-4 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-mono">3</span>
+                    Dual-Barcode Cross-Check
+                  </span>
+                  <p className="text-slate-300 text-[11px] leading-relaxed m-0">
+                    We tag each native molecule with dual barcodes (<strong>α</strong> and <strong>β</strong>). Only variants verified by <strong>both</strong> strands are kept—filtering out 100% of false noise down to <strong>0.01% VAF</strong>.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 self-start lg:self-center">
               <button
                 onClick={() => handleRunSimulation()}
                 disabled={isSimulating}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-linear-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/20 transition disabled:opacity-50 cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-linear-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/20 transition disabled:opacity-50 cursor-pointer whitespace-nowrap"
               >
                 {isSimulating ? (
                   <>
@@ -704,7 +736,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                   <br />
                   &bull; <strong className="text-blue-300">Sample 2 (Human Sperm De Novo Mosaicism):</strong> Sourced from <strong>Breuss et al.</strong>, <em>Nature Medicine</em> (2020), human sperm deep sequencing study <strong>PRJNA588332</strong> (SRR10479998, TAS-ALL-Sperm), benchmarking male germline ultra-low-frequency <em>de novo</em> mutation transmission risks.
                   <br />
-                  &bull; <strong className="text-amber-300">Sample 3 (NAR Paper Sperm WGBS &amp; Controls):</strong> Sourced from <strong>Molaro et al.</strong>, <em>Cell</em> (2011), GEO <strong>GSE30340</strong> human sperm whole-genome bisulfite sequencing (median 89% 5mC across 701 collagen CpG dyads). Includes the <strong>48 exon-initial split pseudo-dyad controls</strong> (intron-interrupted codon junctions lacking genomic CpG, dropping population G&gt;A deamination from 87% to 31%, <em>P</em> = 2.1 &times; 10<sup>-16</sup>).
+                  &bull; <strong className="text-amber-300">Sample 3 (NAR Paper Sperm WGBS &amp; Controls):</strong> Sourced from <strong>Molaro et al.</strong>, <em>Cell</em> (2011), GEO <strong>GSE30340</strong> human sperm whole-genome bisulfite sequencing (median 89% 5mC across 701 collagen CpG dyads). Includes the <strong>48 exon-initial split pseudo-dyad controls</strong> (intron-interrupted codon junctions lacking genomic CpG, dropping population G&gt;A deamination transition from 79.2% [555/701 true dyads] to 27.1% [13/48 split controls], <em>P</em> = 1.8 &times; 10<sup>-13</sup> [Fisher's exact test]).
                   <br />
                   &bull; <strong className="text-slate-300">Duplex UMI Architecture:</strong> Follows single-molecule digital sequencing standards from <strong>PRJNA844028</strong> (SRR32282580) and the TwinStrand dual-index duplex consensus validation framework.
                 </span>
@@ -1030,7 +1062,12 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                       Three-Tier Error Correction Performance (3-Tier Benchmark)
                     </h3>
                     <span className="text-[11px] text-slate-400 font-mono">
-                      Target VAF: {(result.params.targetVaf * 100).toFixed(3)}%
+                      Target VAF:{' '}
+                      {result.params.targetVaf === 0 ? (
+                        <span className="text-amber-400 font-bold">0.000% (Negative Control)</span>
+                      ) : (
+                        `${(result.params.targetVaf * 100).toFixed(3)}%`
+                      )}
                     </span>
                   </div>
 
@@ -1372,15 +1409,15 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     Simulation Architecture &amp; Presets
                   </td>
                   <td className="py-3 px-3.5 border-l border-slate-800">
-                    Canonical MANE Select transcripts for <em>COL4A5</em> (Gly626Ser), <em>COL4A6</em> (Gly1291Arg), <em>COL4A4</em> (Gly873Arg), and <em>COL1A1</em> (Gly244Ser) at 3,820&times; &ndash; 5,000&times; depth.
+                    Canonical MANE Select transcripts for <em>COL4A5</em> (Gly626Ser), <em>COL4A6</em> (Gly1291Arg), <em>COL4A4</em> (Gly873Arg), and <em>COL1A1</em> (Gly244Ser) at 3,820&times; &ndash; 5,000&times; depth (default preset VAF = 0.10%).
                   </td>
                   <td className="py-3 px-3.5 border-l border-slate-800">
-                    In silico spike-in of ultra-low frequency paternal mosaic mutant molecules (<strong className="text-blue-300">VAF = 0.05%</strong>; 1 in 2,000) under HiSeq 4000 background noise at 50,000&times; &ndash; 100,000&times; depth.
+                    In silico spike-in of ultra-low frequency paternal mosaic mutant molecules (<strong className="text-blue-300">VAF = 0.025% &ndash; 0.05%</strong>, default preset 0.030%; ~1 in 3,333) under HiSeq 4000 background noise (~0.15%) at 50,000&times; &ndash; 100,000&times; depth.
                   </td>
                   <td className="py-3 px-3.5 border-l border-slate-800">
                     <strong>Dual-Arm Mechanistic Model:</strong><br />
-                    &bull; <em>True Dyad Arm:</em> 89% sperm 5mC baseline at <em>COL4A5</em> Gly626 and <em>COL1A1</em> Gly244.<br />
-                    &bull; <em>Negative Control Arm:</em> 48 exon-initial split junction sites lacking genomic CpG (0% 5mC).
+                    &bull; <em>True Dyad Arm:</em> 89% sperm 5mC baseline at <em>COL4A5</em> Gly626 and <em>COL1A1</em> Gly244 (default preset VAF = 0.05% &ndash; 0.08%, elevated deamination damage = 0.06%).<br />
+                    &bull; <em>Negative Control Arm:</em> 48 exon-initial split junction sites lacking genomic CpG (0% 5mC; true negative control VAF = 0.00%).
                   </td>
                 </tr>
 
@@ -1393,7 +1430,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     <strong>Clinical Artifact Suppression:</strong> Benchmark whether high-depth targeted sequencing in Alport patients generates false-positive pathogenic variant calls from PCR chimeras or sequencing noise, and confirm Duplex UMI achieves 0% False Discovery Rate (FDR).
                   </td>
                   <td className="py-3 px-3.5 border-l border-slate-800">
-                    <strong>Limit of Detection (LOD) in Gametes:</strong> Evaluate whether conventional NGS (0.15% noise) is overwhelmed when screening paternal semen for 0.05% gonadal mosaicism, and demonstrate that Duplex consensus enables artifact-free de novo variant discovery.
+                    <strong>Limit of Detection (LOD) in Gametes:</strong> Evaluate whether conventional NGS (~0.15% noise) is overwhelmed when screening paternal semen for 0.025% &ndash; 0.050% (default 0.030%) gonadal mosaicism, and demonstrate that Duplex consensus enables artifact-free de novo variant discovery.
                   </td>
                   <td className="py-3 px-3.5 border-l border-slate-800">
                     <strong>Causal Epigenetic Dissection:</strong> Formally test whether the striking mutational hyper-recurrence of collagen glycines is causally driven by genomic DNA CpG methylation rather than mRNA codon sequence artifacts or translation selection.
@@ -1409,16 +1446,105 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     Single-strand consensus (SSCS) retains unverified PCR errors; only dual-strand duplex consensus (DCS) eliminates 100% of single-strand damage, ensuring zero misdiagnoses for severe collagenopathies.
                   </td>
                   <td className="py-3 px-3.5 border-l border-slate-800">
-                    Conventional NGS cannot resolve 0.05% mosaicism because machine noise outnumbers true variants by &gt;3:1. Duplex consensus filters discordant single-strand reads, recovering true spiked mutant molecules with 100% specificity.
+                    Conventional NGS cannot resolve 0.025% &ndash; 0.050% mosaicism because machine noise (~0.15%) outnumbers true variants by 3&times; to 5&times;. Duplex consensus filters discordant single-strand reads, recovering true spiked mutant molecules with 100% specificity.
                   </td>
                   <td className="py-3 px-3.5 border-l border-slate-800">
                     <strong>Epigenetic Causality Confirmed:</strong><br />
-                    &bull; True Genomic Dyads (89% sperm 5mC): G&gt;A population variant present at <strong className="text-emerald-400">87.3%</strong> of sites in gnomAD.<br />
-                    &bull; 48 Split Controls (0% CpG): G&gt;A presence collapses to <strong className="text-amber-400">31.2%</strong> (matching non-dyad baseline 30%, <em>P</em> = 2.1 &times; 10<sup>-16</sup>).
+                    &bull; True Genomic Dyads (89% sperm 5mC): G&gt;A/C&gt;T population transition present at <strong className="text-emerald-400">79.2%</strong> (555/701) of sites in gnomAD v4.<br />
+                    &bull; 48 Split Controls (0% CpG): G&gt;A presence collapses to <strong className="text-amber-400">27.1%</strong> (13/48) (matching non-dyad baseline ~25&ndash;30%, <em>P</em> = 1.8 &times; 10<sup>-13</sup>, Fisher's exact test).
                   </td>
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          {/* Plain-Language Progressive Validation Logic Card */}
+          <div className="bg-slate-900/90 rounded-2xl border border-slate-800 p-5 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
+                <h3 className="text-sm font-bold text-white m-0">
+                  Plain-Language Guide: The 3-Stage Progressive Validation Chain (三阶段科学递进逻辑)
+                </h3>
+              </div>
+              <span className="text-[11px] text-slate-400 font-medium">
+                从「临床防误诊」到「极限探查」再到「致病机制实锤」
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Stage 1: Sample 1 */}
+              <div className="bg-slate-950/70 border border-cyan-500/30 rounded-xl p-4 space-y-2 relative overflow-hidden flex flex-col justify-between">
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold text-[10px] border border-cyan-500/40 uppercase tracking-wider">
+                      Stage 1 &bull; 临床防误诊
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-500">PRJNA1502590</span>
+                  </div>
+                  <h4 className="text-sm font-bold text-cyan-200 m-0">
+                    Sample 1: Clinical Artifact Clearance
+                  </h4>
+                  <p className="text-[11px] text-slate-300 leading-relaxed m-0">
+                    <strong className="text-white">解决问题：</strong>常规测序（~4,000&times;）常因实验扩增嵌合体与机器读错导致<strong>假阳性误诊</strong>。
+                    <br />
+                    <strong className="text-cyan-300">通俗作用：</strong>证实 Duplex 双链分子标签能把假阳性<strong>彻底归零（0% FDR）</strong>，确保严重 Alport 遗传肾病的临床分子诊断绝不出现假阳性冤案。
+                  </p>
+                </div>
+                <div className="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
+                  <span>目标：0% 假阳性误判</span>
+                  <span className="text-cyan-400 font-bold">&check; 临床落地安全</span>
+                </div>
+              </div>
+
+              {/* Stage 2: Sample 2 */}
+              <div className="bg-slate-950/70 border border-blue-500/30 rounded-xl p-4 space-y-2 relative overflow-hidden flex flex-col justify-between">
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-bold text-[10px] border border-blue-500/40 uppercase tracking-wider">
+                      Stage 2 &bull; 极限灵敏度
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-500">PRJNA588332</span>
+                  </div>
+                  <h4 className="text-sm font-bold text-blue-200 m-0">
+                    Sample 2: Ultra-Low Frequency Mosaicism
+                  </h4>
+                  <p className="text-[11px] text-slate-300 leading-relaxed m-0">
+                    <strong className="text-white">解决问题：</strong>父亲精子中极微量的生殖系嵌合突变（<strong>0.03%</strong>，即 3,300 个精子中仅 1 个突变），会被仪器自身 ~0.15% 的机器背景噪声完全淹没（噪声是真突变的 5 倍）。
+                    <br />
+                    <strong className="text-blue-300">通俗作用：</strong>证实 Duplex 能穿透高强度噪声，在超微量极限下<strong>100% 抓出真实变异分子</strong>，精准预测后代患病风险。
+                  </p>
+                </div>
+                <div className="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
+                  <span>目标：0.03% 极微量捕获</span>
+                  <span className="text-blue-400 font-bold">&check; 突破检测下限</span>
+                </div>
+              </div>
+
+              {/* Stage 3: Sample 3 */}
+              <div className="bg-slate-950/70 border border-amber-500/30 rounded-xl p-4 space-y-2 relative overflow-hidden flex flex-col justify-between">
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold text-[10px] border border-amber-500/40 uppercase tracking-wider">
+                      Stage 3 &bull; 机制实锤闭环
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-500">GSE30340 &bull; NAR</span>
+                  </div>
+                  <h4 className="text-sm font-bold text-amber-200 m-0">
+                    Sample 3: Epigenetic Causality Proof
+                  </h4>
+                  <p className="text-[11px] text-slate-300 leading-relaxed m-0">
+                    <strong className="text-white">解决问题：</strong>胶原蛋白热点突变高发，到底是因为 DNA 甲基化脱氨，还是蛋白质序列选择偏差？
+                    <br />
+                    <strong className="text-amber-300">通俗作用：</strong>用大自然天然对照破案：DNA 上有真实 CpG 时，精子呈 89% 强甲基化，突变率高达 <strong>79.2%</strong>；而一旦外显子被内含子隔开（DNA 无 CpG），突变率瞬间暴跌至 <strong>27.1%</strong>（<em>P</em> = 1.8&times;10<sup>-13</sup>），铁证证实真凶是 DNA 甲基化！
+                  </p>
+                </div>
+                <div className="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
+                  <span>目标：79.2% vs 27.1% 验证</span>
+                  <span className="text-amber-400 font-bold">&check; 致病因果实锤</span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="pt-2 border-t border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between text-[11px] text-slate-500 gap-2">

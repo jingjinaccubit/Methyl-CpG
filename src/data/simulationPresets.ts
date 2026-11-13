@@ -242,7 +242,7 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
     aminoAcidChange: 'Exon-Initial Gly (Split Pseudo-Dyad)',
     cdnaChange: 'Junction C|GGA (Interrupted by Intron in DNA)',
     syndrome: 'NAR Negative Control (mRNA looks like dyad; DNA has no CpG)',
-    clinicalSignificance: 'Negative Control: 0% Genomic CpG; gnomAD G>A rate drops from 87% to 31%',
+    clinicalSignificance: 'Negative Control: 0% Genomic CpG; gnomAD G>A deamination drops from 79.2% to 27.1% (P = 1.8e-13)',
     strand: '+',
     flankingSequence201bp:
       'TTCTTCTTTCCCTTTTCTTGTAGCTTTGCTTCATATTCTCCTCATTTCACATTCCCACCTTCTTTCCATTCTTTCTGCCTCCTTCCTTCCCTTTCCCAG' +
@@ -286,7 +286,7 @@ export const HOTSPOT_PRESETS: HotspotPreset[] = [
     aminoAcidChange: 'Exon-Initial Gly (Split Pseudo-Dyad)',
     cdnaChange: 'Junction C|GGT (Interrupted by Intron in DNA)',
     syndrome: 'NAR Negative Control (mRNA looks like dyad; DNA has no CpG)',
-    clinicalSignificance: 'Negative Control: gnomAD Population Frequency Matches Background (~30%)',
+    clinicalSignificance: 'Negative Control: gnomAD Population Transition Matches Non-CpG Background (27.1% vs 79.2% true dyads)',
     strand: '+',
     flankingSequence201bp:
       'TTACTTCTCTCTTTTCTTTTTAGCATTTTCTTTCTTCTTCATTCTTTTTCTTTTTTCCCTTTCTTTCTCTCTCCTTCCTGTCCCTTTTCTTTTTTCCAG' +

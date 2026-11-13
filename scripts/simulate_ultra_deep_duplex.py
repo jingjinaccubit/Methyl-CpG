@@ -13,7 +13,7 @@ def generate_random_umi(length=8):
     return ''.join(random.choices(['A', 'C', 'G', 'T'], k=length))
 
 def simulate_ultra_deep_duplex(
-    target_name="COL4A5_c.1871G>A (Alport Hotspot)",
+    target_name="COL4A5_c.1876G>A (Alport Hotspot Gly626Ser)",
     initial_molecules=6000,       # Initial unique double-stranded DNA molecules
     spike_vaf=0.0005,             # 0.05% true mutant allele frequency (3 out of 6000)
     avg_family_size=5,            # Raw reads per initial strand (Total raw depth ~ 60,000x)
