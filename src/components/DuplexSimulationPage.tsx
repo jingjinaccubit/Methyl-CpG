@@ -1464,11 +1464,11 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
                 <h3 className="text-sm font-bold text-white m-0">
-                  Plain-Language Guide: The 3-Stage Progressive Validation Chain (三阶段科学递进逻辑)
+                  Plain-Language Guide: The 3-Stage Progressive Validation Chain
                 </h3>
               </div>
               <span className="text-[11px] text-slate-400 font-medium">
-                从「临床防误诊」到「极限探查」再到「致病机制实锤」
+                From &ldquo;Clinical Diagnostic Safety&rdquo; &rarr; &ldquo;Extreme Sensitivity Limit&rdquo; &rarr; &ldquo;Biological Causality Proof&rdquo;
               </span>
             </div>
 
@@ -1478,7 +1478,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold text-[10px] border border-cyan-500/40 uppercase tracking-wider">
-                      Stage 1 &bull; 临床防误诊
+                      Stage 1 &bull; Clinical Fidelity
                     </span>
                     <span className="text-[10px] font-mono text-slate-500">PRJNA1502590</span>
                   </div>
@@ -1486,14 +1486,17 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     Sample 1: Clinical Artifact Clearance
                   </h4>
                   <p className="text-[11px] text-slate-300 leading-relaxed m-0">
-                    <strong className="text-white">解决问题：</strong>常规测序（~4,000&times;）常因实验扩增嵌合体与机器读错导致<strong>假阳性误诊</strong>。
+                    <strong className="text-white">The Challenge:</strong> Conventional clinical sequencing (~4,000&times;) frequently produces PCR chimeras and optical read noise that mimic pathogenic mutations, risking catastrophic misdiagnoses.
                     <br />
-                    <strong className="text-cyan-300">通俗作用：</strong>证实 Duplex 双链分子标签能把假阳性<strong>彻底归零（0% FDR）</strong>，确保严重 Alport 遗传肾病的临床分子诊断绝不出现假阳性冤案。
+                    <strong className="text-cyan-300">Plain Intuition:</strong> Proves Duplex UMI barcodes suppress false calls to <strong>absolute zero (0% FDR)</strong>, ensuring severe Alport syndrome is never wrongly diagnosed from sequencing noise.
                   </p>
                 </div>
                 <div className="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
-                  <span>目标：0% 假阳性误判</span>
-                  <span className="text-cyan-400 font-bold">&check; 临床落地安全</span>
+                  <span>Target: 0% False Positives</span>
+                  <span className="text-cyan-400 font-bold flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-cyan-400" />
+                    Clinical Safety Confirmed
+                  </span>
                 </div>
               </div>
 
@@ -1502,7 +1505,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-bold text-[10px] border border-blue-500/40 uppercase tracking-wider">
-                      Stage 2 &bull; 极限灵敏度
+                      Stage 2 &bull; Extreme Sensitivity
                     </span>
                     <span className="text-[10px] font-mono text-slate-500">PRJNA588332</span>
                   </div>
@@ -1510,14 +1513,17 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     Sample 2: Ultra-Low Frequency Mosaicism
                   </h4>
                   <p className="text-[11px] text-slate-300 leading-relaxed m-0">
-                    <strong className="text-white">解决问题：</strong>父亲精子中极微量的生殖系嵌合突变（<strong>0.03%</strong>，即 3,300 个精子中仅 1 个突变），会被仪器自身 ~0.15% 的机器背景噪声完全淹没（噪声是真突变的 5 倍）。
+                    <strong className="text-white">The Challenge:</strong> Paternal semen gonadal mosaicism can be as low as <strong>0.03%</strong> (only 1 mutant in ~3,300 sperm), completely buried beneath ~0.15% instrument machine noise (noise is 5&times; louder than signal).
                     <br />
-                    <strong className="text-blue-300">通俗作用：</strong>证实 Duplex 能穿透高强度噪声，在超微量极限下<strong>100% 抓出真实变异分子</strong>，精准预测后代患病风险。
+                    <strong className="text-blue-300">Plain Intuition:</strong> Demonstrates Duplex consensus slices through heavy sequencer noise, capturing genuine rare mutant molecules with <strong>100% sensitivity</strong> to reliably quantify transmission recurrence risk.
                   </p>
                 </div>
                 <div className="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
-                  <span>目标：0.03% 极微量捕获</span>
-                  <span className="text-blue-400 font-bold">&check; 突破检测下限</span>
+                  <span>Target: 0.03% Trace Recovery</span>
+                  <span className="text-blue-400 font-bold flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-blue-400" />
+                    Sub-Noise Detection
+                  </span>
                 </div>
               </div>
 
@@ -1526,7 +1532,7 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold text-[10px] border border-amber-500/40 uppercase tracking-wider">
-                      Stage 3 &bull; 机制实锤闭环
+                      Stage 3 &bull; Mechanistic Causality
                     </span>
                     <span className="text-[10px] font-mono text-slate-500">GSE30340 &bull; NAR</span>
                   </div>
@@ -1534,14 +1540,17 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                     Sample 3: Epigenetic Causality Proof
                   </h4>
                   <p className="text-[11px] text-slate-300 leading-relaxed m-0">
-                    <strong className="text-white">解决问题：</strong>胶原蛋白热点突变高发，到底是因为 DNA 甲基化脱氨，还是蛋白质序列选择偏差？
+                    <strong className="text-white">The Challenge:</strong> Are recurrent collagen glycine hotspots driven by spontaneous DNA CpG methylation deamination, or simply downstream protein structural selection?
                     <br />
-                    <strong className="text-amber-300">通俗作用：</strong>用大自然天然对照破案：DNA 上有真实 CpG 时，精子呈 89% 强甲基化，突变率高达 <strong>79.2%</strong>；而一旦外显子被内含子隔开（DNA 无 CpG），突变率瞬间暴跌至 <strong>27.1%</strong>（<em>P</em> = 1.8&times;10<sup>-13</sup>），铁证证实真凶是 DNA 甲基化！
+                    <strong className="text-amber-300">Plain Intuition:</strong> Harnesses Nature&rsquo;s built-in negative controls: when true genomic CpG is present, sperm shows 89% 5mC and gnomAD mutation frequency reaches <strong>79.2%</strong>; when split across an intron (DNA lacks CpG), mutation frequency collapses to <strong>27.1%</strong> (<em>P</em> = 1.8&times;10<sup>-13</sup>). Epigenetic causality confirmed!
                   </p>
                 </div>
                 <div className="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
-                  <span>目标：79.2% vs 27.1% 验证</span>
-                  <span className="text-amber-400 font-bold">&check; 致病因果实锤</span>
+                  <span>Target: 79.2% vs 27.1% Shift</span>
+                  <span className="text-amber-400 font-bold flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-amber-400" />
+                    Biological Causality Proven
+                  </span>
                 </div>
               </div>
             </div>
