@@ -17,6 +17,7 @@ import {
 import { GENE_CLINVAR_MAP, COL4A5_BENCHMARK_CPG, GENE_CLINVAR_BASELINE } from '../data/clinvarData';
 import { calculateGnomadScore } from '../data/gnomadModel';
 import { COLLAGEN_SPLIT_SITES } from '../data/collagenTable';
+import { predictTripleHelixDestabilization } from '../data/brodskyModel';
 
 export const CODON_MAP: Record<string, string> = {
   ATA: 'I', ATC: 'I', ATT: 'I', ATG: 'M',
@@ -242,6 +243,10 @@ export function analyzeSequence(
         const yaaIsSynonymous = yaaMutAA === prevAA;
         const yaaAaChangeName = `p.${AA_NAME_MAP[prevAA] || prevAA}${gIdx}${AA_NAME_MAP[yaaMutAA] || yaaMutAA}${yaaIsSynonymous ? ' (Synonymous)' : ''}`;
 
+        const nextCodon = gIdx < effectiveCodonCount - 1 ? codonsRaw[gIdx + 1] : undefined;
+        const nextAA = gIdx < effectiveCodonCount - 1 ? protRaw[gIdx + 1] : undefined;
+        const thermalStability = predictTripleHelixDestabilization(mutAA, prevAA, nextAA);
+
         cpgDyads.push({
           id: `dyad-${residuePos}`,
           type: 'dyad',
@@ -253,14 +258,15 @@ export function analyzeSequence(
           prevAA,
           codon: glyCodon,
           aa: 'G',
-          nextCodon: gIdx < effectiveCodonCount - 1 ? codonsRaw[gIdx + 1] : undefined,
-          nextAA: gIdx < effectiveCodonCount - 1 ? protRaw[gIdx + 1] : undefined,
+          nextCodon,
+          nextAA,
           junctionDna: `[${prevCodon}] [${glyCodon}]`,
           cDnaChange: cdnaChangeName,
           aaChange: aaChangeName,
           mutCodon,
           mutAA,
           substitutionClass: mutAA === 'R' ? 'High Destabilization (Arg)' : (mutAA === 'S' ? 'Moderate Destabilization (Ser)' : 'Other'),
+          thermalStability,
           senseDeamination: {
             yaaPos: gIdx,
             yaaAA: prevAA,
@@ -328,6 +334,10 @@ export function analyzeSequence(
 
       const gnomadInfo = calculateGnomadScore(false, true, isPlp, Boolean(clinvarRec?.multipleSubmitters), c, undefined, geneSymbol, residuePos);
 
+      const inCodonPrevAA = i > 0 ? protRaw[i - 1] : undefined;
+      const inCodonNextAA = i < effectiveCodonCount - 1 ? protRaw[i + 1] : undefined;
+      const thermalStability = predictTripleHelixDestabilization(mutAA, inCodonPrevAA, inCodonNextAA);
+
       inCodonCpGs.push({
         id: `incodon-${residuePos}`,
         type: 'incodon',
@@ -338,12 +348,15 @@ export function analyzeSequence(
         prevAA: i > 0 ? protRaw[i - 1] : '',
         codon: c,
         aa,
+        nextCodon: i < effectiveCodonCount - 1 ? codonsRaw[i + 1] : undefined,
+        nextAA: inCodonNextAA,
         junctionDna: `[${c}]`,
         cDnaChange: `c.${cDnaPos}C>T`,
         aaChange: `p.${AA_NAME_MAP[aa] || aa}${residuePos}${mutAALabel}`,
         mutCodon,
         mutAA,
         substitutionClass: isStop ? 'Nonsense (Stop Codon)' : 'Missense (In-Codon CpG)',
+        thermalStability,
         clinvar: {
           reported: isReported,
           isPathogenicOrLikely: isPlp,

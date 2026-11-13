@@ -81,6 +81,7 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
     if (filterMode === 'SPLIT') return Boolean(site.isSplitSite);
     if (filterMode === 'ARG') return site.mutAA === 'R';
     if (filterMode === 'SER') return site.mutAA === 'S';
+    if (filterMode === 'CATASTROPHIC') return (site.thermalStability?.predictedDeltaTm ?? 0) < -12.0;
     if (filterMode === 'PLP') return site.clinvar.isPathogenicOrLikely;
     if (filterMode === 'REPORTED') return site.clinvar.reported;
     if (filterMode === 'CANDIDATE') return !site.clinvar.isPathogenicOrLikely;
@@ -110,6 +111,10 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
       'Mutated_Codon',
       'Mutated_AA',
       'Destabilization_Class',
+      'Predicted_Delta_Tm_C',
+      'Steric_Clash_Severity',
+      'Flanking_Electrostatic',
+      'Biophysical_Rationale',
       'ClinVar_Significance',
       'ClinVar_Status',
       'Multiple_Submitters',
@@ -136,6 +141,10 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
       s.mutCodon,
       s.mutAA,
       s.substitutionClass,
+      s.thermalStability ? s.thermalStability.predictedDeltaTm.toFixed(1) : 'N/A',
+      s.thermalStability ? s.thermalStability.stericClashSeverity : 'N/A',
+      s.thermalStability ? s.thermalStability.electrostaticEffect : 'N/A',
+      s.thermalStability ? `"${s.thermalStability.biophysicalRationale.replace(/"/g, '""')}"` : 'N/A',
       s.clinvar.significanceCode,
       s.clinvar.significanceLabel,
       s.clinvar.multipleSubmitters ? 'Yes' : 'No',
@@ -259,6 +268,7 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
               { id: 'PLP', label: `P / LP Hotspots (${result.t2.cpgDyadPlpCount})` },
               { id: 'ARG', label: 'Gly→Arg (Severe)' },
               { id: 'SER', label: 'Gly→Ser (Moderate)' },
+              { id: 'CATASTROPHIC', label: 'ΔTm < -12°C' },
               { id: 'CANDIDATE', label: `⭐ Candidates (${result.t2.cpgDyadCandidateCount})` },
               { id: 'MULTI', label: 'Multi-Submitters' },
             ].map(f => (
@@ -286,7 +296,7 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
                 <th className="py-3 px-4">[Yaa][Gly] CpG Dyad</th>
                 <th className="py-3 px-4">cDNA Transition</th>
                 <th className="py-3 px-4">AA Substitution</th>
-                <th className="py-3 px-4">Destabilization Class</th>
+                <th className="py-3 px-4">Destabilization (Brodsky ΔTm)</th>
                 <th className="py-3 px-4">ClinVar Registry (P / LP)</th>
                 <th className="py-3 px-4">gnomAD De Novo Risk</th>
               </tr>
@@ -341,9 +351,35 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
                       {site.aaChange}
                     </td>
 
-                    {/* Destabilization Class */}
+                    {/* Destabilization Class (Brodsky Triple-Helix Thermodynamic Model) */}
                     <td className="py-3 px-4">
-                      {isArg ? (
+                      {site.thermalStability ? (
+                        <div className="flex flex-col gap-1">
+                          <span
+                            className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold w-fit ${
+                              site.thermalStability.predictedDeltaTm < -12.0
+                                ? 'bg-red-100 text-red-800 border border-red-200'
+                                : site.thermalStability.predictedDeltaTm < -9.0
+                                ? 'bg-rose-100 text-rose-800 border border-rose-200'
+                                : 'bg-amber-100 text-amber-800 border border-amber-200'
+                            }`}
+                            title={site.thermalStability.biophysicalRationale}
+                          >
+                            <Flame className="w-3 h-3 mr-1 shrink-0" />
+                            <span>
+                              {site.mutAA === 'R' ? 'Arg' : site.mutAA === 'S' ? 'Ser' : site.mutAA} (ΔTm {site.thermalStability.predictedDeltaTm}°C)
+                            </span>
+                          </span>
+                          <div className="text-[10px] text-slate-500 font-sans leading-tight">
+                            {site.thermalStability.destabilizationClass.split(' (')[0]}
+                            {site.thermalStability.electrostaticEffect !== 'Neutral Electrostatic' && (
+                              <span className="block text-[9.5px] text-slate-400 font-medium">
+                                • {site.thermalStability.electrostaticEffect}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      ) : isArg ? (
                         <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-800">
                           <Flame className="w-3 h-3 mr-1 text-rose-600" />
                           Severe (Gly→Arg)
@@ -491,6 +527,9 @@ export const T4Report: React.FC<T4ReportProps> = ({ result }) => {
             <div className="font-medium text-slate-500 shrink-0">
               Total {result.cpgDyads.length} CpG dyad sites identified in {result.geneSymbol}
             </div>
+          </div>
+          <div className="text-[11px] text-slate-500 border-t border-slate-200 pt-2 leading-relaxed">
+            <strong>Brodsky Thermodynamic Model:</strong> Triple-helix thermal melting point depression (&Delta;T<sub>m</sub>) is predicted using host-guest peptide substitution parameters (Persikov &amp; Brodsky, <em>J Biol Chem</em> 2000, 2004), accounting for core steric clashes (Arg &Delta;T<sub>m,base</sub> = -10.8&deg;C, Ser &Delta;T<sub>m,base</sub> = -6.4&deg;C) and flanking triplet electrostatic/conformational microenvironments (Pro rigidity bonus +1.5&deg;C, like-charge repulsion -2.2&deg;C, salt-bridge neutralization +1.2&deg;C).
           </div>
           <div className="text-[11px] text-slate-500 border-t border-slate-200 pt-2 leading-relaxed">
             <strong>Methodology &amp; Calibration Note:</strong> The published paper evaluated &ldquo;Alport syndrome-associated G&rarr;A variants reported in ClinVar&rdquo; in COL4A5 (10 of 12 dyad sites vs. 173 of 437 non-CpG sites, OR = 7.63 / ~7.6; 52 of 173 non-CpG multi-submitters, from the authors&rsquo; June 2024 analytical pipeline data freeze). This platform applies symmetrical Pathogenic / Likely Pathogenic (P/LP) filtering across all submitted phenotypes for each collagen gene. In the current snapshot ({CLINVAR_RELEASE_DATE}), COL4A5 non-CpG P/LP entries stand at 182 of 437 (OR = 7.01, 69 of 182 multi-submitters). The minor numerical shift reflects both phenotypic curation scope and ongoing ClinVar submission updates.

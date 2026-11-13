@@ -118,7 +118,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({ result }) 
         </div>
 
         {/* High Severity Substitutions (Arg) */}
-        <div className="bg-white rounded-xl p-4 border border-rose-200 bg-rose-50/20 shadow-2xs">
+        <div className="bg-white rounded-xl p-4 border border-rose-200 bg-rose-50/20 shadow-2xs" title="Brodsky-Persikov model: Gly→Arg introduces bulky charged guanidinium group into packed triple-helix core (ΔTm base -10.8°C), causing -7 yrs earlier ESKD onset in Alport syndrome.">
           <div className="flex items-center justify-between text-rose-700 mb-1.5">
             <span className="text-xs font-bold uppercase">Severe (Gly→Arg)</span>
             <Flame className="w-4 h-4 text-rose-600" />
@@ -127,12 +127,12 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({ result }) 
             {argCount}
           </div>
           <div className="text-[11px] text-rose-700 mt-1 font-medium">
-            -7 yrs kidney failure onset
+            -7 yrs ESKD (ΔTm ≈ -10.8°C)
           </div>
         </div>
 
         {/* Moderate Substitutions (Ser) */}
-        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-2xs">
+        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-2xs" title="Brodsky-Persikov model: Gly→Ser introduces polar hydroxyl with lower steric hindrance (ΔTm base -6.4°C), producing comparatively milder disease phenotype.">
           <div className="flex items-center justify-between text-slate-500 mb-1.5">
             <span className="text-xs font-semibold uppercase">Moderate (Gly→Ser)</span>
             <AlertTriangle className="w-4 h-4 text-amber-500" />
@@ -141,7 +141,7 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({ result }) 
             {serCount}
           </div>
           <div className="text-[11px] text-slate-500 mt-1">
-            Less destabilizing class
+            Milder phenotype (ΔTm ≈ -6.4°C)
           </div>
         </div>
       </div>

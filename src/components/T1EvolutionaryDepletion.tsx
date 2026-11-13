@@ -62,8 +62,13 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
             <div className="text-xl font-bold text-slate-900 mb-1">
               Odds Ratio: <span className="font-mono text-blue-700">{t1.oddsRatioGenome.or.toFixed(2)}</span>
             </div>
-            <div className="text-xs text-slate-600 font-mono mb-2">
-              95% CI: [{t1.oddsRatioGenome.ciLower.toFixed(2)} - {t1.oddsRatioGenome.ciUpper.toFixed(2)}] • {t1.oddsRatioGenome.formattedP}
+            <div className="text-xs text-slate-600 font-mono mb-2 flex items-center gap-1.5 flex-wrap">
+              <span>95% CI: [{t1.oddsRatioGenome.ciLower.toFixed(2)} - {t1.oddsRatioGenome.ciUpper.toFixed(2)}] • {t1.oddsRatioGenome.formattedP}</span>
+              {t1.oddsRatioGenome.isBootstrapped && (
+                <span className="text-[10px] font-sans font-semibold bg-blue-100 text-blue-800 px-1.5 py-0.2 rounded border border-blue-200" title="Monte Carlo Bootstrapped Percentile CI (B=10,000) for small-sample robustness">
+                  Bootstrapped (B=10k)
+                </span>
+              )}
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
               In {geneSymbol}, <strong className="text-slate-800">{t1.cpgDyadsCount} of {t1.collagenousGlycines} ({t1.cpgDyadsPct}%)</strong> collagenous glycines have a preceding cytosine in mRNA
@@ -97,8 +102,13 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
             <div className="text-xl font-bold text-slate-900 mb-1">
               Odds Ratio: <span className="font-mono text-indigo-700">{t1.oddsRatioNoncoll.or.toFixed(2)}</span>
             </div>
-            <div className="text-xs text-slate-600 font-mono mb-2">
-              95% CI: [{t1.oddsRatioNoncoll.ciLower.toFixed(2)} - {t1.oddsRatioNoncoll.ciUpper.toFixed(2)}] • {t1.oddsRatioNoncoll.formattedP}
+            <div className="text-xs text-slate-600 font-mono mb-2 flex items-center gap-1.5 flex-wrap">
+              <span>95% CI: [{t1.oddsRatioNoncoll.ciLower.toFixed(2)} - {t1.oddsRatioNoncoll.ciUpper.toFixed(2)}] • {t1.oddsRatioNoncoll.formattedP}</span>
+              {t1.oddsRatioNoncoll.isBootstrapped && (
+                <span className="text-[10px] font-sans font-semibold bg-indigo-100 text-indigo-800 px-1.5 py-0.2 rounded border border-indigo-200" title="Monte Carlo Bootstrapped Percentile CI (B=10,000) for small-sample robustness">
+                  Bootstrapped (B=10k)
+                </span>
+              )}
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
               Other codons across {geneSymbol} carry <strong className="text-slate-800">{t1.noncollagenousDyadsCount} of {t1.noncollagenousCodons} ({t1.noncollagenousDyadsPct}%)</strong> ending in C, demonstrating that depletion of cytosine is specifically heightened directly before collagenous glycines.
@@ -121,8 +131,13 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
             <div className="text-xl font-bold text-slate-900 mb-1">
               Odds Ratio: <span className="font-mono text-slate-800">{t1.gInitialAminoAcids.metric.or.toFixed(2)}</span>
             </div>
-            <div className="text-xs text-slate-600 font-mono mb-2">
-              95% CI: [{t1.gInitialAminoAcids.metric.ciLower.toFixed(2)} - {t1.gInitialAminoAcids.metric.ciUpper.toFixed(2)}] • {t1.gInitialAminoAcids.metric.formattedP}
+            <div className="text-xs text-slate-600 font-mono mb-2 flex items-center gap-1.5 flex-wrap">
+              <span>95% CI: [{t1.gInitialAminoAcids.metric.ciLower.toFixed(2)} - {t1.gInitialAminoAcids.metric.ciUpper.toFixed(2)}] • {t1.gInitialAminoAcids.metric.formattedP}</span>
+              {t1.gInitialAminoAcids.metric.isBootstrapped && (
+                <span className="text-[10px] font-sans font-semibold bg-slate-200 text-slate-800 px-1.5 py-0.2 rounded border border-slate-300" title="Monte Carlo Bootstrapped Percentile CI (B=10,000) for small-sample robustness">
+                  Bootstrapped (B=10k)
+                </span>
+              )}
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
               Codons of other guanine-initial amino acids in {geneSymbol} carry preceding C in <strong className="text-slate-800">{t1.gInitialAminoAcids.controlDyadCount} of {t1.gInitialAminoAcids.controlTotal}</strong> sites, confirming general methyl-CpG depletion across all G-initial codons.
@@ -254,18 +269,22 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-[11px] leading-relaxed">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 pt-2 text-[11px] leading-relaxed">
               <div className="bg-white p-3 rounded-lg border border-slate-200">
-                <strong className="text-slate-800 block mb-1">Why Genome-Wide Comparison is Scientifically Appropriate:</strong>
+                <strong className="text-slate-800 block mb-1">Why Genome-Wide Comparison is Appropriate:</strong>
                 Due to spontaneous 5mC hydrolytic deamination over evolutionary time, CpG dinucleotides are universally depleted across mammalian genomes (global CpG depletion). The 14.31% frequency represents the neutral background equilibrium rate of adjacent-codon C-G junctions across all 732,543 coding junctions in the MANE Select human reference. Depletion of collagenous Gly dyads below this baseline (OR &lt; 1, P &lt; 0.05) proves the action of heightened structural purifying selection against mutagenic hotspots.
               </div>
               <div className="bg-white p-3 rounded-lg border border-slate-200">
-                <strong className="text-slate-800 block mb-1">Split Pseudo-Dyads as Natural Internal Controls:</strong>
+                <strong className="text-slate-800 block mb-1">Split Pseudo-Dyads as Natural Controls:</strong>
                 When a Yaa and Gly codon are separated by an intron, their mRNA junction creates a &ldquo;split pseudo-dyad&rdquo; that does not exist as a contiguous CpG in genomic DNA, rendering it immune to genomic 5mC deamination. JASN demonstrated that split sites are retained at expected frequencies while true genomic dyads are severely purged&mdash;providing a definitive internal biological negative control.
               </div>
               <div className="bg-white p-3 rounded-lg border border-slate-200">
-                <strong className="text-slate-800 block mb-1">Dual-Strand Symmetry (Antisense G&rarr;A vs Sense C&rarr;T):</strong>
+                <strong className="text-slate-800 block mb-1">Dual-Strand Symmetry (G&rarr;A vs C&rarr;T):</strong>
                 A CpG dyad undergoes 5mC deamination on both strands. On the antisense strand, C&rarr;T manifests as Glycine G&rarr;A (missense loss of Gly), devastating the triple helix and facing rigorous purifying selection. On the sense strand, C&rarr;T mutates the 3rd base of Yaa (e.g. Pro CCC&rarr;CCT, His CAC&rarr;CAT), which is predominantly <em>synonymous (silent)</em>, demonstrating why selection is asymmetric despite symmetric chemical deamination.
+              </div>
+              <div className="bg-white p-3 rounded-lg border border-slate-200">
+                <strong className="text-slate-800 block mb-1">Small-Sample Monte Carlo Bootstrap (B=10k):</strong>
+                For contingency tables with rare cell counts (&le; 5), the standard Woolf logit asymptotic approximation is unreliable. We implement a Monte Carlo parametric bootstrap (B=10,000 resamples from Binomial distributions) to compute robust empirical 2.5% and 97.5% percentile confidence limits.
               </div>
             </div>
           </div>

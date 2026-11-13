@@ -1,3 +1,5 @@
+import type { TripleHelixThermodynamicProfile } from '../data/brodskyModel';
+
 export interface CollagenGeneInfo {
   type: string; // e.g. 'Type I', 'Type IV'
   gene: string; // e.g. 'COL4A5'
@@ -108,6 +110,9 @@ export interface CpGSite {
     poissonFdrQ?: number;   // Benjamini-Hochberg FDR adjusted q-value on cohort tests
     isPoissonSignificant?: boolean; // poissonFdrQ < 0.05
   };
+
+  // Brodsky-Persikov triple-helix thermodynamic stability prediction (Module D)
+  thermalStability?: TripleHelixThermodynamicProfile;
 }
 
 export interface StatisticalMetric {
@@ -116,6 +121,8 @@ export interface StatisticalMetric {
   ciUpper: number;
   pValue: number;
   formattedP: string;
+  isBootstrapped?: boolean; // True when Monte Carlo bootstrap was applied for small sample sizes
+  bootstrapIterations?: number; // e.g. 10000
 }
 
 export interface T1Stats {

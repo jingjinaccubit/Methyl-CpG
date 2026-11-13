@@ -88,6 +88,122 @@ export function calculateOddsRatio(a: number, b: number, c: number, d: number): 
   return { or, ciLower, ciUpper };
 }
 
+/**
+ * Fast binomial random variate generator.
+ * Combines exact Bernoulli trials for n <= 60, Poisson approximation when rare events (np <= 10 or n(1-p) <= 10),
+ * and Box-Muller Gaussian approximation for larger sample sizes.
+ */
+function sampleBinomial(n: number, p: number): number {
+  if (n <= 0 || p <= 0) return 0;
+  if (p >= 1) return n;
+
+  if (n <= 60) {
+    let successes = 0;
+    for (let i = 0; i < n; i++) {
+      if (Math.random() < p) successes++;
+    }
+    return successes;
+  }
+
+  const np = n * p;
+  const nq = n * (1 - p);
+
+  if (np <= 10) {
+    const L = Math.exp(-np);
+    let k = 0;
+    let pProd = 1;
+    do {
+      k++;
+      pProd *= Math.random();
+    } while (pProd > L);
+    return Math.min(n, k - 1);
+  }
+
+  if (nq <= 10) {
+    const L = Math.exp(-nq);
+    let k = 0;
+    let pProd = 1;
+    do {
+      k++;
+      pProd *= Math.random();
+    } while (pProd > L);
+    return Math.max(0, n - (k - 1));
+  }
+
+  const u1 = Math.max(1e-15, Math.random());
+  const u2 = Math.random();
+  const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+  const sample = Math.round(np + Math.sqrt(np * (1 - p)) * z);
+  return Math.max(0, Math.min(n, sample));
+}
+
+/**
+ * Monte Carlo Bootstrapped Odds Ratio Confidence Interval.
+ * When contingency table counts are small (cell count <= 5), the Woolf logit normal
+ * approximation suffers from severe small-sample bias.
+ * This function performs parametric bootstrap resampling from two independent
+ * binomial distributions Bin(n1, p1) and Bin(n2, p2) for B iterations,
+ * deriving empirical 2.5% and 97.5% percentile confidence limits.
+ *
+ * @param a Group 1 positive
+ * @param b Group 1 negative
+ * @param c Group 2 positive
+ * @param d Group 2 negative
+ * @param iterations Number of bootstrap replicates (default 10,000)
+ */
+export function calculateBootstrappedOddsRatio(
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  iterations: number = 10000
+): { or: number; ciLower: number; ciUpper: number; bootstrapIterations: number } {
+  const n1 = a + b;
+  const n2 = c + d;
+
+  if (n1 === 0 || n2 === 0) {
+    return { or: NaN, ciLower: NaN, ciUpper: NaN, bootstrapIterations: iterations };
+  }
+
+  // Point estimate: Haldane-Anscombe if zero cell present, else standard (a*d)/(b*c)
+  const hasZero = a === 0 || b === 0 || c === 0 || d === 0;
+  const pointOr = hasZero
+    ? ((a + 0.5) * (d + 0.5)) / ((b + 0.5) * (c + 0.5))
+    : (a * d) / (b * c);
+
+  // Maximum likelihood / Laplace-smoothed proportions
+  const p1 = (a + 0.5) / (n1 + 1.0);
+  const p2 = (c + 0.5) / (n2 + 1.0);
+
+  const boots = new Float64Array(iterations);
+
+  for (let i = 0; i < iterations; i++) {
+    const aStar = sampleBinomial(n1, p1);
+    const bStar = n1 - aStar;
+    const cStar = sampleBinomial(n2, p2);
+    const dStar = n2 - cStar;
+
+    // Standard 0.5 smoothing for odds ratio during bootstrap draws
+    const orStar = ((aStar + 0.5) * (dStar + 0.5)) / ((bStar + 0.5) * (cStar + 0.5));
+    boots[i] = orStar;
+  }
+
+  boots.sort();
+
+  const lowerIdx = Math.floor(iterations * 0.025);
+  const upperIdx = Math.floor(iterations * 0.975);
+
+  const ciLower = boots[lowerIdx];
+  const ciUpper = boots[upperIdx];
+
+  return {
+    or: pointOr,
+    ciLower,
+    ciUpper,
+    bootstrapIterations: iterations
+  };
+}
+
 export function formatPValue(p: number): string {
   if (isNaN(p)) return 'N/A';
   if (p < 0.001) return 'P < 0.001';
@@ -96,8 +212,8 @@ export function formatPValue(p: number): string {
 }
 
 export function computeStatisticalMetric(a: number, b: number, c: number, d: number): StatisticalMetric {
-  const { or, ciLower, ciUpper } = calculateOddsRatio(a, b, c, d);
-  if (isNaN(or)) {
+  // If row or column marginal totals are zero, the odds ratio is undefined / not applicable
+  if (a + b === 0 || c + d === 0 || a + c === 0 || b + d === 0) {
     return {
       or: NaN,
       ciLower: NaN,
@@ -106,13 +222,33 @@ export function computeStatisticalMetric(a: number, b: number, c: number, d: num
       formattedP: 'N/A'
     };
   }
+
   const pVal = fishersExactTest(a, b, c, d);
+  const minCell = Math.min(a, b, c, d);
+
+  // For small cell frequencies (<= 5), Woolf logit approximation fails asymptotic normality.
+  // We use Monte Carlo Bootstrapped Percentile Confidence Intervals (B = 10,000) for robust estimation.
+  if (minCell <= 5) {
+    const boot = calculateBootstrappedOddsRatio(a, b, c, d, 10000);
+    return {
+      or: Number(boot.or.toFixed(2)),
+      ciLower: Number(boot.ciLower.toFixed(2)),
+      ciUpper: Number(boot.ciUpper.toFixed(2)),
+      pValue: pVal,
+      formattedP: formatPValue(pVal),
+      isBootstrapped: true,
+      bootstrapIterations: boot.bootstrapIterations
+    };
+  }
+
+  const { or, ciLower, ciUpper } = calculateOddsRatio(a, b, c, d);
   return {
     or: Number(or.toFixed(2)),
     ciLower: Number(ciLower.toFixed(2)),
     ciUpper: Number(ciUpper.toFixed(2)),
     pValue: pVal,
-    formattedP: formatPValue(pVal)
+    formattedP: formatPValue(pVal),
+    isBootstrapped: false
   };
 }
 
