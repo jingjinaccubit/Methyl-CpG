@@ -344,8 +344,9 @@ export function runDuplexSimulation(params: DuplexSimParams): DuplexSimResult {
   const sscsObservedVaf = sscsTotal > 0 ? (sscsMutant / sscsTotal) * 100 : 0;
   const dcsObservedVaf = dcsTotal > 0 ? (dcsMutant / dcsTotal) * 100 : 0;
 
+  const trueMutantsDetected = Math.max(0, dcsMutant - falsePositives);
   const sensitivity =
-    trueMutantCount > 0 ? (Math.min(trueMutantCount, dcsMutant) / trueMutantCount) * 100 : 100;
+    trueMutantCount > 0 ? (trueMutantsDetected / trueMutantCount) * 100 : 100;
   const fdr =
     dcsMutant > 0 ? (falsePositives / dcsMutant) * 100 : 0;
 
@@ -373,7 +374,7 @@ export function runDuplexSimulation(params: DuplexSimParams): DuplexSimResult {
     dcsMutantCalls: dcsMutant,
     dcsObservedVaf,
     trueMutantsInjected: trueMutantCount,
-    trueMutantsDetected: dcsMutant - falsePositives,
+    trueMutantsDetected,
     falsePositivesDetected: falsePositives,
     discordantRejected: discordantCount,
     sensitivity,

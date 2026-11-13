@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flame, ShieldCheck, AlertCircle, FileSearch, Info } from 'lucide-react';
+import { Flame, ShieldCheck, AlertCircle, FileSearch, Info, AlertTriangle } from 'lucide-react';
 import type { T2Stats, CpGSite } from '../types';
 import { CLINVAR_RELEASE_DATE } from '../data/clinvarData';
 
@@ -130,6 +130,21 @@ export const T2ClinVarAnalysis: React.FC<T2ClinVarAnalysisProps> = ({
           </p>
         </div>
       </div>
+
+      {/* Missing Baseline Data Warning */}
+      {!t2.hasBaselineData && (
+        <div className="bg-amber-50 border-2 border-amber-300 rounded-xl p-4 text-amber-900 mb-6 flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div>
+            <h4 className="font-bold text-sm m-0 text-amber-950">
+              ClinVar Baseline Data Not Available for {geneSymbol}
+            </h4>
+            <p className="text-xs text-amber-800 m-0 mt-1 leading-relaxed">
+              No curated ClinVar baseline statistics are available for this gene. The non-CpG P/LP comparison column shows raw counts from sequence analysis only (non-CpG P/LP = 0). Odds Ratio and multi-submitter enrichment comparisons may not be meaningful. CpG-site–level ClinVar annotations (individual variant lookups) remain valid.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Methodology Calibration Note */}
       <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 text-xs mb-6">

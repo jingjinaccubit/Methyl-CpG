@@ -471,9 +471,10 @@ export function analyzeSequence(
   // Real ClinVar baseline statistics from whole-gene ClinVar single-nucleotide missense database
   // COL4A5 benchmark baseline from paper: 182 of 437 non-CpG glycines P/LP, 69 multiple submitters
   const baseline = GENE_CLINVAR_BASELINE[geneSymbol];
-  const nonCpgTotal = baseline ? baseline.nonCpgTotal : (geneSymbol === 'COL4A5' ? 437 : Math.max(1, collGlyCount - cpgDyadsCount));
-  const nonCpgPlp = baseline ? baseline.nonCpgPlp : (geneSymbol === 'COL4A5' ? 182 : Math.round(collGlyCount * 0.30));
-  const nonCpgMulti = baseline ? baseline.nonCpgMulti : (geneSymbol === 'COL4A5' ? 69 : Math.round(nonCpgPlp * 0.38));
+  const hasBaselineData = !!baseline;
+  const nonCpgTotal = baseline ? baseline.nonCpgTotal : Math.max(1, collGlyCount - cpgDyadsCount);
+  const nonCpgPlp = baseline ? baseline.nonCpgPlp : 0;
+  const nonCpgMulti = baseline ? baseline.nonCpgMulti : 0;
 
   // Symmetrical comparison for Pathogenic / Likely Pathogenic missense variants:
   // CpG: cpgPlp of cpgDyadsCount vs Non-CpG: nonCpgPlp of nonCpgTotal
@@ -533,7 +534,8 @@ export function analyzeSequence(
     nonCpgMultiSubmittersCount: nonCpgMulti,
     nonCpgMultiSubmittersPct: nonCpgPlp > 0 ? Number(((nonCpgMulti / nonCpgPlp) * 100).toFixed(1)) : 0,
     multiSubmitterOddsRatio: orT2Multi,
-    knownVariantsCount: Object.keys(knownClinvarRecords).length || (geneSymbol === 'COL4A5' ? 707 : cpgReported)
+    knownVariantsCount: Object.keys(knownClinvarRecords).length || (geneSymbol === 'COL4A5' ? 707 : cpgReported),
+    hasBaselineData
   };
 
   // === T3 GNOMAD STATS ===

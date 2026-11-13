@@ -161,6 +161,7 @@ export interface T2Stats {
   multiSubmitterOddsRatio: StatisticalMetric;
 
   knownVariantsCount: number;
+  hasBaselineData: boolean; // true if curated ClinVar baseline exists; false triggers UI warning
 }
 
 export interface T3Stats {
