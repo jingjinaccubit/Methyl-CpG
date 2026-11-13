@@ -101,6 +101,7 @@ export interface T1Stats {
   cpgDyadsPct: number;
   trueGenomicDyadsCount?: number;
   splitSitesCount?: number;
+  hasSplitSiteAnnotation: boolean; // true if gene has curated exon-intron boundary split site annotations
   genomeDyadsPct: number; // 14.3% from paper (104,875 of 732,543)
   noncollagenousDyadsCount: number;
   noncollagenousDyadsPct: number;

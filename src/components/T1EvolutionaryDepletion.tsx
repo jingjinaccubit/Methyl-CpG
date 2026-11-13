@@ -1,5 +1,5 @@
-import React from 'react';
-import { TrendingDown, CheckCircle2, Info, AlertCircle, Minus } from 'lucide-react';
+import React, { useState } from 'react';
+import { TrendingDown, CheckCircle2, Info, AlertCircle, Minus, HelpCircle, ChevronDown, ChevronUp, ShieldCheck } from 'lucide-react';
 import type { T1Stats } from '../types';
 
 interface T1EvolutionaryDepletionProps {
@@ -11,6 +11,7 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
   t1,
   geneSymbol,
 }) => {
+  const [showMethodology, setShowMethodology] = useState<boolean>(false);
   const isDepleted = !isNaN(t1.oddsRatioGenome.or) && t1.oddsRatioGenome.or < 1 && t1.oddsRatioGenome.pValue < 0.05;
   const isEnriched = !isNaN(t1.oddsRatioGenome.or) && t1.oddsRatioGenome.or > 1 && t1.oddsRatioGenome.pValue < 0.05;
 
@@ -66,9 +67,17 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
               In {geneSymbol}, <strong className="text-slate-800">{t1.cpgDyadsCount} of {t1.collagenousGlycines} ({t1.cpgDyadsPct}%)</strong> collagenous glycines have a preceding cytosine in mRNA
-              {t1.splitSitesCount && t1.splitSitesCount > 0 ? (
-                <> (<strong>{t1.trueGenomicDyadsCount}</strong> true genomic CpG dyads, <strong>{t1.splitSitesCount}</strong> split at intron-exon boundaries)</>
-              ) : null}, compared to <strong className="text-slate-800">14.3%</strong> across human coding genes (MANE Select).
+              {t1.hasSplitSiteAnnotation ? (
+                t1.splitSitesCount && t1.splitSitesCount > 0 ? (
+                  <> (<strong>{t1.trueGenomicDyadsCount}</strong> true genomic CpG dyads, <strong className="text-amber-700">{t1.splitSitesCount}</strong> split pseudo-dyads across exon junctions)</>
+                ) : (
+                  <> (all <strong>{t1.cpgDyadsCount}</strong> verified contiguous genomic dyads)</>
+                )
+              ) : (
+                <span className="block mt-1 text-[11px] text-slate-400 italic">
+                  *Split site detection unavailable for custom sequence (evaluated at mRNA junction level)
+                </span>
+              )}, compared to <strong className="text-slate-800">14.3%</strong> across human coding genes (MANE Select).
             </p>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-200 text-[11px] text-blue-800 font-medium">
@@ -183,6 +192,80 @@ export const T1EvolutionaryDepletion: React.FC<T1EvolutionaryDepletionProps> = (
             </span>
           </div>
         </div>
+      </div>
+
+      {/* Methodology, 2x2 Contingency Table & Split-Site Controls Note */}
+      <div className="mt-5 pt-4 border-t border-slate-100">
+        <button
+          onClick={() => setShowMethodology(!showMethodology)}
+          className="flex items-center justify-between w-full text-left text-xs font-semibold text-slate-700 hover:text-blue-600 transition-colors py-1 cursor-pointer"
+        >
+          <span className="flex items-center gap-1.5">
+            <HelpCircle className="w-3.5 h-3.5 text-blue-600" />
+            <span>Methodology: 2×2 Contingency Table, MANE Select Baseline &amp; Split Pseudo-Dyad Controls</span>
+          </span>
+          {showMethodology ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+        </button>
+
+        {showMethodology && (
+          <div className="mt-3 p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 space-y-3">
+            <div>
+              <h5 className="font-bold text-slate-800 text-xs mb-1.5 flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                2×2 Contingency Matrix for Fisher&rsquo;s Exact Test (Genome Comparison)
+              </h5>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-[11px] bg-white rounded-lg overflow-hidden border border-slate-200">
+                  <thead className="bg-slate-100 text-slate-700 border-b border-slate-200 font-semibold">
+                    <tr>
+                      <th className="p-2 border-r border-slate-200">Cohort / Category</th>
+                      <th className="p-2 border-r border-slate-200">Preceding Codon Ends in &lsquo;C&rsquo; (CpG Dyad)</th>
+                      <th className="p-2 border-r border-slate-200">Preceding Codon Ends in A/T/G (Non-CpG)</th>
+                      <th className="p-2 font-mono">Total Codons Evaluated</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    <tr>
+                      <td className="p-2 font-medium text-slate-800 border-r border-slate-200">
+                        Collagenous Glycines in {geneSymbol}
+                      </td>
+                      <td className="p-2 font-mono text-blue-700 font-bold border-r border-slate-200">
+                        {t1.cpgDyadsCount} ({t1.cpgDyadsPct}%)
+                      </td>
+                      <td className="p-2 font-mono text-slate-700 border-r border-slate-200">
+                        {t1.collagenousGlycines - t1.cpgDyadsCount} ({((1 - t1.cpgDyadsCount / Math.max(1, t1.collagenousGlycines)) * 100).toFixed(1)}%)
+                      </td>
+                      <td className="p-2 font-mono text-slate-700 font-semibold">{t1.collagenousGlycines}</td>
+                    </tr>
+                    <tr className="bg-slate-50/50">
+                      <td className="p-2 font-medium text-slate-800 border-r border-slate-200">
+                        Human Coding Genome (MANE Select v1.3 Canonical CDS)
+                      </td>
+                      <td className="p-2 font-mono text-slate-700 font-bold border-r border-slate-200">
+                        104,875 (14.31%)
+                      </td>
+                      <td className="p-2 font-mono text-slate-700 border-r border-slate-200">
+                        627,668 (85.69%)
+                      </td>
+                      <td className="p-2 font-mono text-slate-700 font-semibold">732,543</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-[11px] leading-relaxed">
+              <div className="bg-white p-3 rounded-lg border border-slate-200">
+                <strong className="text-slate-800 block mb-1">Why Genome-Wide Comparison is Scientifically Appropriate:</strong>
+                Due to spontaneous 5mC hydrolytic deamination over evolutionary time, CpG dinucleotides are universally depleted across mammalian genomes (global CpG depletion). The 14.31% frequency represents the neutral background equilibrium rate of adjacent-codon C-G junctions across all 732,543 coding junctions in the MANE Select human reference. Depletion of collagenous Gly dyads below this baseline (OR &lt; 1, P &lt; 0.05) proves the action of heightened structural purifying selection against mutagenic hotspots.
+              </div>
+              <div className="bg-white p-3 rounded-lg border border-slate-200">
+                <strong className="text-slate-800 block mb-1">Split Pseudo-Dyads as Natural Internal Controls:</strong>
+                When a Yaa and Gly codon are separated by an intron, their mRNA junction creates a &ldquo;split pseudo-dyad&rdquo; that does not exist as a contiguous CpG in genomic DNA, rendering it immune to genomic 5mC deamination. JASN demonstrated that split sites are retained at expected frequencies while true genomic dyads are severely purged&mdash;providing a definitive internal biological negative control.
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

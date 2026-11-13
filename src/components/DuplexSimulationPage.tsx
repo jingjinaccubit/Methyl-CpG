@@ -817,6 +817,9 @@ export const DuplexSimulationPage: React.FC<DuplexSimulationPageProps> = ({ onBa
                   }}
                   className="w-full accent-cyan-500 bg-slate-800 cursor-pointer"
                 />
+                <span className="text-[10px] text-slate-500 block">
+                  Poisson sampling P(k; &lambda; = {avgFamilySize}). Consensus threshold requires &ge; 3 reads/strand (Schmitt et al. PNAS 2012).
+                </span>
               </div>
 
               {/* Pre-PCR Single-Strand Deamination Damage */}

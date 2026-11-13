@@ -89,6 +89,30 @@ function randomUmi(len = 8): string {
 }
 
 /**
+ * Sample a random integer from a Poisson distribution with mean lambda.
+ * Uses Knuth's multiplicative algorithm for lambda < 30, and Gaussian
+ * Box-Muller approximation for large lambda.
+ */
+export function samplePoisson(lambda: number): number {
+  if (lambda <= 0) return 0;
+  if (lambda < 30) {
+    const L = Math.exp(-lambda);
+    let k = 0;
+    let p = 1.0;
+    do {
+      k++;
+      p *= Math.random();
+    } while (p > L);
+    return k - 1;
+  }
+  // Gaussian approximation for large lambda: N(lambda, sqrt(lambda))
+  const u1 = Math.max(1e-15, Math.random());
+  const u2 = Math.random();
+  const z = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+  return Math.max(0, Math.round(lambda + Math.sqrt(lambda) * z));
+}
+
+/**
  * Exact, numerically stable Poisson tail probability P(X >= k | lambda).
  * Avoids catastrophic floating-point cancellation (1.0 - cdf) by summing forward terms directly.
  */
@@ -187,9 +211,10 @@ export function runDuplexSimulation(params: DuplexSimParams): DuplexSimResult {
       }
     }
 
-    // Family size sampling (Gaussian approx to Poisson)
-    const famSizeTop = Math.max(1, Math.round(avgFamilySize + (Math.random() - 0.5) * 3));
-    const famSizeBottom = Math.max(1, Math.round(avgFamilySize + (Math.random() - 0.5) * 3));
+    // Family size sampling using exact Poisson distribution P(k; lambda = avgFamilySize)
+    // Ref: Kennedy et al. Nat Protoc 2014 & Schmitt et al. PNAS 2012
+    const famSizeTop = Math.max(1, samplePoisson(avgFamilySize));
+    const famSizeBottom = Math.max(1, samplePoisson(avgFamilySize));
 
     const topReads: string[] = [];
     const bottomReads: string[] = [];
@@ -350,14 +375,28 @@ export function runDuplexSimulation(params: DuplexSimParams): DuplexSimResult {
   const fdr =
     dcsMutant > 0 ? (falsePositives / dcsMutant) * 100 : 0;
 
-  // Background duplex noise expected under null hypothesis H0
-  // Derived from independent single-strand deamination damage (damage^2) + PCR chimera & optical phasing noise
-  const duplexBackgroundRate =
-    Math.pow(damageDeaminationRate, 2) +
-    pcrErrorRate * seqErrorRate +
-    Math.pow(seqErrorRate, 3);
+  /**
+   * Background duplex noise expected under null hypothesis H0.
+   *
+   * Mathematical derivation based on Schmitt et al. PNAS 2012 (doi:10.1073/pnas.1208715109)
+   * and Kennedy et al. Nature Protocols 2014 (doi:10.1038/nprot.2014.170):
+   *
+   * A spurious Duplex Consensus (DCS) false positive requires complementary errors across
+   * both independent DNA strands (Top SSCS = 'A', Bottom SSCS = 'T'):
+   * 1. Independent Pre-PCR Single-Strand Damage:
+   *    Occurs when both strands independently suffer hydrolytic cytosine deamination before ligation:
+   *    P(damage) = damageDeaminationRate * damageDeaminationRate = (damageDeaminationRate)^2.
+   * 2. First-cycle PCR Mutation:
+   *    Occurs if DNA polymerase makes early, independent misincorporations on both template strands,
+   *    or via PCR recombination chimera pairing: P(PCR) ~ (pcrErrorRate)^2.
+   * 3. Empirical DCS physical baseline limit:
+   *    In actual wet-lab ultra-deep sequencing, the empirical DCS noise floor is bounded
+   *    at ~2.4 x 10^-8 due to library chemistry and sequencing physics (Kennedy et al. 2014).
+   */
+  const theoreticalDcsRate = Math.pow(damageDeaminationRate, 2) + Math.pow(pcrErrorRate, 2);
+  const duplexBackgroundRate = Math.max(2.4e-8, theoreticalDcsRate);
 
-  const nullNoiseLambda = dcsTotal * Math.max(1e-8, duplexBackgroundRate);
+  const nullNoiseLambda = dcsTotal * duplexBackgroundRate;
   const pvalue = accuratePoissonPValue(dcsMutant, nullNoiseLambda);
 
   const noiseReductionFold = rawObservedVaf > 0 ? rawObservedVaf / Math.max(0.0001, dcsObservedVaf) : 1000;

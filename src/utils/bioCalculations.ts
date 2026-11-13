@@ -309,7 +309,16 @@ export function analyzeSequence(
   const cpgDyadsCount = cpgDyads.length;
   const cpgDyadsPct = collGlyCount > 0 ? Number(((cpgDyadsCount / collGlyCount) * 100).toFixed(1)) : 0;
 
-  // Genome-wide comparison: MANE Select human coding genome (104,875 of 732,543, 14.3%)
+  // === Genome-Wide Baseline Reference (MANE Select v1.3 Human Coding Genome) ===
+  // Source & Methodology:
+  // Evaluates 732,543 adjacent codon junctions across all canonical protein-coding transcripts (MANE Select).
+  // A codon junction is defined as the 3rd base of codon (i) and 1st base of codon (i+1).
+  // Of these, 104,875 junctions form a CG dinucleotide (14.31%), while 627,668 do not.
+  // Contingency 2x2 comparison rationale:
+  // Because human germline genomes experience pervasive evolutionary CpG depletion (via 5mC hydrolytic deamination),
+  // this 14.31% genome-wide baseline reflects the neutral/background equilibrium junction CpG rate across all human coding CDS.
+  // Depletion in collagenous Glycines relative to this baseline (OR < 1, P < 0.05) demonstrates stronger-than-genome-average
+  // purifying selection against fragile methyl-CpG dyads at structural triple-helix positions.
   const genomeDyadC = 104875;
   const genomeDyadNonC = 732543 - 104875;
   const orGenome = computeStatisticalMetric(
@@ -429,6 +438,7 @@ export function analyzeSequence(
     cpgDyadsPct,
     trueGenomicDyadsCount: cpgDyads.filter(d => !d.isSplitSite).length,
     splitSitesCount: cpgDyads.filter(d => d.isSplitSite).length,
+    hasSplitSiteAnnotation: Boolean(geneSymbol && COLLAGEN_SPLIT_SITES[geneSymbol]),
     genomeDyadsPct: 14.3,
     noncollagenousDyadsCount: otherEndingInC,
     noncollagenousDyadsPct: otherEndingInCPct,
